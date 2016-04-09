@@ -1,6 +1,5 @@
-import java.io.Serializable;
 
-public class Message implements Serializable {
+public class Message extends Package {
 
 	private static final long serialVersionUID = 1L;
 	private String username;
@@ -8,6 +7,7 @@ public class Message implements Serializable {
 	
 	// constructor:
 	public Message(String username, String message) {
+		super("message");
 		this.username = username;
 		this.message = message;
 	}

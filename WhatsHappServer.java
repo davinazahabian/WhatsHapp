@@ -7,7 +7,8 @@ public class WhatsHappServer extends Thread {
 	private ServerSocket ss;
 	private Socket s;
 	private Vector<FeedThread> feedThreads;
-	private <MessageThread> messageThreads;
+	private Vector<MessageThread> messageThreads;
+	private WhatsHappServerThread wst;
 	private int currentPort;
 	
 	// allowable port range : 1024-49151

@@ -1,7 +1,6 @@
-import java.io.Serializable;
 import java.util.Vector;
 
-public class User implements Serializable {
+public class User extends Package {
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
@@ -13,6 +12,7 @@ public class User implements Serializable {
 	
 	// constructor:
 	public User(String fname, String lname, String email, String username, String password) {
+		super("user");
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
@@ -79,9 +79,9 @@ public class User implements Serializable {
 	}
 
 	// other methods:
-	private int hashPassword(String password) {
-		// TODO
-	}
+//	private int hashPassword(String password) {
+//		// TODO
+//	}
 	
 	public void addEventCreated(Event newEvent) {
 		eventsCreated.add(newEvent);

@@ -1,10 +1,10 @@
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Vector;
 
-public class Event implements Serializable {
+public class Event extends Package {
+	
 	private static final long serialVersionUID = 1L;
 	private String eventName;
 	private String eventDate;
@@ -23,6 +23,7 @@ public class Event implements Serializable {
 	
 	public Event(String eventName, String eventDate, String eventTime, String eventDesc, String eventLoc,
 			boolean sports, boolean career, boolean cultural, boolean club) {
+		super("event");
 		this.eventName = eventName;
 		this.eventDate = eventDate;
 		this.eventTime = eventTime;
