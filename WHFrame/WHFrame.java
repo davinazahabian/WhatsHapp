@@ -54,7 +54,7 @@ public class WHFrame extends JFrame{
 		signUpButton = new WHButton("Create an account!");
 		guestButton = new WHButton("Continue in guest mode");
 		ul = new JLabel("Username:  ");
-		ul.setForeground(new Color(35, 139, 230)); //change color of text
+		ul.setForeground(new Color(35, 139, 230)); //change color of text of jlabels
 		
 		
 		pl = new JLabel("Password:  ");
