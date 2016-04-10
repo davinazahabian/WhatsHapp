@@ -50,10 +50,7 @@ public class MainFeedFrame extends JFrame {
 		clubButton = new JButton("Club");
 		newEventButton = new JButton("New Button");
 		trendingButton = new JButton(); //"trending"
-		//try {
-			//Image img = ImageIO.read(getClass().getResource("img/trendingicon.png"));
-			trendingButton.setIcon(new ImageIcon("img/firebtn.png"));
-		//} catch (IOException ex) { }
+		trendingButton.setIcon(new ImageIcon("img/firebtn.png"));
 		sf = new SplashFrame();
 		sf.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
