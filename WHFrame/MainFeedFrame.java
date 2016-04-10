@@ -31,7 +31,7 @@ public class MainFeedFrame extends JFrame {
 	JButton newEventButton;
 //	Event event;
 	JScrollPane jsp;
-	SplashFrame sf;
+	SplashFrame2 sf;
 	JPanel mfButtons;
 	JPanel mff;
 	//create an event which will make a jpanel and store with correct info
@@ -51,7 +51,7 @@ public class MainFeedFrame extends JFrame {
 		newEventButton = new JButton("New Button");
 		trendingButton = new JButton(); //"trending"
 		trendingButton.setIcon(new ImageIcon("img/firebtn.png"));
-		sf = new SplashFrame();
+		sf = new SplashFrame2();
 		sf.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 
@@ -87,17 +87,9 @@ public class MainFeedFrame extends JFrame {
 		sf.add(newEventButton, gbc);
 		
 		gbc.insets = new Insets(200,0,0,0);
-		
-		
-//		mfButtons.add(sportsButton);
-//		mfButtons.add(culturalButton);
-//		mfButtons.add(careerButton);
-//		mfButtons.add(clubButton);
-		
-		
-		
-		jsp = new JScrollPane();
-		mff.add(jsp);
+
+		//jsp = new JScrollPane();
+		//mff.add(jsp);
 		
 		
 //		sf.add(mfButtons, BorderLayout.NORTH);
@@ -110,14 +102,10 @@ public class MainFeedFrame extends JFrame {
 		MainFeedFrame mff = new MainFeedFrame();
 		mff.setVisible(true);
 	}
-	
-	
-	
-	
-	
+
 }
 
-class SplashFrame extends JPanel { //outer class - custom login frame
+class SplashFrame2 extends JPanel { //outer class - custom login frame
 	private static final long serialVersionUID = 7141608019316770268L;
 
 	private static final Image mBackgroundImage;
@@ -130,7 +118,6 @@ class SplashFrame extends JPanel { //outer class - custom login frame
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(mBackgroundImage, 0, 0, getWidth(), getHeight(), null);
-		//g.setColor(ThemeColors.MainColor);
 		g.setColor(new Color(35, 139, 230));
 		Font font = g.getFont().deriveFont(40.0f);
 		g.setFont(font);

@@ -1,6 +1,7 @@
 package WHFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -9,6 +10,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -19,12 +22,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import WHFrame.WHFrame.ThemeColors;
+import WHFrame.ThemeColors;
 import customui.WHButton;
 import library.ImageLibrary;
 
 public class WHFrame extends JFrame{
-	SplashFrame sf;
+	SplashPanel sf;
 	
 	JTextField utf;
 	JPasswordField ptf;
@@ -38,8 +41,8 @@ public class WHFrame extends JFrame{
 	public WHFrame()
 	{
 		setTitle("WhatsHapp");
-		setSize(640,480);
-		sf = new SplashFrame();
+		setSize(900,602);
+		sf = new SplashPanel();
 		//sf.setLayout(new GridLayout(1,2)); //1 row and 2 columns
 		sf.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -50,8 +53,13 @@ public class WHFrame extends JFrame{
 		loginButton =  new WHButton("Login");
 		signUpButton = new WHButton("Create an account!");
 		guestButton = new WHButton("Continue in guest mode");
-		ul = new JLabel("username:  ");
+		ul = new JLabel("Username:  ");
+		ul.setForeground(new Color(35, 139, 230));
+		ul.setSize(200, 200);
+		
 		pl = new JLabel("Password:  ");
+		pl.setForeground(new Color(35, 139, 230));
+		pl.setSize(getWidth(), getHeight());
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -95,54 +103,17 @@ public class WHFrame extends JFrame{
 		gbc.insets = new Insets(8,0,0,0);
 		sf.add(guestButton, gbc); //add guest button
 		
-		
-//		sf.add(utf);
-//		sf.add(suQuestion);
-//		sf.add(ptf);
-//		sf.add(signUpButton);
-//		sf.add(loginButton);
-//		sf.add(guestButton);
-//		
-		
 		add(sf);
-		
-		
 	}
-	
-	
-	
-	
 	
 	public static void main(String [] args)
 	{
-//		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-//		setUIFont(new javax.swing.plaf.FontUIResource(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/kenvector_future.ttf")).deriveFont(12.0f)));
-
 		WHFrame whf = new WHFrame();
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+		whf.setCursor(c);
 		whf.setVisible(true);
 	}
 }
 
-class SplashFrame extends JPanel { //outer class - custom login frame
-	private static final long serialVersionUID = 7141608019316770268L;
 
-	private static final Image mBackgroundImage;
-	private static final String mTitle = "WhatsHapp";
-
-	static {
-		mBackgroundImage = ImageLibrary.getImage("img/splash.png");
-	}
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(mBackgroundImage, 0, 0, getWidth(), getHeight(), null);
-		//g.setColor(ThemeColors.MainColor);
-		g.setColor(new Color(35, 139, 230));
-		Font font = g.getFont().deriveFont(40.0f);
-		g.setFont(font);
-		FontMetrics metrics = g.getFontMetrics(font);
-		int heightc = metrics.getHeight()/2;
-		int widthc = metrics.stringWidth(mTitle)/2;
-		g.drawString(mTitle, (getWidth()/2) - widthc, (getHeight()/3) - heightc);
-	}
-}
