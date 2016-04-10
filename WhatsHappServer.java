@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -6,18 +9,14 @@ import java.util.Vector;
 
 public class WhatsHappServer extends Thread {
 	
+	private Vector<WhatsHappServerThread> serverThreads;
 	private ServerSocket ss = null;
 	private static Vector<Event> allEvents;
 	private ArrayList<Socket> sockets;
-	private Vector<FeedThread> feedThreads;
-	private Vector<MessageThread> messageThreads;
-	private int currentPort;
+	private int port = 6789;
+	public MySQLDriver driver;
 	
-	
-	// allowable port range : 1024-49151
-	// generate new port for each connecting client
-	public WhatsHappServer() {
-		this.currentPort = 1024;
+	public WhatsHappServer() throws IOException {
 		this.start();
 	}
 	
@@ -25,8 +24,7 @@ public class WhatsHappServer extends Thread {
 	// wait for connections...
 	public void run() {
 		try {
-			ss = new ServerSocket(currentPort);
-			currentPort += 1;
+			ss = new ServerSocket(port);
 			while (true) {
 				Socket s = ss.accept();
 				// once connection made with client, create a new thread to start accepting and sending connections from client

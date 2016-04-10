@@ -36,4 +36,13 @@ public class WhatsHappServerThread extends Thread {
 			}
     	}
     }
+    
+	public void sendToClient(Package response) {
+		try {
+			oos.writeObject(response);
+			oos.flush();
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
+	}
 }
