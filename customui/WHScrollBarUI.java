@@ -17,6 +17,7 @@ public class WHScrollBarUI extends MetalScrollBarUI {
 	private static final Image sTrackImage;
 	private static final Image sButtonUpImage;
 	private static final Image sButtonDownImage;
+	private static final String gfgf = "";
 	
 	static{
 		sThumbImage = ImageLibrary.getImage("img/scrollbar/red_button05.png");
