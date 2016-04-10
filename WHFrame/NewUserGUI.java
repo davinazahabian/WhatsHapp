@@ -18,9 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import customui.WHButton;
 import library.ImageLibrary;
-
-
 
 
 public class NewUserGUI extends JFrame{
@@ -36,13 +35,13 @@ public class NewUserGUI extends JFrame{
 	 JLabel lastNameLabel;
 	 JLabel emailLabel;
 	 SplashPanel splash;
-	 JButton backButton;
-	 JButton signUpButton;
+	 WHButton backButton;
+	 WHButton signUpButton;
 	 
 	 
 	 public NewUserGUI(){
-		 setTitle("Trojan Office");
-			setSize(640,480);
+		 	setTitle("Sign Up!");
+			setSize(900,602);
 			setMinimumSize(new Dimension(640,480));
 			//setJMenuBar(new OfficeMenuBar());
 			setLocationRelativeTo(null);
@@ -54,10 +53,6 @@ public class NewUserGUI extends JFrame{
 		 
 		 setVisible(true);
 	 }
-
-
-	
-
 
 	private void initComps() {
 		usernameField = new JTextField(10);
@@ -72,10 +67,10 @@ public class NewUserGUI extends JFrame{
 		lastNameLabel = new JLabel("Last Name: ");
 		emailLabel = new JLabel("Email: ");
 		
-		signUpButton = new JButton("Sign Up");
+		signUpButton = new WHButton("Sign Up");
 		
 		ImageIcon water = new ImageIcon("back-icon.png");
-	    backButton = new JButton(water);
+	    backButton = new WHButton(water);
 	   
 	    splash = new SplashPanel();
 	}

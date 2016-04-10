@@ -56,7 +56,6 @@ public class WHFrame extends JFrame{
 		ul = new JLabel("Username:  ");
 		ul.setForeground(new Color(35, 139, 230)); //change color of text of jlabels
 		
-		
 		pl = new JLabel("Password:  ");
 		pl.setForeground(new Color(35, 139, 230));
 		pl.setSize(getWidth(), getHeight());
@@ -104,6 +103,8 @@ public class WHFrame extends JFrame{
 		sf.add(guestButton, gbc); //add guest button
 		
 		add(sf);
+		
+		
 	}
 	
 	public static void main(String [] args)

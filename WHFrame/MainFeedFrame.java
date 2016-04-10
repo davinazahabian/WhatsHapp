@@ -97,11 +97,11 @@ public class MainFeedFrame extends JFrame {
 		add(sf);
 	}
 	
-	public static void main(String [] args)
-	{
-		MainFeedFrame mff = new MainFeedFrame();
-		mff.setVisible(true);
-	}
+//	public static void main(String [] args)
+//	{
+//		MainFeedFrame mff = new MainFeedFrame();
+//		mff.setVisible(true);
+//	}
 
 }
 
