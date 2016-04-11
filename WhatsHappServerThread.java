@@ -7,8 +7,6 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import dzahabia_CSCI201L_Assignment3.Package;
-
 public class WhatsHappServerThread extends Thread {
 	
 	private Socket s;
@@ -26,14 +24,14 @@ public class WhatsHappServerThread extends Thread {
     public void run() {
     	boolean isDone = false;
     	while(!isDone) {
-			Package p = (Package)ois.readObject();
-			if(p.identifier().equals("user")) {
-				
-			} else if(p.identifier().equals("event")) {
-				
-			} else if(p.identifier().equals("message")) {
-				
-			}
+//			Package p = (Package)ois.readObject();
+//			if(p.identifier().equals("user")) {
+//				
+//			} else if(p.identifier().equals("event")) {
+//				
+//			} else if(p.identifier().equals("message")) {
+//				
+//			}
     	}
     }
     
