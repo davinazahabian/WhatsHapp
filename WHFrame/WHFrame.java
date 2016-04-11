@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -13,6 +14,8 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import WHFrame.ThemeColors;
 import customui.WHButton;
@@ -104,7 +108,16 @@ public class WHFrame extends JFrame{
 		
 		add(sf);
 		
-		
+	}
+	
+	public static void setUIFont (javax.swing.plaf.FontUIResource f) {
+		Enumeration<Object> keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get (key);
+			if (value != null && value instanceof javax.swing.plaf.FontUIResource)
+				UIManager.put (key, f);
+		}
 	}
 	
 	public static void main(String [] args)
@@ -113,6 +126,26 @@ public class WHFrame extends JFrame{
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
 		whf.setCursor(c);
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		try {
+			setUIFont(new javax.swing.plaf.FontUIResource(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/KaushanScript-Regular.ttf")).deriveFont(12.0f)));
+		} catch (FontFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		whf.setVisible(true);
 	}
 }

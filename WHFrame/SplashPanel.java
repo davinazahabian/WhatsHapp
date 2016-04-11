@@ -29,7 +29,7 @@ public class SplashPanel extends JPanel {
 			FontMetrics metrics = g.getFontMetrics(font);
 			int heightc = metrics.getHeight()/2;
 			int widthc = metrics.stringWidth(mTitle)/2;
-			g.drawString(mTitle, (getWidth()/2) - widthc, (getHeight()/3) - heightc);
+			g.drawString(mTitle, (getWidth()/2) - widthc, (getHeight()/4) - heightc);
 		}
 	}
 

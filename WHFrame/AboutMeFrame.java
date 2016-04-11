@@ -48,9 +48,6 @@ public class AboutMeFrame extends JFrame{
 		suggestions.setForeground(new Color(35, 139, 230));
 		BB = new WHButton("Go Back");
 		
-		
-		
-		
 		setSize(900,602);
 		amp = new AMPanel();
 		amp.setLayout(new BorderLayout());
@@ -76,9 +73,7 @@ public class AboutMeFrame extends JFrame{
 		amSouth = new JPanel();
 		amSouth.setBackground(new Color(130,25,44));
 		amSouth.add(BB);
-	
-		
-		
+
 		aminfo.add(amCenter, BorderLayout.CENTER);
 		aminfo.add(amSouth, BorderLayout.SOUTH);
 

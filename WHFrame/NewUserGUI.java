@@ -1,11 +1,16 @@
 package WHFrame;
 
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -34,7 +39,7 @@ public class NewUserGUI extends JFrame{
 	 JLabel firstNameLabel;
 	 JLabel lastNameLabel;
 	 JLabel emailLabel;
-	 SplashPanel splash;
+	 SplashPanel2 splash;
 	 WHButton backButton;
 	 WHButton signUpButton;
 	 
@@ -72,14 +77,14 @@ public class NewUserGUI extends JFrame{
 		ImageIcon water = new ImageIcon("back-icon.png");
 	    backButton = new WHButton(water);
 	   
-	    splash = new SplashPanel();
+	    splash = new SplashPanel2();
 	}
 	
 	private void create() {
 		setLayout(new GridLayout(1, 1));
 		splash.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(3,3,3,3);
+		c.insets = new Insets(5,5,5,5);
 		splash.add(usernameLabel,c);
 		splash.add(usernameField,c);
 		c.gridy = 2;
@@ -124,8 +129,28 @@ public class NewUserGUI extends JFrame{
 		//whf.setCursor(c);
 		new NewUserGUI();
 	}
+}
 
+class SplashPanel2 extends JPanel {
+	private static final long serialVersionUID = 7141608019316770268L;
 
-	
+	private static final Image mBackgroundImage;
+	private static final String mTitle = "WhatsHapp";
+
+	static {
+		mBackgroundImage = ImageLibrary.getImage("img/splash.png");
+	}
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(mBackgroundImage, 0, 0, getWidth(), getHeight(), null);
+		g.setColor(new Color(35, 139, 230));
+		Font font = g.getFont().deriveFont(40.0f);
+		g.setFont(font);
+		FontMetrics metrics = g.getFontMetrics(font);
+		int heightc = metrics.getHeight()/2;
+		int widthc = metrics.stringWidth(mTitle)/2;
+		g.drawString(mTitle, (getWidth()/2) - widthc, (getHeight()/3) - heightc);
+	}
 }
 
