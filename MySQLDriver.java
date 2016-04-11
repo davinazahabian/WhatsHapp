@@ -47,54 +47,54 @@ public class MySQLDriver {
 		try{con.close();} catch (SQLException e) {e.printStackTrace();}
 	}
 	
-	public String getFileNames(String username){
-		try {
-			PreparedStatement ps = con2.prepareStatement(getFileNames);
-			ps.setString(1, username);
-			ResultSet result = ps.executeQuery();
-			if(result.next())
-			{
-				String temp = result.getString(1);
-				if(temp == null)
-					return "";
-				temp = temp.trim();
-				if(temp.equals("null"))
-					return "";
-				else
-					return result.getString(1);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
-	}
+//	public String getFileNames(String username){
+//		try {
+//			PreparedStatement ps = con2.prepareStatement(getFileNames);
+//			ps.setString(1, username);
+//			ResultSet result = ps.executeQuery();
+//			if(result.next())
+//			{
+//				String temp = result.getString(1);
+//				if(temp == null)
+//					return "";
+//				temp = temp.trim();
+//				if(temp.equals("null"))
+//					return "";
+//				else
+//					return result.getString(1);
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return "";
+//	}
 	
-	public String[] getFileName(String username){
-		String text = getFileNames(username);
-		String[] splited = text.split(" ");
-		return splited;
-	}
-	public void insertFile (String username, String filename){
-		String[] names = getFileName(username);
-		for (int i = 0; i < names.length; i++) {
-			if(filename.equals(names[i]))
-				return;
-		}
-		System.out.println("Username = " + username  + " Filename = " + filename);
-		String text = getFileNames(username) + " " + filename ;
-		System.out.println("Text = " + text);
-		try{
-			PreparedStatement ps = con2.prepareStatement(insertFileName);
-			ps.setString(1, text);
-			ps.setString(2, username);
-			ps.executeUpdate();
-			//FactoryServerGUI.addMessage("Adding Product:" + productName + "to table with count 0");
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		
-	}
+//	public String[] getFileName(String username){
+//		String text = getFileNames(username);
+//		String[] splited = text.split(" ");
+//		return splited;
+//	}
+//	public void insertFile (String username, String filename){
+//		String[] names = getFileName(username);
+//		for (int i = 0; i < names.length; i++) {
+//			if(filename.equals(names[i]))
+//				return;
+//		}
+//		System.out.println("Username = " + username  + " Filename = " + filename);
+//		String text = getFileNames(username) + " " + filename ;
+//		System.out.println("Text = " + text);
+//		try{
+//			PreparedStatement ps = con2.prepareStatement(insertFileName);
+//			ps.setString(1, text);
+//			ps.setString(2, username);
+//			ps.executeUpdate();
+//			//FactoryServerGUI.addMessage("Adding Product:" + productName + "to table with count 0");
+//		}catch(SQLException e){
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 	public boolean doesExist(String userName){
 		try{
