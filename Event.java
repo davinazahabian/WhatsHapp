@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Vector;
 
 public class Event extends Package {
-	
+	// hi
 	private static final long serialVersionUID = 1L;
 	private String eventName;
 	private String eventDate;
