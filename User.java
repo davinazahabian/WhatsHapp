@@ -1,7 +1,6 @@
 import java.util.Vector;
 
-public class User extends Package {
-	private static final long serialVersionUID = 1L;
+public class User {
 	private String username;
 	private String password;
 	private String fname;
@@ -11,8 +10,9 @@ public class User extends Package {
 	private Vector<Event> eventsAttending;
 	
 	// constructor:
-	public User(String fname, String lname, String email, String username, String password) {
-		super("user");
+	public User(String username, String password, String fname, String lname, String email) {
+//		super("user");
+		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;

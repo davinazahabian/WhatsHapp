@@ -47,10 +47,11 @@ public class WHServer extends Thread {
 	
 	// communicating with the driver:
 	public Vector<Event> guestAttempt() {
-		return driver.guestAttempt();
+		return driver.retrieveAllEvents();
 	}
-	public void loginAttempt() {
-		
+	
+	public User loginAttempt(String username, String password) {
+		return driver.retrieveUser(username, password);
 	}
 	
 	public void signupAttempt() {

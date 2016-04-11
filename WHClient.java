@@ -23,6 +23,8 @@ import WHFrame.WHFrame;
 
 
 public class WHClient extends Thread {
+	// tells us whether current session is guest user or registered
+	private boolean isRegistered = false;
 	
 	protected Socket s;
 	private int port = 6789;
@@ -43,12 +45,21 @@ public class WHClient extends Thread {
 			this.start();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+		} finally {
+			try {
+				if (s != null) {
+					s.close();
+				}
+				 
+			} catch (IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
+			}
 		}
 	}
 	
 	public void run() {
 		while(true) {
-			
+			// if closed, reestablish connection
 			if(s.isClosed()) {
 				try {
 					s = new Socket("localhost", port);
@@ -60,22 +71,54 @@ public class WHClient extends Thread {
 					e.printStackTrace();
 				}
 			}
-			
+			// otherwise, get ready to accept packages from server
 			Package p = null;
 			try {
 				p = (Package)ois.readObject();
 				if (p != null) {
+					
+					// guest attempt returned
 					if (p.isGuest()) {
-						//TODO: create eventpanelguis and populate eventfeedgui
+						//TODO: create eventpanelguis using event vector and populate eventfeedgui
+					
+					
+					// login attempt returned
+					} else if (p.isLogin()) {
+						if (p.user() == null) {
+							System.out.println("Username or password invalid. Please try again.");
+						} else {
+							isRegistered = true;
+							//TODO: create eventpanelguis using event vector and populate eventfeedgui
+							// create aboutme page
+							// enable all features for the user
+						}
 					}
 				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
 			}
 		}
 	}
 	
-	public void guestAttempt() {
+	// action listener on guest button on splash screen activates this
+	public void guestRequest() {
 		Package p = new Package();
 		p.setGuest(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
+	}
+	
+	// action listener on login button on splash screen activates this
+	public void loginRequest(String username, String password) {
+		Package p = new Package();
+		p.setUsername(username); p.setPassword(password);
+		p.setLogin(true);
 		try{
 			oos.writeObject(p);
 			oos.flush();

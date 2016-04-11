@@ -31,9 +31,15 @@ public class WHServerThread extends Thread {
 			Package p;
 			try {
 				p = (Package)ois.readObject();
-				// guest attempt: server->driver->send back to client
+				// guest attempt: server->driver->send back events
 				if (p.isGuest()) {
 					p.setEvents(whs.guestAttempt());
+					p.setValid(true);
+					sendToClient(p);
+				// login attempt: server->driver->send back events and user info
+				} else if (p.isLogin()) {
+					p.setEvents(whs.guestAttempt());
+					p.setUser(whs.loginAttempt(p.username(), p.password()));
 					p.setValid(true);
 					sendToClient(p);
 				}

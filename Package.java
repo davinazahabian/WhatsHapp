@@ -9,6 +9,8 @@ public class Package implements Serializable {
 //	private String identifier;
 	
 	private Vector<Event> events;
+	private User user = null;
+	private String username = null; private String password = null;
 	
 	// is valid attempt of any kind
 	private boolean isValid = false;
@@ -66,6 +68,36 @@ public class Package implements Serializable {
 
 	public void setValid(boolean isValid) {
 		this.isValid = isValid;
+	}
+
+
+	public User user() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	public String username() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String password() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 

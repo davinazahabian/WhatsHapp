@@ -146,7 +146,7 @@ public class MySQLDriver {
 //	}
 	
 	// get vector of all events, send back for guest's event feed.
-	public Vector<Event> guestAttempt() {
+	public Vector<Event> retrieveAllEvents() {
 		Vector<Event> events = new Vector<Event>();
 		PreparedStatement ps;
 		try {
@@ -188,5 +188,24 @@ public class MySQLDriver {
 		}
 		return events;
 	}
+	
+	// when a user's login is authenticated
+	public User retrieveUser(String username, String password) {
+		User info = null;
+		try {
+			PreparedStatement ps = con.prepareStatement(selectUser);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				if(rs.getString(2) == password) {
+					info = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
+//					info.setEventsCreated(rs.getBlob(6));
+//					info.setEventsAttending(rs.getBlob(7));
+				}
+			}
+		}}catch(SQLException sqe){ sqe.printStackTrace(); };
+		return info;
+	}
+
 }
 
