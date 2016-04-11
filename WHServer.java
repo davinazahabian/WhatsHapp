@@ -7,18 +7,18 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class WhatsHappServer extends Thread {
+public class WHServer extends Thread {
 	
-	private Vector<WhatsHappServerThread> serverThreads;
+	private Vector<WHServerThread> serverThreads;
 	private ServerSocket ss = null;
 	private static Vector<Event> allEvents;
 	private ArrayList<Socket> sockets;
 	private int port = 6789;
-	private MySQLDriver driver;
+	MySQLDriver driver;
 	
-	public WhatsHappServer() throws IOException {
+	public WHServer() throws IOException {
 		driver = new MySQLDriver();
-		serverThreads = new Vector<WhatsHappServerThread>();
+		serverThreads = new Vector<WHServerThread>();
 		this.start();
 	}
 	
@@ -30,7 +30,7 @@ public class WhatsHappServer extends Thread {
 			while (true) {
 				Socket s = ss.accept();
 				// once connection made with client, create a new thread to start accepting and sending connections from client
-				WhatsHappServerThread wst = new WhatsHappServerThread(s, this);
+				WHServerThread wst = new WHServerThread(s, this);
 				serverThreads.add(wst);
 				wst.start();
 				sockets.add(s);
@@ -45,6 +45,20 @@ public class WhatsHappServer extends Thread {
 		}
 	}
 	
+	// communicating with the driver:
+	public void loginAttempt() {
+		
+	}
 	
+	public void signupAttempt() {
+		
+	}
 	
+	public void addEventAttempt() {
+		
+	}
+	
+	public void sendMessageAttempt() {
+		
+	}
 }

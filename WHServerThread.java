@@ -7,14 +7,16 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-public class WhatsHappServerThread extends Thread {
+public class WHServerThread extends Thread {
 	
 	private Socket s;
     private ObjectOutputStream oos;
 	private ObjectInputStream ois;
+	private WHServer whs;
     
-    public WhatsHappServerThread(Socket s, WhatsHappServer whs) {
+    public WHServerThread(Socket s, WHServer whs) {
 		this.s = s;
+		this.whs = whs;
 		try {
 			oos = new ObjectOutputStream(s.getOutputStream());
 			ois = new ObjectInputStream(s.getInputStream());
@@ -24,14 +26,17 @@ public class WhatsHappServerThread extends Thread {
     public void run() {
     	boolean isDone = false;
     	while(!isDone) {
-//			Package p = (Package)ois.readObject();
-//			if(p.identifier().equals("user")) {
-//				
-//			} else if(p.identifier().equals("event")) {
-//				
-//			} else if(p.identifier().equals("message")) {
-//				
-//			}
+			Package p;
+			try {
+				p = (Package)ois.readObject();
+				if (p.isGuest()) {
+					
+				}
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
     	}
     }
     

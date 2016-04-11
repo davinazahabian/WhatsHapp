@@ -4,6 +4,7 @@ public class Message extends Package {
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String message;
+	private boolean isSuccessful = false;
 	
 	// constructor:
 	public Message(String username, String message) {
@@ -19,6 +20,15 @@ public class Message extends Package {
 	
 	public String message() {
 		return message;
+	}
+	
+	public boolean isSuccessful() {
+		return isSuccessful;
+	}
+	
+	// setters:
+	public void setSuccessful(boolean success) {
+		this.isSuccessful = success;
 	}
 	
 }

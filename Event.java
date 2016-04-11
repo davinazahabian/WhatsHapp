@@ -19,11 +19,12 @@ public class Event extends Package {
 	private boolean club;
 	private int upvotes;
 	private int attendees;
-	private Vector<Message> messageBoard;
+	private String messageBoard;
 	
 	public Event(String eventName, String eventDate, String eventTime, String eventDesc, String eventLoc,
 			boolean sports, boolean career, boolean cultural, boolean club) {
-		super("event");
+		super();
+		//super("event");
 		this.eventName = eventName;
 		this.eventDate = eventDate;
 		this.eventTime = eventTime;
@@ -133,15 +134,17 @@ public class Event extends Package {
 		this.attendees = attendees;
 	}
 
-	public Vector<Message> getMessageBoard() {
+	public String getMessageBoard() {
 		return messageBoard;
 	}
 
-	public void setMessageBoard(Vector<Message> messageBoard) {
+	public void setMessageBoard(String messageBoard) {
 		this.messageBoard = messageBoard;
 	}
 	
 	private void addMessage(Message m) {
-		messageBoard.add(m);
+		String username = m.username();
+		String message = m.message();
+		messageBoard = messageBoard + "\n" + username + ": " + message;
 	}
 }

@@ -12,3 +12,8 @@
 /MySQLDriver.class
 /EventInfoGUI.class
 /EventDetailGUI.class
+/WHClientThread.class
+/WHServerThread.class
+/WHServer.class
+/WHMain.class
+/WHClient.class
