@@ -46,6 +46,9 @@ public class WHServer extends Thread {
 	}
 	
 	// communicating with the driver:
+	public Vector<Event> guestAttempt() {
+		return driver.guestAttempt();
+	}
 	public void loginAttempt() {
 		
 	}

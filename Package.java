@@ -19,6 +19,10 @@ public class Package implements Serializable {
 	// guest attempt
 	private boolean isGuest = false;
 	
+	public Package() {
+		setEvents(new Vector<Event>());
+	}
+	
 	
 	public boolean isLogin() {
 		return isLogin;
@@ -42,6 +46,26 @@ public class Package implements Serializable {
 
 	public void setGuest(boolean isGuest) {
 		this.isGuest = isGuest;
+	}
+
+
+	public Vector<Event> events() {
+		return events;
+	}
+
+
+	public void setEvents(Vector<Event> events) {
+		this.events = events;
+	}
+
+
+	public boolean isValid() {
+		return isValid;
+	}
+
+
+	public void setValid(boolean isValid) {
+		this.isValid = isValid;
 	}
 
 

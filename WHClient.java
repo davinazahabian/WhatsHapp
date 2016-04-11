@@ -30,6 +30,7 @@ public class WHClient extends Thread {
 	private ObjectOutputStream oos;
 	private WHFrame whf;
 //	private EventFeedGUI efg;
+//	private Vector<EventPanelGUI> epg;
 	
 	public WHClient() {
 		whf = new WHFrame();
@@ -64,7 +65,9 @@ public class WHClient extends Thread {
 			try {
 				p = (Package)ois.readObject();
 				if (p != null) {
-					
+					if (p.isGuest()) {
+						//TODO: create eventpanelguis and populate eventfeedgui
+					}
 				}
 			}
 		}

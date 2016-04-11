@@ -14,6 +14,7 @@ public class WHServerThread extends Thread {
 	private ObjectInputStream ois;
 	private WHServer whs;
     
+	// 
     public WHServerThread(Socket s, WHServer whs) {
 		this.s = s;
 		this.whs = whs;
@@ -21,6 +22,7 @@ public class WHServerThread extends Thread {
 			oos = new ObjectOutputStream(s.getOutputStream());
 			ois = new ObjectInputStream(s.getInputStream());
 		} catch (IOException e) { e.printStackTrace(); }
+		this.start();
 	}
     
     public void run() {
@@ -29,8 +31,11 @@ public class WHServerThread extends Thread {
 			Package p;
 			try {
 				p = (Package)ois.readObject();
+				// guest attempt: server->driver->send back to client
 				if (p.isGuest()) {
-					
+					p.setEvents(whs.guestAttempt());
+					p.setValid(true);
+					sendToClient(p);
 				}
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
