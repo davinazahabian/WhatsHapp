@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import library.ImageLibrary;
@@ -41,6 +42,10 @@ public class WHButton extends JButton {
 	
 	public WHButton(String string) {
 		super(string);
+	}
+
+	public WHButton(ImageIcon water) {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
