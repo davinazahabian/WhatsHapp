@@ -74,13 +74,13 @@ public class EventPanelGUI extends JPanel {
 		rightContainer.add(locationHolder);
 		
 	
-		add(leftContainer, BorderLayout.EAST);
-		add(rightContainer, BorderLayout.WEST);
+		add(leftContainer, BorderLayout.WEST);
+		add(rightContainer, BorderLayout.EAST);
 	}
 	
 	public static void main(String [] args) {
 		JFrame frame = new JFrame();
-		frame.setSize(800, 640);
+		frame.setSize(320, 240);
 		frame.add(new EventPanelGUI(null));
 		frame.setVisible(true);
 	}
