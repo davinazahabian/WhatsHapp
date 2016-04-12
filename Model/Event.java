@@ -19,13 +19,12 @@ public class Event extends InfoPackage implements Comparator<Event>, Comparable<
 	private String timePosted;
 	private long milliseconds;
 	private int type;
-	private int upvotes;
-	private int attendees;
+	private int upvotes = 0;
+	private int attendees = 0;
 	private String messageBoard;
 
 	public Event(String eventName, String eventDate, String eventStartTime,String eventEndTime, String eventDesc, String eventLoc,
 			 int type, String timePosted) {
-		super("event");
 		this.eventName = eventName;
 		this.eventDate = eventDate;
 		this.eventStartTime = eventStartTime;

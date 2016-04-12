@@ -1,16 +1,23 @@
+package server;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
+import java.util.Date;
 
 import com.mysql.jdbc.Driver;
+
+import Model.Event;
+import Model.User;
+
 import java.sql.*; 
 /* 
  * 
  * category identification index:
  * 0 = sports
- * 1 = club
+ * 1 = career
  * 2 = cultural
- * 3 = career
+ * 3 = club
  * 
  * */
 
@@ -157,26 +164,28 @@ public class MySQLDriver {
 				String name = rs.getString(2);
 //				String host = rs.getString(3);
 				int category = rs.getInt(4);
-				String time = rs.getString(5);
-				String description = rs.getString(6);
-				String date = rs.getString(7);
-				String location = rs.getString(8);
-				int upvotes = rs.getInt(9);
-//				String attendees = rs.getString(10);				
-				String messageBoard = rs.getString(11);
+				String startTime = rs.getString(5);
+				String endTime = rs.getString(6);
+				String timePosted = rs.getString(7);
+				String description = rs.getString(8);
+				String date = rs.getString(9);
+				String location = rs.getString(10);
+				int upvotes = rs.getInt(11);
+//				String attendees = rs.getString(12);				
+				String messageBoard = rs.getString(13);
 				Event e;
 				// sports
 				if (category == 0) {
-					e = new Event(name,date,time,description,location,true,false,false,false);
-				// club
+					e = new Event(name,date,startTime,endTime,description,location,0,timePosted);
+				// career
 				} else if (category == 1) {
-					e = new Event(name,date,time,description,location,false,false,false,true);
+					e = new Event(name,date,startTime,endTime,description,location,1,timePosted);
 				// cultural
 				} else if (category == 2) {
-					e = new Event(name,date,time,description,location,false,false,true,false);
-				// career
+					e = new Event(name,date,startTime,endTime,description,location,2,timePosted);
+				// club
 				} else {
-					e = new Event(name,date,time,description,location,false,true,false,false);
+					e = new Event(name,date,startTime,endTime,description,location,3,timePosted);
 				}
 				e.setUpvotes(upvotes);
 				e.setMessageBoard(messageBoard);
