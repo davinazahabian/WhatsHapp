@@ -34,7 +34,7 @@ public class Event extends InfoPackage implements Comparator<Event>, Comparable<
 		Date date = new Date();
 		milliseconds = date.getTime();
 		this.timePosted = timePosted;
-		this.type = type;
+		this.setType(type);
 	}
 	public String getEventName() {
 		return eventName;
@@ -130,5 +130,11 @@ public class Event extends InfoPackage implements Comparator<Event>, Comparable<
 	@Override
 	public int compare(Event o1, Event o2) {
 		return o2.upvotes - o1.upvotes;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 }

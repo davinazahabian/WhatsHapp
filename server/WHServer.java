@@ -50,7 +50,9 @@ public class WHServer extends Thread {
 	}
 	
 	// communicating with the driver:
-	public Vector<Event> guestAttempt() {
+	
+	// returns a vector of events
+	public Vector<Event> getAllEvents() {
 		return driver.retrieveAllEvents();
 	}
 	
@@ -58,12 +60,12 @@ public class WHServer extends Thread {
 		return driver.retrieveUser(username, password);
 	}
 	
-	public void signupAttempt() {
-		
+	public boolean signupAttempt(User u) {
+		return driver.newUserSignup(u);
 	}
 	
-	public void addEventAttempt() {
-		
+	public boolean addEventAttempt(Event e) {
+		return driver.newEventEntry(e);
 	}
 	
 	public void sendMessageAttempt() {

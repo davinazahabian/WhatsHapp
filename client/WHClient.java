@@ -19,7 +19,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import Model.Event;
 import Model.InfoPackage;
+import Model.User;
 import WHFrame.SplashPanel;
 import WHFrame.WHFrame;
 
@@ -27,11 +29,11 @@ import WHFrame.WHFrame;
 public class WHClient extends Thread {
 	// tells us whether current session is guest user or registered
 	private boolean isRegistered = false;
-	
 	protected Socket s;
 	private int port = 6789;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
+	private User currentUser = null;
 	
 	public WHClient() {		
 		try {
@@ -84,11 +86,36 @@ public class WHClient extends Thread {
 							System.out.println("Username or password invalid. Please try again.");
 						} else {
 							isRegistered = true;
+							currentUser = p.getUser();
 							//TODO: create eventpanelguis using event vector and populate eventfeedgui
 							// create aboutme page
 							// enable all features for the user
 						}
+						
+					
+					// signup attempt returned
+					} else if (p.isSignup()) {
+						if (p.isValid()) {
+							isRegistered = true;
+							currentUser = p.getUser();
+							//TODO: create eventpanelguis using event vector and populate eventfeedgui
+							// create aboutme page, other personalization
+							// enable all features for the user
+						} else {
+							// TODO: notify user that signup was invalid (username already taken)
+							// please try again, or continue as guest
+						}
+						
+					// new event submission attempt returned
+					} else if (p.isNewEvent()) {
+						if (p.isValid()) {
+							// TODO: display message to user saying, "Your event was submitted!"
+						} else {
+							// TODO: display warning message to user saying,
+							// "There is an event at the same place and same time. Please try again"
+						}
 					}
+					
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -121,6 +148,52 @@ public class WHClient extends Thread {
 		} catch (IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
 		}
+	}
+	
+	// action listener on signup button on splash screen activates this.
+	// create an instance of user from the information given, pass it in
+	public void signupRequest(User u) {
+		InfoPackage p = new InfoPackage();
+		p.setUser(u);
+		p.setSignup(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
+	}
+	
+	// action listener on "new event" button on main feed page activates this.
+	// create an instance of event from the information given, pass it in
+	public void newEventRequest(Event newEvent) {
+		InfoPackage p = new InfoPackage();
+		p.setEvent(newEvent);
+		p.setNewEvent(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
+	}
+	
+	// TODO: method that populates AboutMe panel with currentUser's information
+	
+	public void getSportsEvents() {
+		
+	}
+	
+	public void getCareerEvents() {
+		
+	}
+	
+	public void getCulturalEvents() {
+		
+	}
+	
+	public void getClubEvents() {
+		
 	}
 		
 		

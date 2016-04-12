@@ -40,16 +40,30 @@ public class WHServerThread extends Thread {
 				
 				// guest attempt: server->driver->send back events
 				if (p.isGuest()) {
-					p.setEvents(whs.guestAttempt());
+					p.setEvents(whs.getAllEvents());
 					p.setValid(true);
-					sendToClient(p);
 				// login attempt: server->driver->send back events and user info
 				} else if (p.isLogin()) {
-					p.setEvents(whs.guestAttempt());
+					p.setEvents(whs.getAllEvents());
 					p.setUser(whs.loginAttempt(p.getUsername(), p.getPassword()));
 					p.setValid(true);
-					sendToClient(p);
+				// signup attempt: if valid attempt, set valid and send package with user already in it and events back to client
+					// if not valid, set not valid and send package with user already in it back to client
+				} else if (p.isSignup()) {
+					if (whs.signupAttempt(p.getUser())) {
+						p.setEvents(whs.getAllEvents());
+						p.setValid(true);
+					} else {
+						p.setValid(false);
+					}
+				// new event submission attempt
+				} else if (p.isNewEvent()) {
+					p.setValid(whs.addEventAttempt(p.getEvent()));
 				}
+				
+				
+				// send package back to client
+				sendToClient(p);
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
