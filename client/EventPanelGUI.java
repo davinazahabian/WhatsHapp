@@ -36,6 +36,8 @@ public class EventPanelGUI extends JPanel {
 	private JPanel rightContainer;
 	
 	private Event currEvent;
+	private int eventCategory;
+	
 	
 	EventPanelGUI(Event sample){
 		this.currEvent = sample;
@@ -78,12 +80,40 @@ public class EventPanelGUI extends JPanel {
 	
 		add(leftContainer, BorderLayout.WEST);
 		add(rightContainer, BorderLayout.EAST);
+		
+		this.setBackgroundColor(this.currEvent.getType(), leftContainer, rightContainer);
+	}
+	
+	private void setBackgroundColor(int category, JPanel left, JPanel right){
+		if(category == 0){//sports = red
+			this.setBackground(new Color(255, 105, 98));
+			leftContainer.setBackground(new Color(255, 105, 98));
+			rightContainer.setBackground(new Color(255, 105, 98));
+		}
+		else if(category == 1){//career = blue
+			this.setBackground(new Color(183, 209, 236));
+			leftContainer.setBackground(new Color(183, 209, 236));
+			rightContainer.setBackground(new Color(183, 209, 236));
+		}
+		else if (category == 2){//cultural = green
+			this.setBackground(new Color(119, 221, 119));
+			leftContainer.setBackground(new Color(119, 221, 119));
+			rightContainer.setBackground(new Color(119, 221, 119));
+		}
+		else if(category == 3){//club = orange
+			this.setBackground(new Color(255, 179, 69));
+			leftContainer.setBackground(new Color(255, 179, 69));
+			rightContainer.setBackground(new Color(255, 179, 69));
+		}
 	}
 	
 	public static void main(String [] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(320, 240);
-		frame.add(new EventPanelGUI(null));
+		Event temp = new Event("event name", "event date", "event start time", "event end time", "event description", "event location",
+				  3, "time posted");
+		frame.add(new EventPanelGUI(temp));
 		frame.setVisible(true);
 	}
+
 }
