@@ -1,29 +1,65 @@
 package Model;
 import java.io.Serializable;
+import java.util.Vector;
 
 // this serializable class sets up the types of packages that will be sent: user, event, and message
 // these classes will always have a string identifier, to identify the contents when being received
 
 public class InfoPackage implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
-	private String identifier;
-	private boolean isValid;
-	private boolean signUpRequest = false;
-	private boolean loginRequest = false;
-	private String userName = null;
-	private int passWord = 0;
 	private User user = null;
-	public InfoPackage()
-	{
-		
-	}
+	private Vector<Event> events;
+	private String username = null; private String password = null;
+	// is valid attempt of any kind
+	private boolean isValid = false;
+	// login attempt
+	private boolean isLogin = false;
+	// signup attempt
+	private boolean isSignup = false;
+	// guest attempt
+	private boolean isGuest = false;
 	
-	public InfoPackage(String identifier) {
-		this.identifier = identifier;
+	public InfoPackage() {}
+
+	public String getUsername() {
+		return username;
 	}
-	
-	public String identifier() {
-		return identifier;
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isLogin() {
+		return isLogin;
+	}
+
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
+	}
+
+	public boolean isSignup() {
+		return isSignup;
+	}
+
+	public void setSignup(boolean isSignup) {
+		this.isSignup = isSignup;
+	}
+
+	public boolean isGuest() {
+		return isGuest;
+	}
+
+	public void setGuest(boolean isGuest) {
+		this.isGuest = isGuest;
 	}
 
 	public boolean isValid() {
@@ -34,44 +70,20 @@ public class InfoPackage implements Serializable {
 		this.isValid = isValid;
 	}
 
-	public boolean isSignUpRequest() {
-		return signUpRequest;
-	}
-
-	public void setSignUpRequest(boolean signUpRequest) {
-		this.signUpRequest = signUpRequest;
-	}
-
-	public boolean isLoginRequest() {
-		return loginRequest;
-	}
-
-	public void setLoginRequest(boolean loginRequest) {
-		this.loginRequest = loginRequest;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public int getPassWord() {
-		return passWord;
-	}
-
-	public void setPassWord(int passWord) {
-		this.passWord = passWord;
-	}
-
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Vector<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Vector<Event> events) {
+		this.events = events;
 	}
 	
 	

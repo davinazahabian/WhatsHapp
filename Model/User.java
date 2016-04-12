@@ -13,7 +13,6 @@ public class User extends InfoPackage {
 	
 	// constructor:
 	public User(String fname, String lname, String email, String username, String password) {
-		super("user");
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;

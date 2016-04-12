@@ -1,3 +1,4 @@
+package client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,6 +19,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import Model.InfoPackage;
 import WHFrame.SplashPanel;
 import WHFrame.WHFrame;
 
@@ -72,9 +74,9 @@ public class WHClient extends Thread {
 				}
 			}
 			// otherwise, get ready to accept packages from server
-			Package p = null;
+			InfoPackage p = null;
 			try {
-				p = (Package)ois.readObject();
+				p = (InfoPackage)ois.readObject();
 				if (p != null) {
 					
 					// guest attempt returned
@@ -84,7 +86,7 @@ public class WHClient extends Thread {
 					
 					// login attempt returned
 					} else if (p.isLogin()) {
-						if (p.user() == null) {
+						if (p.getUser() == null) {
 							System.out.println("Username or password invalid. Please try again.");
 						} else {
 							isRegistered = true;
@@ -104,7 +106,7 @@ public class WHClient extends Thread {
 	
 	// action listener on guest button on splash screen activates this
 	public void guestRequest() {
-		Package p = new Package();
+		InfoPackage p = new InfoPackage();
 		p.setGuest(true);
 		try{
 			oos.writeObject(p);
@@ -116,7 +118,7 @@ public class WHClient extends Thread {
 	
 	// action listener on login button on splash screen activates this
 	public void loginRequest(String username, String password) {
-		Package p = new Package();
+		InfoPackage p = new InfoPackage();
 		p.setUsername(username); p.setPassword(password);
 		p.setLogin(true);
 		try{

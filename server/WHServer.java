@@ -1,3 +1,4 @@
+package server;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -6,6 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Vector;
+
+import Model.Event;
+import Model.User;
 
 public class WHServer extends Thread {
 	
@@ -64,5 +68,14 @@ public class WHServer extends Thread {
 	
 	public void sendMessageAttempt() {
 		
+	}
+	
+	public static void main (String[] args){
+		try {
+			new WHServer();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
