@@ -82,7 +82,7 @@ public class EventPanelGUI extends JPanel {
 	
 	public static void main(String [] args) {
 		JFrame frame = new JFrame();
-		frame.setSize(321, 240);
+		frame.setSize(320, 240);
 		frame.add(new EventPanelGUI(null));
 		frame.setVisible(true);
 	}
