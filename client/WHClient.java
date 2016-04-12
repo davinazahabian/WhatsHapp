@@ -32,14 +32,8 @@ public class WHClient extends Thread {
 	private int port = 6789;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
-	private WHFrame whf;
-//	private EventFeedGUI efg;
-//	private Vector<EventPanelGUI> epg;
 	
-	public WHClient() {
-		whf = new WHFrame();
-//		efg = new EventFeedGUI();
-		
+	public WHClient() {		
 		try {
 			s = new Socket("localhost", port);
 			oos = new ObjectOutputStream(s.getOutputStream());
