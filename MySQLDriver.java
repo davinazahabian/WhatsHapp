@@ -203,7 +203,7 @@ public class MySQLDriver {
 //					info.setEventsAttending(rs.getBlob(7));
 				}
 			}
-		}}catch(SQLException sqe){ sqe.printStackTrace(); };
+		} catch(SQLException sqe){ sqe.printStackTrace(); };
 		return info;
 	}
 
