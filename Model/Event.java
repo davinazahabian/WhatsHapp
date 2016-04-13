@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Vector;
 
-public class Event extends InfoPackage implements Comparator<Event>, Comparable<Event> {
+public class Event implements Comparator<Event>, Comparable<Event> {
 	
 	private static final long serialVersionUID = 1L;
 	public static final String[] types = {"Sports", "Career", "Cultural", "Club"};
@@ -22,9 +22,10 @@ public class Event extends InfoPackage implements Comparator<Event>, Comparable<
 	private int upvotes = 0;
 	private int attendees = 0;
 	private String messageBoard;
+	private String eventHost;
 
 	public Event(String eventName, String eventDate, String eventStartTime,String eventEndTime, String eventDesc, String eventLoc,
-			 int type, String timePosted) {
+			 int type, String timePosted, String eventHost) {
 		this.eventName = eventName;
 		this.eventDate = eventDate;
 		this.eventStartTime = eventStartTime;
@@ -35,6 +36,7 @@ public class Event extends InfoPackage implements Comparator<Event>, Comparable<
 		milliseconds = date.getTime();
 		this.timePosted = timePosted;
 		this.setType(type);
+		this.eventHost = eventHost;
 	}
 	public String getEventName() {
 		return eventName;
@@ -114,7 +116,7 @@ public class Event extends InfoPackage implements Comparator<Event>, Comparable<
 		this.messageBoard = messageBoard;
 	}
 	
-	private void addMessage(Message m) {
+	public void addMessage(Message m) {
 		String username = m.username();
 		String message = m.message();
 		messageBoard = messageBoard + "\n" + username + ": " + message;
@@ -136,5 +138,11 @@ public class Event extends InfoPackage implements Comparator<Event>, Comparable<
 	}
 	public void setType(int type) {
 		this.type = type;
+	}
+	public String getEventHost() {
+		return eventHost;
+	}
+	public void setEventHost(String eventHost) {
+		this.eventHost = eventHost;
 	}
 }

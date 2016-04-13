@@ -197,7 +197,8 @@ public class NewEventGUI extends JFrame{
 				String date2 = date[0] + " " +  date[1] + " " + date[2] + " " + date[5];
 				String startTime = start[3];
 				String endTime = end[3];
-				Event event = new Event(name, date2, startTime, endTime, description, location,typeBox.getSelectedIndex(), new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()));
+				String host = hostField.getText();
+				Event event = new Event(name, date2, startTime, endTime, description, location,typeBox.getSelectedIndex(), new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()), host);
 			}
 		});
 	}

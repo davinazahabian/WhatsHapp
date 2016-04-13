@@ -12,28 +12,30 @@ import java.awt.Insets;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import client.EventPanelGUI;
 import library.ImageLibrary;
 
 public class MainFeedFrame extends JFrame {
 	
-	JButton AM;
-	JButton sportsButton;
-	JButton culturalButton;
-	JButton careerButton;
-	JButton clubButton;
-	JButton trendingButton;
-	JButton newEventButton;
+//	JButton AM;
+//	JButton sportsButton;
+//	JButton culturalButton;
+//	JButton careerButton;
+//	JButton clubButton;
+//	JButton trendingButton;
+//	JButton newEventButton;
 //	Event event;
 	JScrollPane jsp;
 	SplashFrame2 sf;
-	JPanel mfButtons;
-	JPanel mff;
+//	JPanel mfButtons;
+//	JPanel mff;
 	//create an event which will make a jpanel and store with correct info
 	
 	MainFeedFrame()
@@ -41,50 +43,50 @@ public class MainFeedFrame extends JFrame {
 		setTitle("WhatsHapp");
 		setSize(640,480);
 		
-		mfButtons = new JPanel();
-		mff = new JPanel();
-		AM = new JButton("About Me!");
-		sportsButton = new JButton("Sports");
-		culturalButton = new JButton("Cultural");
-		careerButton = new JButton("Career");
-		clubButton = new JButton("Club");
-		newEventButton = new JButton("New Button");
-		trendingButton = new JButton(); //"trending"
-		trendingButton.setIcon(new ImageIcon("img/firebtn.png"));
+//		mfButtons = new JPanel();
+//		mff = new JPanel();
+//		AM = new JButton("About Me!");
+//		sportsButton = new JButton("Sports");
+//		culturalButton = new JButton("Cultural");
+//		careerButton = new JButton("Career");
+//		clubButton = new JButton("Club");
+//		newEventButton = new JButton("New Button");
+//		trendingButton = new JButton(); //"trending"
+//		trendingButton.setIcon(new ImageIcon("img/firebtn.png"));
 		sf = new SplashFrame2();
 		sf.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		sf.add(AM, gbc);
+//		sf.add(AM, gbc);
 		//mfButtons.add(AM);
 		//mfButtons.add(trendingButton);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		sf.add(trendingButton, gbc);
+//		sf.add(trendingButton, gbc);
 		
 		gbc.gridx = 2;
 		gbc.gridy = 0;
-		sf.add(sportsButton, gbc);
+//		sf.add(sportsButton, gbc);
 		
 		gbc.gridx = 3;
 		gbc.gridy = 0;
-		sf.add(culturalButton, gbc);
+//		sf.add(culturalButton, gbc);
 		
 		gbc.gridx = 4;
 		gbc.gridy = 0;
-		sf.add(careerButton, gbc);
+//		sf.add(careerButton, gbc);
 		
 		gbc.gridx = 5;
 		gbc.gridy = 0;
-		sf.add(clubButton, gbc);
+//		sf.add(clubButton, gbc);
 		
 		gbc.gridx = 6;
 		gbc.gridy = 0;
 		
-		sf.add(newEventButton, gbc);
+//		sf.add(newEventButton, gbc);
 		
 		gbc.insets = new Insets(200,0,0,0);
 
@@ -94,14 +96,15 @@ public class MainFeedFrame extends JFrame {
 		
 //		sf.add(mfButtons, BorderLayout.NORTH);
 //		sf.add(mff, BorderLayout.SOUTH);
+
 		add(sf);
 	}
 	
-//	public static void main(String [] args)
-//	{
-//		MainFeedFrame mff = new MainFeedFrame();
-//		mff.setVisible(true);
-//	}
+	public static void main(String [] args)
+	{
+		MainFeedFrame mff = new MainFeedFrame();
+		mff.setVisible(true);
+	}
 
 }
 

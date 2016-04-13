@@ -8,6 +8,7 @@ import java.util.Date;
 import com.mysql.jdbc.Driver;
 
 import Model.Event;
+import Model.Message;
 import Model.User;
 
 import java.sql.*; 
@@ -26,10 +27,16 @@ public class MySQLDriver {
 	private Connection con;
 	// queries
 	private final static String allEvents = "SELECT * FROM EVENTS";
+	private final static String sportsEvents = "SELECT * FROM SPORTSEVENT";
+	private final static String careerEvents = "SELECT * FROM CAREEREVENT";
+	private final static String culturalEvents = "SELECT * FROM CULTURALEVENT";
+	private final static String clubEvents = "SELECT * FROM CLUBEVENT";
+
 	// a new user will not have events created and events attending yet, will be left null
 	private final static String insertUser = "INSERT INTO USERS(USERNAME,PASSWORD,FNAME,LNAME,EMAIL) VALUES(?,?,?,?,?)";
 	private final static String selectUser = "SELECT * FROM USERS WHERE USERNAME=?";
 	private final static String selectEvent = "SELECT * FROM EVENTS WHERE STARTTIME=? AND EVENTLOCATION=?";
+	private final static String selectEventName = "SELECT * FROM EVENTS WHERE EVENTNAME=?";
 	private final static String insertEvent = "INSERT INTO EVENTS(EVENT_NAME,EVENT_HOST,EVENT_CATEGORY,STARTTIME,ENDTIME,TIMEPOSTED,EVENT_DESCRIPTION,EVENT_DATE,EVENT_LOCATION) VALUES(?,?,?,?,?,?,?,?,?)";
 	private final static String insertSportsEvent = "INSERT INTO SPORTSEVENT(ID,NAME,HOST,DATE,TIME,DESCRIPTION,LOCATION,ATTENDEES,MESSAGEBOARD) VALUES(?,?,?,?,?,?,?,?,?)";
 	private final static String insertClubEvent = "INSERT INTO CLUBEVENT(ID,NAME,HOST,DATE,TIME,DESCRIPTION,LOCATION,ATTENDEES,MESSAGEBOARD) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -41,104 +48,17 @@ public class MySQLDriver {
 //	private final static String insertFileName = "UPDATE USERS SET FILENAMES=? WHERE USERNAME = ?";
 //	private final static String getFileNames = "SELECT FILENAMES FROM USERS WHERE USERNAME = ?";
 	
-	public MySQLDriver(){
-		try{
-			new Driver();
-		}catch(SQLException sqe){
-			sqe.printStackTrace();
-		}
+	public MySQLDriver() {
+		try { new Driver(); }
+		catch(SQLException sqe){ sqe.printStackTrace(); }
 		try {
 			con  = DriverManager.getConnection("jdbc:mysql://localhost:3306/WhatsHapp?user=root");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (SQLException e) { e.printStackTrace(); }
 	}
 	
-	public void stop(){
-		try{con.close();} catch (SQLException e) {e.printStackTrace();}
+	public void stop() {
+		try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
 	}
-	
-//	public String getFileNames(String username){
-//		try {
-//			PreparedStatement ps = con2.prepareStatement(getFileNames);
-//			ps.setString(1, username);
-//			ResultSet result = ps.executeQuery();
-//			if(result.next())
-//			{
-//				String temp = result.getString(1);
-//				if(temp == null)
-//					return "";
-//				temp = temp.trim();
-//				if(temp.equals("null"))
-//					return "";
-//				else
-//					return result.getString(1);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return "";
-//	}
-	
-//	public String[] getFileName(String username){
-//		String text = getFileNames(username);
-//		String[] splited = text.split(" ");
-//		return splited;
-//	}
-//	public void insertFile (String username, String filename){
-//		String[] names = getFileName(username);
-//		for (int i = 0; i < names.length; i++) {
-//			if(filename.equals(names[i]))
-//				return;
-//		}
-//		System.out.println("Username = " + username  + " Filename = " + filename);
-//		String text = getFileNames(username) + " " + filename ;
-//		System.out.println("Text = " + text);
-//		try{
-//			PreparedStatement ps = con2.prepareStatement(insertFileName);
-//			ps.setString(1, text);
-//			ps.setString(2, username);
-//			ps.executeUpdate();
-//			//FactoryServerGUI.addMessage("Adding Product:" + productName + "to table with count 0");
-//		}catch(SQLException e){
-//			e.printStackTrace();
-//		}
-//		
-//	}
-	
-//	public boolean doesExist(String userName){
-//		try{
-//			PreparedStatement ps = con2.prepareStatement(selectUser);
-//			ps.setString(1, userName);
-//			ResultSet  result = ps.executeQuery();
-//			while(result.next()){
-//				return true;
-//			}
-//		}catch(SQLException e){ e.printStackTrace();}
-//			return false;
-//		
-//	}
-//	
-//	public boolean validate(String username, int passWord){
-//		if(!doesExist(username)){
-//			return false;
-//		}
-//		try{
-//		PreparedStatement ps = con2.prepareStatement(selectUser);
-//		ps.setString(1, username);
-//		ResultSet  result = ps.executeQuery();
-//		while(result.next()){
-//			System.out.println("database: " + result.getInt(1) + "  Input: " + passWord);
-//			if(result.getInt(1) != passWord)
-//			{
-//				System.out.println("database: " + result.getInt(1) + "  Input: " + passWord);
-//				return false;
-//			}
-//		}}catch(SQLException sqe){};
-//		return true;
-//	}
 	
 	// get vector of all events, send back for event feed.
 	public Vector<Event> retrieveAllEvents() {
@@ -149,9 +69,9 @@ public class MySQLDriver {
 			ps = con.prepareStatement(allEvents);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-//				long id = rs.getLong(1);
+				long id = rs.getLong(1);
 				String name = rs.getString(2);
-//				String host = rs.getString(3);
+				String host = rs.getString(3);
 				int category = rs.getInt(4);
 				String startTime = rs.getString(5);
 				String endTime = rs.getString(6);
@@ -160,25 +80,26 @@ public class MySQLDriver {
 				String date = rs.getString(9);
 				String location = rs.getString(10);
 				int upvotes = rs.getInt(11);
-//				String attendees = rs.getString(12);				
+				String attendees = rs.getString(12);				
 				String messageBoard = rs.getString(13);
 				Event e;
 				// sports
 				if (category == 0) {
-					e = new Event(name,date,startTime,endTime,description,location,0,timePosted);
+					e = new Event(name,date,startTime,endTime,description,location,0,timePosted,host);
 				// career
 				} else if (category == 1) {
-					e = new Event(name,date,startTime,endTime,description,location,1,timePosted);
+					e = new Event(name,date,startTime,endTime,description,location,1,timePosted,host);
 				// cultural
 				} else if (category == 2) {
-					e = new Event(name,date,startTime,endTime,description,location,2,timePosted);
+					e = new Event(name,date,startTime,endTime,description,location,2,timePosted,host);
 				// club
 				} else {
-					e = new Event(name,date,startTime,endTime,description,location,3,timePosted);
+					e = new Event(name,date,startTime,endTime,description,location,3,timePosted,host);
 				}
 				e.setUpvotes(upvotes);
 				e.setMessageBoard(messageBoard);
-				events.add(e);
+				/* TODO: parse attendees to get attendee count, set attendee count of this event */
+				// maybe just store attendee count in database?
 			}
 		} catch (SQLException e) { e.printStackTrace(); }
 		return events;
@@ -265,7 +186,7 @@ public class MySQLDriver {
 			// eventID is autoincremented; upvotes, attendees, messageboard are all null to start
 			PreparedStatement ps = con.prepareStatement(insertEvent);
 			ps.setString(1, event.getEventName());
-//			ps.setString(2, get host);
+			ps.setString(2, event.getEventHost());
 			ps.setInt(3, event.getType());
 			ps.setString(4, event.getEventStartTime());
 			ps.setString(5, event.getEventEndTime());
@@ -281,6 +202,144 @@ public class MySQLDriver {
 		}
 	}
 	
+	// retrieve vector of single category of events
+	public Vector<Event> retrieveSportsEvents() {
+		Vector<Event> events = new Vector<Event>();
+		PreparedStatement ps;
+		try {
+			// SELECT * FROM SPORTSEVENT
+			ps = con.prepareStatement(sportsEvents);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				long id = rs.getLong(1);
+				String name = rs.getString(2);
+				String host = rs.getString(3);
+				String date = rs.getString(4);
+				String timePosted = rs.getString(5);
+				String startTime = rs.getString(6);
+				String endTime = rs.getString(7);
+				String description = rs.getString(8);
+				String location = rs.getString(9);
+				int upvotes = rs.getInt(10);
+				String attendees = rs.getString(11);				
+				String messageBoard = rs.getString(12);
+				Event e = new Event(name,date,startTime,endTime,description,location,0,timePosted,host);
+				e.setUpvotes(upvotes);
+				/* TODO: parse attendees to get attendee count, set attendee count of this event */
+				// maybe just store attendee count in database?
+				e.setMessageBoard(messageBoard);
+				events.add(e);
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return events;
+	}
+	
+	public Vector<Event> retrieveCareerEvents() {
+		Vector<Event> events = new Vector<Event>();
+		PreparedStatement ps;
+		try {
+			// SELECT * FROM CAREEREVENT
+			ps = con.prepareStatement(careerEvents);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				long id = rs.getLong(1);
+				String name = rs.getString(2);
+				String host = rs.getString(3);
+				String date = rs.getString(4);
+				String timePosted = rs.getString(5);
+				String startTime = rs.getString(6);
+				String endTime = rs.getString(7);
+				String description = rs.getString(8);
+				String location = rs.getString(9);
+				int upvotes = rs.getInt(10);
+				String attendees = rs.getString(11);				
+				String messageBoard = rs.getString(12);
+				Event e = new Event(name,date,startTime,endTime,description,location,1,timePosted,host);
+				e.setUpvotes(upvotes);
+				/* TODO: parse attendees to get attendee count, set attendee count of this event */
+				// maybe just store attendee count in database?
+				e.setMessageBoard(messageBoard);
+				events.add(e);
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return events;
+	}
+	
+	public Vector<Event> retrieveCulturalEvents() {
+		Vector<Event> events = new Vector<Event>();
+		PreparedStatement ps;
+		try {
+			// SELECT * FROM CULTURALEVENT
+			ps = con.prepareStatement(culturalEvents);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				long id = rs.getLong(1);
+				String name = rs.getString(2);
+				String host = rs.getString(3);
+				String date = rs.getString(4);
+				String timePosted = rs.getString(5);
+				String startTime = rs.getString(6);
+				String endTime = rs.getString(7);
+				String description = rs.getString(8);
+				String location = rs.getString(9);
+				int upvotes = rs.getInt(10);
+				String attendees = rs.getString(11);				
+				String messageBoard = rs.getString(12);
+				Event e = new Event(name,date,startTime,endTime,description,location,2,timePosted,host);
+				e.setUpvotes(upvotes);
+				/* TODO: parse attendees to get attendee count, set attendee count of this event */
+				// maybe just store attendee count in database?
+				e.setMessageBoard(messageBoard);
+				events.add(e);
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return events;
+	}
+	
+	public Vector<Event> retrieveClubEvents() {
+		Vector<Event> events = new Vector<Event>();
+		PreparedStatement ps;
+		try {
+			// SELECT * FROM CLUBEVENT
+			ps = con.prepareStatement(clubEvents);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				long id = rs.getLong(1);
+				String name = rs.getString(2);
+				String host = rs.getString(3);
+				String date = rs.getString(4);
+				String timePosted = rs.getString(5);
+				String startTime = rs.getString(6);
+				String endTime = rs.getString(7);
+				String description = rs.getString(8);
+				String location = rs.getString(9);
+				int upvotes = rs.getInt(10);
+				String attendees = rs.getString(11);				
+				String messageBoard = rs.getString(12);
+				Event e = new Event(name,date,startTime,endTime,description,location,3,timePosted,host);
+				e.setUpvotes(upvotes);
+				/* TODO: parse attendees to get attendee count, set attendee count of this event */
+				// maybe just store attendee count in database?
+				e.setMessageBoard(messageBoard);
+				events.add(e);
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return events;
+	}
+	
+	// for now, look up by event name and post it on that event's message board
+	// edge case: what if two events of the same name? should we keep track of eventID?
+	public boolean postMessage(Event e, Message m) {
+		PreparedStatement ps;
+		try {
+			// SELECT * FROM EVENTS WHERE EVENTNAME=?
+			ps = con.prepareStatement(selectEventName);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				
+			}
+		} catch (SQLException e) { e.printStackTrace(); return false;}
+	}
 	
 
 }

@@ -30,14 +30,6 @@ public class WHServerThread extends Thread {
 			InfoPackage p;
 			try {
 				p = (InfoPackage)ois.readObject();
-//				if (p.isLoginRequest()) {
-//					System.out.println("Username: " + p.getUserName() + " " + "Password " + p.getPassWord());
-//				}
-//				
-//				else if(p.isSignUpRequest()){
-//					System.out.println("Username: " + p.getUserName() + " " + "Password " + p.getPassWord());
-//				}
-				
 				// guest attempt: server->driver->send back events
 				if (p.isGuest()) {
 					p.setEvents(whs.getAllEvents());
@@ -59,6 +51,22 @@ public class WHServerThread extends Thread {
 				// new event submission attempt
 				} else if (p.isNewEvent()) {
 					p.setValid(whs.addEventAttempt(p.getEvent()));
+				// getting category of events
+				} else if (p.isGettingSports()) {
+					p.setEvents(whs.sportsEvents());
+					p.setValid(true);
+				} else if (p.isGettingCareer()) {
+					p.setEvents(whs.careerEvents());
+					p.setValid(true);
+				} else if (p.isGettingCultural()) {
+					p.setEvents(whs.culturalEvents());
+					p.setValid(true);
+				} else if (p.isGettingClub()) {
+					p.setEvents(whs.clubEvents());
+					p.setValid(true);
+				// post message attempt
+				} else if (p.isPostingMessage()) {
+					
 				}
 				
 				

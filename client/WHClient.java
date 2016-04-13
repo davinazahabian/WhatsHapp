@@ -21,6 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import Model.Event;
 import Model.InfoPackage;
+import Model.Message;
 import Model.User;
 import WHFrame.SplashPanel;
 import WHFrame.WHFrame;
@@ -114,6 +115,16 @@ public class WHClient extends Thread {
 							// TODO: display warning message to user saying,
 							// "There is an event at the same place and same time. Please try again"
 						}
+						
+					// category of events returned
+					} else if (p.isGettingSports()) {
+						// TODO: use for showing sports events only, p.getEvents()
+					} else if (p.isGettingCareer()) {
+						// TODO: use for showing career events only, p.getEvents()
+					} else if (p.isGettingCultural()) {
+						// TODO: use for showing cultural events only, p.getEvents()
+					} else if (p.isGettingClub()) {
+						// TODO: use for showing club events only, p.getEvents()
 					}
 					
 				}
@@ -178,22 +189,69 @@ public class WHClient extends Thread {
 		}
 	}
 	
+	
 	// TODO: method that populates AboutMe panel with currentUser's information
 	
+	
 	public void getSportsEvents() {
-		
+		InfoPackage p = new InfoPackage();
+		p.setGettingSports(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
 	}
 	
 	public void getCareerEvents() {
-		
+		InfoPackage p = new InfoPackage();
+		p.setGettingCareer(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
 	}
 	
 	public void getCulturalEvents() {
-		
+		InfoPackage p = new InfoPackage();
+		p.setGettingCultural(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
 	}
 	
 	public void getClubEvents() {
-		
+		InfoPackage p = new InfoPackage();
+		p.setGettingClub(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
+	}
+	
+	// action listener on "Send Message" button on eventdetailgui activates this
+	// may or may not need Event argument?
+	public void sendMessage(Event e, Message m) {
+		InfoPackage p = new InfoPackage();
+		// change Event's message board, then send to driver to be updated.
+		e.addMessage(m);
+		p.setEvent(e);
+		p.setMessage(m);
+		p.setPostingMessage(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
 	}
 		
 		

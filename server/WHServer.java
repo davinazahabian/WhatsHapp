@@ -68,8 +68,24 @@ public class WHServer extends Thread {
 		return driver.newEventEntry(e);
 	}
 	
-	public void sendMessageAttempt() {
-		
+	public Vector<Event> sportsEvents() {
+		return driver.retrieveSportsEvents();
+	}
+	
+	public Vector<Event> careerEvents() {
+		return driver.retrieveCareerEvents();
+	}
+	
+	public Vector<Event> culturalEvents() {
+		return driver.retrieveCulturalEvents();
+	}
+	
+	public Vector<Event> clubEvents() {
+		return driver.retrieveClubEvents();
+	}
+	
+	public void sendMessageAttempt(Event e, Message m) {
+		return driver.addMessage();
 	}
 	
 	public static void main (String[] args){

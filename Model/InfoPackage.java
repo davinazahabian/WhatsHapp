@@ -10,6 +10,7 @@ public class InfoPackage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private User user = null;
 	private Event event = null;
+	private Message message = null;
 	
 	private Vector<Event> events;
 	private String username = null; private String password = null;
@@ -23,7 +24,14 @@ public class InfoPackage implements Serializable {
 	private boolean isGuest = false;
 	// add new event attempt
 	private boolean isNewEvent = false;
-	
+	// get certain category of events
+	private boolean isGettingSports = false;
+	private boolean isGettingCareer = false;
+	private boolean isGettingCultural = false;
+	private boolean isGettingClub = false;
+	// post message to a message board
+	private boolean isPostingMessage = false;
+
 	public InfoPackage() {}
 
 	public String getUsername() {
@@ -104,6 +112,54 @@ public class InfoPackage implements Serializable {
 
 	public void setEvent(Event newEvent) {
 		this.event = newEvent;
+	}
+
+	public boolean isGettingSports() {
+		return isGettingSports;
+	}
+
+	public void setGettingSports(boolean isGettingSports) {
+		this.isGettingSports = isGettingSports;
+	}
+
+	public boolean isGettingCareer() {
+		return isGettingCareer;
+	}
+
+	public void setGettingCareer(boolean isGettingCareer) {
+		this.isGettingCareer = isGettingCareer;
+	}
+
+	public boolean isGettingCultural() {
+		return isGettingCultural;
+	}
+
+	public void setGettingCultural(boolean isGettingCultural) {
+		this.isGettingCultural = isGettingCultural;
+	}
+
+	public boolean isGettingClub() {
+		return isGettingClub;
+	}
+
+	public void setGettingClub(boolean isGettingClub) {
+		this.isGettingClub = isGettingClub;
+	}
+
+	public boolean isPostingMessage() {
+		return isPostingMessage;
+	}
+
+	public void setPostingMessage(boolean isPostingMessage) {
+		this.isPostingMessage = isPostingMessage;
+	}
+
+	public Message getMessage() {
+		return message;
+	}
+
+	public void setMessage(Message message) {
+		this.message = message;
 	}
 	
 	
