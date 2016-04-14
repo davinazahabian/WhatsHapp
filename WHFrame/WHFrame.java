@@ -123,7 +123,7 @@ public class WHFrame extends JFrame{
 			Object key = keys.nextElement();
 			Object value = UIManager.get (key);
 			if (value != null && value instanceof javax.swing.plaf.FontUIResource)
-				UIManager.put (key, f);//font
+				UIManager.put (key, f);//font setter
 		}
 	}
 	
