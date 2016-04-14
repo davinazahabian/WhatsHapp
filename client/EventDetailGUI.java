@@ -225,11 +225,9 @@ public class EventDetailGUI extends JFrame {
 //	}
 	
 	public static void main (String [] args) {
-		JFrame f = new JFrame();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(new Dimension(900,602));
 		Event e = new Event("BaseBall Game", "April 10, 2016", "12:00 p.m.", "4:00 p.m.", "USC Trojans Baseball will be playing against the UCLA Bruins! ", "Dedeaux Field", 1 , "10:00 a.m.", "USC Athletics");
-		f.add(new EventDetailGUI(e), BorderLayout.CENTER);
-		f.setVisible(true);
+		EventDetailGUI edg = new EventDetailGUI(e);
+		edg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		edg.setVisible(true);
 	}
 }
