@@ -67,7 +67,14 @@ public class WHServerThread extends Thread {
 				// post message attempt
 				} else if (p.isPostingMessage()) {
 					p.setValid(whs.sendMessageAttempt(p.getEvent(), p.getMessage()));
+				// upvoting event attempt
+				} else if (p.isUpvoting()) {
+					p.setValid(whs.upvoteEventAttempt(p.getEvent()));
+				// add attendee attempt
+				} else if (p.isAddingAttendee()) {
+					p.setValid(whs.addAttendeeAttempt(p.getEvent(), p.getUser()));
 				}
+				
 				
 				
 				// send package back to client

@@ -134,6 +134,15 @@ public class WHClient extends Thread {
 						} else {
 							// TODO: display system dialog to user saying, "Message failed to post."
 						}
+					
+					// add attendee request returned
+					} else if (p.isAddingAttendee()) {
+						if (p.isValid()) {
+							// TODO: update event in memory with newly changed event
+							// make sure attendee count/attendee list are updated in the GUIs
+						} else {
+							// TODO: display system dialog to user saying, "Cannot fulfill request at this time."
+						}
 					}
 					
 					
@@ -265,12 +274,32 @@ public class WHClient extends Thread {
 	
 	// action listener on thumbs up button on eventpanelGUI activates this
 	public void incrementUpvote(Event e) {
-		
+		InfoPackage p = new InfoPackage();
+		e.upvote();
+		p.setEvent(e);
+		p.setUpvoting(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 	
 	// action listener on "Going" button on eventdetailGUI activates this
-	public void addAttendee(Event e) {
-		
+	// e = event being attended, u = user attending the event
+	public void addAttendee(Event e, User u) {
+		InfoPackage p = new InfoPackage();
+		e.addAttendee(u.username());
+		p.setUser(u);
+		p.setEvent(e);
+		p.setAddingAttendee(true);
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 	
 	public static void main(String [] args) {

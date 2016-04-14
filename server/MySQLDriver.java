@@ -25,14 +25,11 @@ import java.sql.*;
 public class MySQLDriver {
 	
 	private Connection con;
-	// queries
 	private final static String allEvents = "SELECT * FROM EVENTS";
 	private final static String sportsEvents = "SELECT * FROM SPORTSEVENT";
 	private final static String careerEvents = "SELECT * FROM CAREEREVENT";
 	private final static String culturalEvents = "SELECT * FROM CULTURALEVENT";
 	private final static String clubEvents = "SELECT * FROM CLUBEVENT";
-
-	// a new user will not have events created and events attending yet, will be left null
 	private final static String insertUser = "INSERT INTO USERS(USERNAME,PASSWORD,FNAME,LNAME,EMAIL) VALUES(?,?,?,?,?)";
 	private final static String selectUser = "SELECT * FROM USERS WHERE USERNAME=?";
 	private final static String selectEvent = "SELECT * FROM EVENTS WHERE STARTTIME=? AND EVENTLOCATION=?";
@@ -44,11 +41,8 @@ public class MySQLDriver {
 	private final static String insertCulturalEvent = "INSERT INTO CULTURALEVENT(ID,NAME,HOST,DATE,TIME,DESCRIPTION,LOCATION,ATTENDEES,MESSAGEBOARD) VALUES(?,?,?,?,?,?,?,?,?)";
 	private final static String insertCareerEvent = "INSERT INTO CAREEREVENT(EVENTID,EVENT_NAME,EVENT_HOST,EVENT_DATE,EVENT_TIME,EVENT_DESCRIPTION,EVENT_LOCATION,EMPLO";
 	private final static String addAttendee = "INSERT INTO ATTEND(ATTENDEE_COUNT,USERNAME,EVENTID) VALUES(?,?,?)";
-//  private final static String passWord = "SELECT Password FROM Users WHERE USERNAME"
-//	private final static String createTable = "CREATE TABLE Users" +"(Password int," + "Username varchar(255));";
-//	private final static String insertFileName = "UPDATE USERS SET FILENAMES=? WHERE USERNAME = ?";
-//	private final static String getFileNames = "SELECT FILENAMES FROM USERS WHERE USERNAME = ?";
-	
+	private final static String upvoteEvent = "UPDATE EVENTS SET NUM_UPVOTES=? WHERE EVENT_NAME=?";
+	private final static String updateAttendees = "UPDATE EVENTS SET MYATTENDEES=? WHERE EVENT_NAME=?";
 	public MySQLDriver() {
 		try { new Driver(); }
 		catch(SQLException sqe){ sqe.printStackTrace(); }
@@ -341,7 +335,30 @@ public class MySQLDriver {
 			return true;
 		} catch (SQLException e) { e.printStackTrace(); return false;}
 	}
+
+	public boolean upvoteEvent(Event event) {
+		PreparedStatement ps;
+		try {
+			// UPDATE EVENTS SET NUM_UPVOTES=? WHERE EVENT_NAME=?
+			ps = con.prepareStatement(upvoteEvent);
+			ps.setInt(1, event.getUpvotes());
+			ps.setString(2, event.getEventName());
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) { e.printStackTrace(); return false;}
+	}
 	
+	public boolean addAttendee(Event event, User user) {
+		PreparedStatement ps;
+		try {
+			// UPDATE EVENTS SET MYATTENDEES=? WHERE EVENT_NAME=?
+			ps = con.prepareStatement(updateAttendees);
+			ps.setString(1, event.getAttendeeList());
+			ps.setString(2, event.getEventName());
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) { e.printStackTrace(); return false;}
+	}
 
 }
 

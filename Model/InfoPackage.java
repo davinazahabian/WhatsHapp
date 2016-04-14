@@ -31,6 +31,11 @@ public class InfoPackage implements Serializable {
 	private boolean isGettingClub = false;
 	// post message to a message board
 	private boolean isPostingMessage = false;
+	// upvoting event
+	private boolean isUpvoting = false;
+	// adding attendee to event
+	private boolean isAddingAttendee = false;
+	
 	private String userName;
 	private String passWord;
 	public InfoPackage() {}
@@ -177,6 +182,22 @@ public class InfoPackage implements Serializable {
 
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
+	}
+
+	public boolean isUpvoting() {
+		return isUpvoting;
+	}
+
+	public void setUpvoting(boolean isUpvoting) {
+		this.isUpvoting = isUpvoting;
+	}
+
+	public boolean isAddingAttendee() {
+		return isAddingAttendee;
+	}
+
+	public void setAddingAttendee(boolean isAddingAttendee) {
+		this.isAddingAttendee = isAddingAttendee;
 	}
 	
 	

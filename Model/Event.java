@@ -23,6 +23,8 @@ public class Event implements Comparator<Event>, Comparable<Event> {
 	private int attendees = 0;
 	private String messageBoard;
 	private String eventHost;
+	// formatted String of attendees for database/listing on the eventdetailGUI
+	private String attendeeList;
 
 	public Event(String eventName, String eventDate, String eventStartTime,String eventEndTime, String eventDesc, String eventLoc,
 			 int type, String timePosted, String eventHost) {
@@ -99,6 +101,10 @@ public class Event implements Comparator<Event>, Comparable<Event> {
 	public void setUpvotes(int upvotes) {
 		this.upvotes = upvotes;
 	}
+	
+	public void upvote() {
+		this.upvotes = this.upvotes+1;
+	}
 
 	public int getAttendees() {
 		return attendees;
@@ -145,4 +151,16 @@ public class Event implements Comparator<Event>, Comparable<Event> {
 	public void setEventHost(String eventHost) {
 		this.eventHost = eventHost;
 	}
+	public String getAttendeeList() {
+		return attendeeList;
+	}
+	public void setAttendeeList(String attendeeList) {
+		this.attendeeList = attendeeList;
+	}
+	// add attendee to formatted string of attendees & add 1 to number of attendees
+	public void addAttendee(String username) {
+		this.attendeeList = this.attendeeList + "\n" + username;
+		this.attendees = this.attendees+1;
+	}
+
 }

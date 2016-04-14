@@ -94,6 +94,14 @@ public class WHServer extends Thread {
 		return driver.postMessage(e, m);
 	}
 	
+	public boolean upvoteEventAttempt(Event e) {
+		return driver.upvoteEvent(e);
+	}
+	
+	public boolean addAttendeeAttempt(Event e, User u) {
+		return driver.addAttendee(e, u);
+	}
+	
 	public static void main (String[] args){
 		try {
 			new WHServer();
