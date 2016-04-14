@@ -130,13 +130,13 @@ public class WHFrame extends JFrame{
 			Object key = keys.nextElement();
 			Object value = UIManager.get (key);
 			if (value != null && value instanceof javax.swing.plaf.FontUIResource)
-				UIManager.put (key, f);
+				UIManager.put (key, f);//font setter
 		}
 	}
 	
 	public static void main(String [] args)
 	{
-		WHFrame whf = new WHFrame();
+		WHFrame whf = new WHFrame();//random comment to make commit
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
 		whf.setCursor(c);

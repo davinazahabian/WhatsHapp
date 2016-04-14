@@ -1,8 +1,10 @@
 
 package WHFrame;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -40,6 +42,8 @@ import org.jdatepicker.impl.UtilDateModel;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import Model.Event;
+import customui.OutlinedLabel;
+import customui.WHButton;
 import library.ImageLibrary;
 
 
@@ -54,23 +58,23 @@ public class NewEventGUI extends JFrame{
 	JComboBox<String> typeBox;
 
 	JScrollPane jsp;
-	JLabel eventNameLabel;
-	JLabel dateLabel;
-	JLabel timeLabel;
-	JLabel endTimeLabel;
-	JLabel locationLabel;
-	JLabel descriptionLabel;
-	JLabel hostLabel;
-	JLabel typeLabel;
+	OutlinedLabel eventNameLabel;
+	OutlinedLabel dateLabel;
+	OutlinedLabel timeLabel;
+	OutlinedLabel endTimeLabel;
+	OutlinedLabel locationLabel;
+	OutlinedLabel descriptionLabel;
+	OutlinedLabel hostLabel;
+	OutlinedLabel typeLabel;
 	SplashPanel splash;
-	JButton backButton;
-	JButton createButton;
+	WHButton backButton;
+	WHButton createButton;
 	JSpinner spinner;
 	JSpinner spinner2;
 	JDatePickerImpl datePicker;
 	public NewEventGUI(){
 		setTitle("Trojan Office");
-		setSize(640,480);
+		setSize(900,602);
 		setMinimumSize(new Dimension(640,480));
 		//setJMenuBar(new OfficeMenuBar());
 		setLocationRelativeTo(null);
@@ -95,17 +99,17 @@ public class NewEventGUI extends JFrame{
 		hostField = new JTextField(10);
 		descriptionField = new JTextArea(5, 10);
 
-		eventNameLabel = new JLabel("Event Name: ");
-		dateLabel = new JLabel("Date: ");
-		timeLabel = new JLabel("Start Time: ");
-		hostLabel = new JLabel("Host: ");
-		locationLabel = new JLabel("Location: ");
-		descriptionLabel = new JLabel("Description: ");
-		typeLabel = new JLabel ("Type: ");
-		createButton = new JButton("Create Event");
-		endTimeLabel = new JLabel("End Time: ");
+		eventNameLabel = new OutlinedLabel("Event Name: ");
+		dateLabel = new OutlinedLabel("Date: ");
+		timeLabel = new OutlinedLabel("Start Time: ");
+		hostLabel = new OutlinedLabel("Host: ");
+		locationLabel = new OutlinedLabel("Location: ");
+		descriptionLabel = new OutlinedLabel("Description: ");
+		typeLabel = new OutlinedLabel ("Type: ");
+		endTimeLabel = new OutlinedLabel("End Time: ");
+		createButton = new WHButton("Create Event");
 		ImageIcon water = new ImageIcon("back-icon.png");
-		backButton = new JButton(water);
+		backButton = new WHButton(water);
 
 		DefaultComboBoxModel<String> typeName = new DefaultComboBoxModel();
 
@@ -132,6 +136,55 @@ public class NewEventGUI extends JFrame{
 	}
 
 	private void create() {
+		
+		eventNameLabel = new OutlinedLabel("Event Name: ");
+		eventNameLabel.setFont(new Font ("Impact", Font.BOLD, 20));
+		eventNameLabel.setForeground(new Color(255, 204, 0));
+		eventNameLabel.setOutlineColor(Color.black);
+		eventNameLabel.setOpaque(false);
+		
+		dateLabel = new OutlinedLabel("Date: ");
+		dateLabel.setFont(new Font ("Impact", Font.BOLD, 20));
+		dateLabel.setForeground(new Color(255, 204, 0));
+		dateLabel.setOutlineColor(Color.black);
+		dateLabel.setOpaque(false);
+		
+		timeLabel = new OutlinedLabel("Start Time: ");
+		timeLabel.setFont(new Font ("Impact", Font.BOLD, 20));
+		timeLabel.setForeground(new Color(255, 204, 0));
+		timeLabel.setOutlineColor(Color.black);
+		timeLabel.setOpaque(false);
+		
+		hostLabel = new OutlinedLabel("Host: ");
+		hostLabel.setFont(new Font ("Impact", Font.BOLD, 20));
+		hostLabel.setForeground(new Color(255, 204, 0));
+		hostLabel.setOutlineColor(Color.black);
+		hostLabel.setOpaque(false);
+		
+		locationLabel = new OutlinedLabel("Location: ");
+		locationLabel.setFont(new Font ("Impact", Font.BOLD, 20));
+		locationLabel.setForeground(new Color(255, 204, 0));
+		locationLabel.setOutlineColor(Color.black);
+		locationLabel.setOpaque(false);
+		
+		descriptionLabel = new OutlinedLabel("Description: ");
+		descriptionLabel.setFont(new Font ("Impact", Font.BOLD, 20));
+		descriptionLabel.setForeground(new Color(255, 204, 0));
+		descriptionLabel.setOutlineColor(Color.black);
+		descriptionLabel.setOpaque(false);
+		
+		typeLabel = new OutlinedLabel ("Type: ");
+		typeLabel.setFont(new Font ("Impact", Font.BOLD, 20));
+		typeLabel.setForeground(new Color(255, 204, 0));
+		typeLabel.setOutlineColor(Color.black);
+		typeLabel.setOpaque(false);
+		
+		endTimeLabel = new OutlinedLabel("End Time: ");
+		endTimeLabel.setFont(new Font ("Impact", Font.BOLD, 20));
+		endTimeLabel.setForeground(new Color(255, 204, 0));
+		endTimeLabel.setOutlineColor(Color.black);
+		endTimeLabel.setOpaque(false);
+		
 		setLayout(new GridLayout(1, 1));
 		splash.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

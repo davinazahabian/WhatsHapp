@@ -41,7 +41,7 @@ public class MainFeedFrame extends JFrame {
 	public MainFeedFrame()
 	{
 		setTitle("WhatsHapp");
-		setSize(640,480);
+		setSize(900,602);
 		
 //		mfButtons = new JPanel();
 //		mff = new JPanel();
@@ -112,21 +112,41 @@ class SplashFrame2 extends JPanel { //outer class - custom login frame
 	private static final long serialVersionUID = 7141608019316770268L;
 
 	private static final Image mBackgroundImage;
-	private static final String mTitle = "WhatsHapp";
+	private static final String mTitle = "Here's What's Happening!";
 
 	static {
-		mBackgroundImage = ImageLibrary.getImage("img/forest.jpg");
+		mBackgroundImage = ImageLibrary.getImage("img/campus.jpg");
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(mBackgroundImage, 0, 0, getWidth(), getHeight(), null);
-		g.setColor(new Color(255, 255, 255));
 		Font font = new Font("Phosphate", Font.PLAIN, 40);
 		g.setFont(font);
 		FontMetrics metrics = g.getFontMetrics(font);
 		int heightc = metrics.getHeight()/2;
 		int widthc = metrics.stringWidth(mTitle)/2;
-		g.drawString(mTitle, (getWidth()/2) - widthc, (getHeight()/3) - heightc);
+		int x = (getWidth()/2) - widthc;
+		int y = (getHeight()/4) - heightc;
+		g.setColor(new Color(128, 0, 0));
+		g.drawString(mTitle, ShiftWest(x, 1), ShiftNorth(y, 1)-60);
+		g.drawString(mTitle, ShiftWest(x, 1), ShiftSouth(y, 1)-60);
+		g.drawString(mTitle, ShiftEast(x, 1), ShiftNorth(y, 1)-60);
+		g.drawString(mTitle, ShiftEast(x, 1), ShiftSouth(y, 1)-60);
+		g.setColor(new Color(255, 204, 0));
+		g.drawString(mTitle, x, y-60);
+		
+	}
+	int ShiftNorth(int p, int distance) {
+		return (p - distance);
+	}
+	int ShiftSouth(int p, int distance) {
+		return (p + distance);
+	}
+	int ShiftEast(int p, int distance) {
+		return (p + distance);
+	}
+	int ShiftWest(int p, int distance) {
+		return (p - distance);
 	}
 }
