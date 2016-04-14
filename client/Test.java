@@ -24,12 +24,12 @@ import javax.swing.border.Border;
 import Model.Event;
 
 public class Test extends JFrame {
+	private static final long serialVersionUID = 1L;
 	JScrollPane scrollPane;
-	  JPanel contentPane;
-	public Test(){
+	JPanel contentPane;
+	
+	public Test() {
 		this.setLayout(new GridLayout(3, 1));
-        JPanel emptyPanel = new JPanel();
-        JPanel emptyPanel2 = new JPanel();
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         for (int i = 0; i < 100; i++) {
@@ -53,18 +53,15 @@ public class Test extends JFrame {
 	}
 
     public static void main(String[] args) {
-    	Test myTest = new Test();
-        
+    	new Test();
     }
     
     @Override
     public void paintComponents(Graphics g) {
-    	// TODO Auto-generated method stub
     	super.paintComponents(g);
     	scrollPane.setBounds(0,0,getWidth(), getHeight());
-    	 contentPane.setPreferredSize(new Dimension(getWidth(), getHeight()));
-    	 scrollPane.revalidate();
-    	// scroll
+    	contentPane.setPreferredSize(new Dimension(getWidth(), getHeight()));
+    	scrollPane.revalidate();
     }
   
 }
