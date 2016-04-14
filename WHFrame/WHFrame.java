@@ -1,4 +1,5 @@
 package WHFrame;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -26,13 +27,12 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-//import WHFrame.ThemeColors;
 import customui.WHButton;
 import library.ImageLibrary;
 
 public class WHFrame extends JFrame{
 	SplashPanel sf;
-	
+	Font font = new Font("Impact", Font.BOLD, 20);
 	JTextField utf;
 	JPasswordField ptf;
 	WHButton loginButton;
@@ -54,14 +54,21 @@ public class WHFrame extends JFrame{
 		utf = new JTextField(10);
 		ptf = new JPasswordField(10);
 		suQuestion = new JLabel("Don't have an account? Register Now!");
+		suQuestion.setForeground(new Color(255, 255, 255));
+		suQuestion.setFont(font);
 		loginButton =  new WHButton("Login");
+		loginButton.setFont(font);
 		signUpButton = new WHButton("Create an account!");
+		signUpButton.setFont(font);
 		guestButton = new WHButton("Continue in guest mode");
+		guestButton.setFont(font);
 		ul = new JLabel("Username:  ");
-		ul.setForeground(new Color(35, 139, 230)); //change color of text of jlabels
+		ul.setFont(font);
+		ul.setForeground(new Color(255, 255, 255)); //change color of text of jlabels
 		
 		pl = new JLabel("Password:  ");
-		pl.setForeground(new Color(35, 139, 230));
+		pl.setFont(font);
+		pl.setForeground(new Color(255, 255, 255));
 		pl.setSize(getWidth(), getHeight());
 		
 		gbc.gridx = 0;
@@ -124,7 +131,7 @@ public class WHFrame extends JFrame{
 	{
 		WHFrame whf = new WHFrame();
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/pizza_cursor.png") , new Point(0, 0), "img");
 		whf.setCursor(c);
 		
 		try {
