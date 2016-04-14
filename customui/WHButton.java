@@ -1,5 +1,6 @@
 package customui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -24,9 +25,11 @@ public class WHButton extends JButton {
 	}
 
 	{
+		
 		setOpaque(false);
 		setContentAreaFilled(false);
 		setBorderPainted(false);
+		setForeground(Color.WHITE);
 		mCurrentImage = mBackgroundImage;
 		addMouseListener(new MouseAdapter() {
 
@@ -52,6 +55,7 @@ public class WHButton extends JButton {
 	protected void paintComponent(Graphics g) {
 		g.drawImage(mCurrentImage, 0, 0, getWidth(), getHeight(), null);
 		super.paintComponent(g);
+		
 	}
 	
 }
