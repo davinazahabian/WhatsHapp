@@ -47,6 +47,7 @@ public class NewUserGUI extends JFrame{
 	 WHButton backButton;
 	 WHButton signUpButton;
 	 
+	 //TODO ADD BACK BUTTON YO
 	 
 	 public NewUserGUI(){
 		 	setTitle("Sign Up!");
