@@ -1,5 +1,5 @@
-package WHFrame;
 
+package WHFrame;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;

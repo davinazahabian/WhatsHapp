@@ -1,5 +1,5 @@
-package WHFrame;
 
+package WHFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -115,14 +115,14 @@ class SplashFrame2 extends JPanel { //outer class - custom login frame
 	private static final String mTitle = "WhatsHapp";
 
 	static {
-		mBackgroundImage = ImageLibrary.getImage("img/splash.png");
+		mBackgroundImage = ImageLibrary.getImage("img/forest.jpg");
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(mBackgroundImage, 0, 0, getWidth(), getHeight(), null);
-		g.setColor(new Color(35, 139, 230));
-		Font font = g.getFont().deriveFont(40.0f);
+		g.setColor(new Color(255, 255, 255));
+		Font font = new Font("Phosphate", Font.PLAIN, 40);
 		g.setFont(font);
 		FontMetrics metrics = g.getFontMetrics(font);
 		int heightc = metrics.getHeight()/2;

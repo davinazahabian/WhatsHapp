@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import WHFrame.SplashPanel;
 //import WHFrame.ThemeColors;
 import customui.WHButton;
 import library.ImageLibrary;
