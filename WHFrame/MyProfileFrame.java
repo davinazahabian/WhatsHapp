@@ -175,11 +175,10 @@ public class MyProfileFrame extends JFrame{
 //	}
 	
 	public static void main (String [] args) {
-		JFrame f = new JFrame();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(new Dimension(900,602));
 		User u = new User("Ziad", "Azar", "zazar@usc.edu", "zezefresh", "love2code");
-		f.add(new MyProfileFrame(u), BorderLayout.CENTER);
-		f.setVisible(true);
+		MyProfileFrame mpf = new MyProfileFrame(u);
+		mpf.setVisible(true);
+		mpf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 }

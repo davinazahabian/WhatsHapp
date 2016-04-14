@@ -20,7 +20,7 @@ import Model.Event;
 import Model.User;
 import customui.WHButton;
 
-public class EditProfileFrame extends JFrame{
+public class EditProfileFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private User u;
@@ -203,11 +203,10 @@ public class EditProfileFrame extends JFrame{
 //	}
 	
 	public static void main (String [] args) {
-		JFrame f = new JFrame();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(new Dimension(900,602));
 		User u = new User("Ziad", "Azar", "zazar@usc.edu", "zezefresh", "love2code");
-		f.add(new EditProfileFrame(u), BorderLayout.CENTER);
-		f.setVisible(true);
+		EditProfileFrame epf = new EditProfileFrame(u);
+		epf.setVisible(true);
+		epf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 }
