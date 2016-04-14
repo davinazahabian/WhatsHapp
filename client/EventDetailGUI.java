@@ -225,18 +225,9 @@ public class EventDetailGUI extends JFrame {
 //	}
 	
 	public static void main (String [] args) {
-<<<<<<< HEAD
-		JFrame f = new JFrame();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(new Dimension(900,602));
-		Event e = new Event("BaseBall Game", "April 10, 2016", "12:00 p.m.", "4:00 p.m.", "USC Trojans Baseball will be playing against the UCLA Bruins! ", "Dedeaux Field", 1 , "10:00 a.m.", "Davina");
-		f.add(new EventDetailGUI(e), BorderLayout.CENTER);
-		f.setVisible(true);
-=======
 		Event e = new Event("BaseBall Game", "April 10, 2016", "12:00 p.m.", "4:00 p.m.", "USC Trojans Baseball will be playing against the UCLA Bruins! ", "Dedeaux Field", 1 , "10:00 a.m.", "USC Athletics");
 		EventDetailGUI edg = new EventDetailGUI(e);
 		edg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		edg.setVisible(true);
->>>>>>> branch 'master' of https://davinazahabian@bitbucket.org/csci_201/repo.git
 	}
 }
