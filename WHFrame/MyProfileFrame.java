@@ -1,14 +1,9 @@
-package client;
+package WHFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -19,23 +14,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import Model.Event;
+import Model.User;
 import customui.WHButton;
 
-public class EventDetailGUI extends JFrame {
-	
+public class MyProfileFrame extends JFrame{
+
 	private static final long serialVersionUID = 1L;
-	private Event e;
+	private User u;
 	private Color yellowColor;
 	private Color highlightColor;
 	private JPanel mainPanel;
 	
 	private WHButton backButton;
-	private JLabel eventTitle;
+	private JLabel name;
 	private JPanel eventInfoPanel;
-	private JLabel eventDate;
+	private JLabel useremail;
 	private JLabel eventStartTime;
 	private JLabel eventEndTime;
 	private JLabel eventLocation;
@@ -60,10 +55,10 @@ public class EventDetailGUI extends JFrame {
 	private WHButton going;
 	private JTextArea description;
 	
-	public EventDetailGUI(Event e) {
+	public MyProfileFrame(User u) {
 		
 		this.setSize(new Dimension(900,602));
-		this.e = e;
+		this.u = u;
 		
 		instantiateComponents();
 		createGUI();
@@ -81,15 +76,15 @@ public class EventDetailGUI extends JFrame {
 		backButton = new WHButton("< Back");
 		eventInfoPanel = new JPanel();
 		eventInfoPanel.setLayout(new BoxLayout(eventInfoPanel, BoxLayout.Y_AXIS));
-		eventTitle = new JLabel(e.getEventName());
-		eventDate = new JLabel("Date: " + e.getEventDate());
+		name = new JLabel(u.fname() + " " + u.lname());
+		useremail = new JLabel("Email: " + u.email());
 		eventStartTime = new JLabel("Starts: " + e.getEventStartTime());
 		eventEndTime = new JLabel("Ends: " + e.getEventEndTime());
 		eventLocation = new JLabel("Location: " + e.getEventLoc());
 		eventDetail = new JLabel("About: " + e.getEventDesc());
 		
-		eventTitle.setFont(new Font ("Impact", Font.PLAIN, 25));
-		eventDate.setFont(new Font ("Impact", Font.PLAIN, 25));
+		username.setFont(new Font ("Impact", Font.PLAIN, 25));
+		useremail.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventStartTime.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventEndTime.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventLocation.setFont(new Font ("Impact", Font.PLAIN, 25));
@@ -228,8 +223,8 @@ public class EventDetailGUI extends JFrame {
 		JFrame f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(new Dimension(900,602));
-		Event e = new Event("BaseBall Game", "April 10, 2016", "12:00 p.m.", "4:00 p.m.", "USC Trojans Baseball will be playing against the UCLA Bruins! ", "Dedeaux Field", 1 , "10:00 a.m.", "USC Athletics");
-		f.add(new EventDetailGUI(e), BorderLayout.CENTER);
+		User u = new User("Ziad", "Azar", "zazar@usc.edu", "zezefresh", "love2code");
+		f.add(new MyProfileFrame(u), BorderLayout.CENTER);
 		f.setVisible(true);
 	}
 }
