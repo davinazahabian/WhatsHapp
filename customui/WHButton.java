@@ -19,8 +19,8 @@ public class WHButton extends JButton {
 	private static final Image mBackgroundImageSelected;
 	
 	static {
-		mBackgroundImage = ImageLibrary.getImage("img/button.png");
-		mBackgroundImageSelected = ImageLibrary.getImage("img/button_selected.png");
+		mBackgroundImage = ImageLibrary.getImage("img/new_button.png");
+		mBackgroundImageSelected = ImageLibrary.getImage("img/new_button_selected.png");
 	}
 
 	{
