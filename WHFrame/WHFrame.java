@@ -136,7 +136,7 @@ public class WHFrame extends JFrame{
 	
 	public static void main(String [] args)
 	{
-		WHFrame whf = new WHFrame();
+		WHFrame whf = new WHFrame();//random comment to make commit
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
 		whf.setCursor(c);
