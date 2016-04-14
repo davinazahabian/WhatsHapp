@@ -111,7 +111,7 @@ public class EventPanelGUI extends JPanel {
 		JFrame frame = new JFrame();
 		frame.setSize(320, 240);
 		Event temp = new Event("event name", "event date", "event start time", "event end time", "event description", "event location",
-				  3, "time posted");
+				  3, "time posted", "event host");
 		frame.add(new EventPanelGUI(temp));
 		frame.setVisible(true);
 	}

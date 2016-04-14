@@ -38,6 +38,7 @@ public class MySQLDriver {
 	private final static String selectEvent = "SELECT * FROM EVENTS WHERE STARTTIME=? AND EVENTLOCATION=?";
 	private final static String selectEventName = "SELECT * FROM EVENTS WHERE EVENTNAME=?";
 	private final static String insertEvent = "INSERT INTO EVENTS(EVENT_NAME,EVENT_HOST,EVENT_CATEGORY,STARTTIME,ENDTIME,TIMEPOSTED,EVENT_DESCRIPTION,EVENT_DATE,EVENT_LOCATION) VALUES(?,?,?,?,?,?,?,?,?)";
+	private final static String insertEventMessage = "UPDATE EVENTS SET MESSAGEBOARD=? WHERE EVENT_NAME=?";
 	private final static String insertSportsEvent = "INSERT INTO SPORTSEVENT(ID,NAME,HOST,DATE,TIME,DESCRIPTION,LOCATION,ATTENDEES,MESSAGEBOARD) VALUES(?,?,?,?,?,?,?,?,?)";
 	private final static String insertClubEvent = "INSERT INTO CLUBEVENT(ID,NAME,HOST,DATE,TIME,DESCRIPTION,LOCATION,ATTENDEES,MESSAGEBOARD) VALUES(?,?,?,?,?,?,?,?,?)";
 	private final static String insertCulturalEvent = "INSERT INTO CULTURALEVENT(ID,NAME,HOST,DATE,TIME,DESCRIPTION,LOCATION,ATTENDEES,MESSAGEBOARD) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -329,15 +330,15 @@ public class MySQLDriver {
 	
 	// for now, look up by event name and post it on that event's message board
 	// edge case: what if two events of the same name? should we keep track of eventID?
-	public boolean postMessage(Event e, Message m) {
+	public boolean postMessage(Event event, Message m) {
 		PreparedStatement ps;
 		try {
-			// SELECT * FROM EVENTS WHERE EVENTNAME=?
-			ps = con.prepareStatement(selectEventName);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				
-			}
+			// UPDATE EVENTS SET MESSAGEBOARD=? WHERE EVENT_NAME=?
+			ps = con.prepareStatement(insertEventMessage);
+			ps.setString(1, event.getMessageBoard());
+			ps.setString(2, event.getEventName());
+			ps.executeUpdate();
+			return true;
 		} catch (SQLException e) { e.printStackTrace(); return false;}
 	}
 	

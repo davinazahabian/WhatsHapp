@@ -31,7 +31,8 @@ public class InfoPackage implements Serializable {
 	private boolean isGettingClub = false;
 	// post message to a message board
 	private boolean isPostingMessage = false;
-
+	private String userName;
+	private String passWord;
 	public InfoPackage() {}
 
 	public String getUsername() {
@@ -160,6 +161,22 @@ public class InfoPackage implements Serializable {
 
 	public void setMessage(Message message) {
 		this.message = message;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 	
 	

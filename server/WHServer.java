@@ -9,20 +9,23 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import Model.Event;
+import Model.InfoPackage;
+import Model.Message;
 import Model.User;
 
 public class WHServer extends Thread {
 	
 	private Vector<WHServerThread> serverThreads;
 	private ServerSocket ss = null;
-	private static Vector<Event> allEvents;
+//	private static Vector<Event> allEvents;
 	private ArrayList<Socket> sockets;
 	private int port = 6789;
 	MySQLDriver driver;
 	
 	public WHServer() throws IOException {
-		driver = new MySQLDriver();
+		//driver = new MySQLDriver();
 		serverThreads = new Vector<WHServerThread>();
+		sockets = new ArrayList<>();
 		this.start();
 	}
 	
@@ -36,6 +39,9 @@ public class WHServer extends Thread {
 				// once connection made with client, create a new thread to start accepting and sending connections from client
 				WHServerThread wst = new WHServerThread(s, this);
 				serverThreads.add(wst);
+				InfoPackage ip = new InfoPackage();
+				ip.setGuest(true);
+				wst.sendToClient(ip);
 				wst.start();
 				sockets.add(s);
 			}
@@ -84,16 +90,13 @@ public class WHServer extends Thread {
 		return driver.retrieveClubEvents();
 	}
 	
-	public void sendMessageAttempt(Event e, Message m) {
-		return driver.addMessage();
+	public boolean sendMessageAttempt(Event e, Message m) {
+		return driver.postMessage(e, m);
 	}
 	
 	public static void main (String[] args){
 		try {
 			new WHServer();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (IOException e) { e.printStackTrace(); }
 	}
 }

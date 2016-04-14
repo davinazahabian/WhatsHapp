@@ -34,6 +34,7 @@ public class WHClient extends Thread {
 	private int port = 6789;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
+	// instance of current user, for populating the about me page
 	private User currentUser = null;
 	
 	public WHClient() {		
@@ -51,7 +52,7 @@ public class WHClient extends Thread {
 				}
 				 
 			} catch (IOException ioe) {
-				System.out.println("ioe: " + ioe.getMessage());
+				ioe.printStackTrace();
 			}
 		}
 	}
@@ -80,11 +81,10 @@ public class WHClient extends Thread {
 					if (p.isGuest()) {
 						//TODO: create eventpanelguis using event vector and populate eventfeedgui
 					
-					
 					// login attempt returned
 					} else if (p.isLogin()) {
 						if (p.getUser() == null) {
-							System.out.println("Username or password invalid. Please try again.");
+							// TODO: system dialog letting the user know that username/password does not exist
 						} else {
 							isRegistered = true;
 							currentUser = p.getUser();
@@ -125,7 +125,17 @@ public class WHClient extends Thread {
 						// TODO: use for showing cultural events only, p.getEvents()
 					} else if (p.isGettingClub()) {
 						// TODO: use for showing club events only, p.getEvents()
+					
+					// message send request returned
+					} else if (p.isPostingMessage()) {
+						if (p.isValid()) {
+							// TODO: update messageBoard of current eventdetailgui in real time,
+							// (event has new message stored already in memory)							
+						} else {
+							// TODO: display system dialog to user saying, "Message failed to post."
+						}
 					}
+					
 					
 				}
 			} catch (ClassNotFoundException e) {
@@ -144,7 +154,7 @@ public class WHClient extends Thread {
 			oos.writeObject(p);
 			oos.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
 	}
 	
@@ -157,7 +167,7 @@ public class WHClient extends Thread {
 			oos.writeObject(p);
 			oos.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
 	}
 	
@@ -171,7 +181,7 @@ public class WHClient extends Thread {
 			oos.writeObject(p);
 			oos.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
 	}
 	
@@ -185,7 +195,7 @@ public class WHClient extends Thread {
 			oos.writeObject(p);
 			oos.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
 	}
 	
@@ -200,7 +210,7 @@ public class WHClient extends Thread {
 			oos.writeObject(p);
 			oos.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
 	}
 	
@@ -211,7 +221,7 @@ public class WHClient extends Thread {
 			oos.writeObject(p);
 			oos.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
 	}
 	
@@ -222,7 +232,7 @@ public class WHClient extends Thread {
 			oos.writeObject(p);
 			oos.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
 	}
 	
@@ -233,15 +243,14 @@ public class WHClient extends Thread {
 			oos.writeObject(p);
 			oos.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
 	}
 	
 	// action listener on "Send Message" button on eventdetailgui activates this
-	// may or may not need Event argument?
 	public void sendMessage(Event e, Message m) {
 		InfoPackage p = new InfoPackage();
-		// change Event's message board, then send to driver to be updated.
+		// change Event's messageBoard, then send to driver to update database.
 		e.addMessage(m);
 		p.setEvent(e);
 		p.setMessage(m);
@@ -250,8 +259,22 @@ public class WHClient extends Thread {
 			oos.writeObject(p);
 			oos.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
+	}
+	
+	// action listener on thumbs up button on eventpanelGUI activates this
+	public void incrementUpvote(Event e) {
+		
+	}
+	
+	// action listener on "Going" button on eventdetailGUI activates this
+	public void addAttendee(Event e) {
+		
+	}
+	
+	public static void main(String [] args) {
+		WHClient c = new WHClient();
 	}
 		
 		

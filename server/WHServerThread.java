@@ -19,8 +19,8 @@ public class WHServerThread extends Thread {
 		this.s = s;
 		this.whs = whs;
 		try {
-			oos = new ObjectOutputStream(s.getOutputStream());
-			ois = new ObjectInputStream(s.getInputStream());
+			oos = new ObjectOutputStream(this.s.getOutputStream());
+			ois = new ObjectInputStream(this.s.getInputStream());
 		} catch (IOException e) { e.printStackTrace(); }
 	}
     
@@ -66,7 +66,7 @@ public class WHServerThread extends Thread {
 					p.setValid(true);
 				// post message attempt
 				} else if (p.isPostingMessage()) {
-					
+					p.setValid(whs.sendMessageAttempt(p.getEvent(), p.getMessage()));
 				}
 				
 				
