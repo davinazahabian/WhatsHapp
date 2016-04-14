@@ -29,14 +29,14 @@ public class WHButton extends JButton {
 		setBorderPainted(false);
 		mCurrentImage = mBackgroundImage;
 		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
+
+			public void mousePressed(MouseEvent arg0){
 				mCurrentImage = mBackgroundImageSelected;
 			}
-			@Override
-			public void mouseExited(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0){
 				mCurrentImage = mBackgroundImage;
 			}
+
 		});
 	}
 	
