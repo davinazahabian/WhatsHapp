@@ -120,6 +120,12 @@ public class NewUserGUI extends JFrame{
 		setLayout(new GridLayout(1, 1));
 		splash.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+		
+		//c.anchor = GridBagConstraints.FIRST_LINE_START;
+		splash.add(backButton);
+		c.gridy = 0;
+		splash.add(backButton, c);
+		
 		c.insets = new Insets(5,5,5,5);
 		splash.add(firstNameLabel,c);
 		splash.add(firstNameField,c);
@@ -150,6 +156,8 @@ public class NewUserGUI extends JFrame{
 		c.gridwidth = 7;
 		splash.add(signUpButton,c);
 		
+		c.insets = new Insets(5,0,5,0);
+		
 //		c.anchor = GridBagConstraints.FIRST_LINE_START;
 //		
 //		JPanel panel = new JPanel();
@@ -158,6 +166,10 @@ public class NewUserGUI extends JFrame{
 //		panel.splash.add(backButton);
 //		panel.setSize(new Dimension(50, 50));
 //		splash.add(panel);
+		
+		
+				
+		
 		add(splash);
 	}
 
