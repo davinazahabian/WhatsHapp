@@ -26,18 +26,17 @@ import Model.Event;
 public class Test extends JFrame {
 	JScrollPane scrollPane;
 	  JPanel contentPane;
-	  JPanel panel;
 	public Test(){
 		this.setLayout(new GridLayout(3, 1));
         JPanel emptyPanel = new JPanel();
         JPanel emptyPanel2 = new JPanel();
-         panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         for (int i = 0; i < 100; i++) {
-        	Event event = new Event("World Cup", "March 45th", "25:00", "27:00", "It is the world cup", "USA", 0, "hosr", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()));
+        	Event event = new Event("World Cup", "March 45th", "25:00", "27:00", "It is the world cup", "USA", 0, new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()), "test");
         	EventPanelGUI epg = new EventPanelGUI(event);
         	epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        	panel.add(epg,0);
+        	panel.add(epg);
         }
         scrollPane = new JScrollPane(panel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -52,20 +51,10 @@ public class Test extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
 	}
-	
-	public void addNewPanel(){
-		Event event = new Event("World Cup", "March 45th", "25:00", "27:00", "It is the world cup", "USA", 0, "hosr", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()));
-    	EventPanelGUI epg = new EventPanelGUI(event);
-    	epg.setBorder(BorderFactory.createLineBorder(Color.RED));
-    	panel.add(epg, 0);
-	}
 
-    public static void main(String... args) {
-    
-       Test test = new Test();
-       for (int i = 0; i < 10; i++) {
-		test.addNewPanel();
-	}
+    public static void main(String[] args) {
+    	Test myTest = new Test();
+        
     }
     
     @Override
