@@ -27,21 +27,21 @@ import library.ImageLibrary;
 // individual panels of events on the eventfeedgui
 public class EventPanelGUI extends JPanel {
 	private UpVoteButton upArrowButton;
-	private JTextField upVoteCounter;
+	private JLabel upVoteCounter;
 	private JPanel leftContainer;
-	
-	private JTextField titleHolder;
-	private JTextField numAttendingHolder;
-	private JTextField locationHolder;
+	private JPanel buttonHolder;
+	private JLabel titleHolder;
+	private JLabel numAttendingHolder;
+	private JLabel locationHolder;
 	private JPanel rightContainer;
 	
-	private Event currEvent;
+	private Event e;
 	private int eventCategory;
 	
 	
-	EventPanelGUI(Event sample){
-		this.currEvent = sample;
-		setSize(640,480);
+	EventPanelGUI(Event e){
+		this.e = e;
+		setSize(100,100);
 		setLayout(new BorderLayout());
 		initializeVariables();
 		createGUI();
@@ -53,35 +53,61 @@ public class EventPanelGUI extends JPanel {
 	}// TODO
 	
 	private void initializeVariables() {
-		upArrowButton = new UpVoteButton();
-		upVoteCounter = new JTextField();
-		upVoteCounter.setText("100");
-		leftContainer = new JPanel();
+		System.out.println("break 1");
 		
-		titleHolder = new JTextField();
-		titleHolder.setText("New Event");
-		numAttendingHolder = new JTextField();
-		numAttendingHolder.setText("Num Attending Event");
-		locationHolder = new JTextField();
-		locationHolder.setText("Location of Event");
+		upArrowButton = new UpVoteButton();
+		upVoteCounter = new JLabel();
+		upVoteCounter.setText("" + e.getUpvotes());
+		upVoteCounter.setFont(new Font ("Impact", Font.PLAIN, 25));
+		leftContainer = new JPanel();
+		System.out.println("break 2");
+		titleHolder = new JLabel();
+		titleHolder.setText(e.getEventName());
+		titleHolder.setFont(new Font ("Impact", Font.PLAIN, 22));
+		
+		System.out.println("break 3");
+		
+		numAttendingHolder = new JLabel();
+		numAttendingHolder.setText( e.getAttendees() + " attending");
+		numAttendingHolder.setFont(new Font ("Impact", Font.PLAIN, 18));
+		
+		System.out.println("break 4");
+		
+		locationHolder = new JLabel();
+		locationHolder.setText("at " + e.getEventLoc());
+		locationHolder.setFont(new Font ("Impact", Font.PLAIN, 18));
+		System.out.println("break 5");
 		rightContainer = new JPanel();
+		System.out.println("break 6");
 	}
 	
 	private void createGUI(){
+		System.out.println("break 6.5");
+		
 		leftContainer.setLayout(new BorderLayout());
+		System.out.println("break 6.6");
 		leftContainer.add(upVoteCounter, BorderLayout.WEST);
+		System.out.println("break 6.7");
+		
+		System.out.println("break 6.8");
 		leftContainer.add(upArrowButton, BorderLayout.EAST);
+		System.out.println("break 7");
 		
 		rightContainer.setLayout(new GridLayout(3,0));
 		rightContainer.add(titleHolder);
-		rightContainer.add(numAttendingHolder);
 		rightContainer.add(locationHolder);
+		rightContainer.add(numAttendingHolder);
 		
-	
+		
+		System.out.println("break 8");
 		add(leftContainer, BorderLayout.WEST);
 		add(rightContainer, BorderLayout.EAST);
 		
-		this.setBackgroundColor(this.currEvent.getType(), leftContainer, rightContainer);
+		System.out.println("break 9");
+		
+		this.setBackgroundColor(this.e.getType(), leftContainer, rightContainer);
+		
+		System.out.println("break 10");
 	}
 	
 	private void setBackgroundColor(int category, JPanel left, JPanel right){

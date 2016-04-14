@@ -18,8 +18,8 @@ public class UpVoteButton extends JButton {
 	private static final Image mBackgroundImageSelected;
 	
 	static {
-		mBackgroundImage = ImageLibrary.getImage("img/up-selected.jpeg");
-		mBackgroundImageSelected = ImageLibrary.getImage("img/up-unselected.png");
+		mBackgroundImage = ImageLibrary.getImage("img/thumb_button.png");
+		mBackgroundImageSelected = ImageLibrary.getImage("img/thumb_button_selected.png");
 	}
 
 	{
@@ -28,20 +28,30 @@ public class UpVoteButton extends JButton {
 		setBorderPainted(false);
 		mCurrentImage = mBackgroundImage;
 		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
+
+			public void mousePressed(MouseEvent arg0){
 				mCurrentImage = mBackgroundImageSelected;
-				revalidate();
-				repaint();
 			}
-			@Override
-			public void mouseExited(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0){
 				mCurrentImage = mBackgroundImage;
-				revalidate();
-				repaint();
 			}
-		
+
 		});
+//		addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseEntered(MouseEvent arg0) {
+//				mCurrentImage = mBackgroundImageSelected;
+//				revalidate();
+//				repaint();
+//			}
+//			@Override
+//			public void mouseExited(MouseEvent arg0) {
+//				mCurrentImage = mBackgroundImage;
+//				revalidate();
+//				repaint();
+//			}
+//		
+//		});
 	}
 	
 	public UpVoteButton() {
