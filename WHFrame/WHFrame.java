@@ -1,5 +1,5 @@
 package WHFrame;
-
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -26,21 +26,24 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.LineBorder;
 
+import WHFrame.SplashPanel;
+import customui.OutlinedLabel;
+//import WHFrame.ThemeColors;
 import customui.WHButton;
 import library.ImageLibrary;
 
 public class WHFrame extends JFrame{
 	SplashPanel sf;
-	Font font = new Font("Impact", Font.BOLD, 20);
 	JTextField utf;
 	JPasswordField ptf;
 	WHButton loginButton;
 	WHButton signUpButton;
 	WHButton guestButton;
-	JLabel suQuestion; //suQuestion
-	JLabel ul;
-	JLabel pl;
+	OutlinedLabel suQuestion; //suQuestion
+	OutlinedLabel ul;
+	OutlinedLabel pl;
 	
 	public WHFrame()
 	{
@@ -53,23 +56,27 @@ public class WHFrame extends JFrame{
 		
 		utf = new JTextField(10);
 		ptf = new JPasswordField(10);
-		suQuestion = new JLabel("Don't have an account? Register Now!");
-		suQuestion.setForeground(new Color(255, 255, 255));
-		suQuestion.setFont(font);
-		loginButton =  new WHButton("Login");
-		loginButton.setFont(font);
-		signUpButton = new WHButton("Create an account!");
-		signUpButton.setFont(font);
-		guestButton = new WHButton("Continue in guest mode");
-		guestButton.setFont(font);
-		ul = new JLabel("Username:  ");
-		ul.setFont(font);
-		ul.setForeground(new Color(255, 255, 255)); //change color of text of jlabels
+		suQuestion = new OutlinedLabel("Don't have an account? Register Now!");
+		suQuestion.setFont(new Font ("Impact", Font.BOLD, 15));
+		suQuestion.setForeground(new Color(255, 204, 0));
+		suQuestion.setOutlineColor(Color.black);
+		suQuestion.setOpaque(false);
 		
-		pl = new JLabel("Password:  ");
-		pl.setFont(font);
-		pl.setForeground(new Color(255, 255, 255));
-		pl.setSize(getWidth(), getHeight());
+		
+		loginButton =  new WHButton("Login");
+		signUpButton = new WHButton("Create an account!");
+		guestButton = new WHButton("Continue in guest mode");
+		ul = new OutlinedLabel("Username:  ");
+		ul.setFont(new Font ("Impact", Font.BOLD, 15));
+		ul.setForeground(new Color(255, 204, 0));
+		ul.setOutlineColor(Color.black);
+		ul.setOpaque(false);
+		
+		pl = new OutlinedLabel("Password:  ");
+		pl.setFont(new Font ("Impact", Font.BOLD, 15));
+		pl.setForeground(new Color(255, 204, 0));
+		pl.setOutlineColor(Color.black);
+		pl.setOpaque(false);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -131,8 +138,10 @@ public class WHFrame extends JFrame{
 	{
 		WHFrame whf = new WHFrame();
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/pizza_cursor.png") , new Point(0, 0), "img");
+		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
 		whf.setCursor(c);
+		whf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
