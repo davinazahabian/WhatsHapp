@@ -38,7 +38,7 @@ public class MainFeedFrame extends JFrame {
 //	JPanel mff;
 	//create an event which will make a jpanel and store with correct info
 	
-	MainFeedFrame()
+	public MainFeedFrame()
 	{
 		setTitle("WhatsHapp");
 		setSize(640,480);

@@ -24,7 +24,7 @@ public class Event implements Comparator<Event>, Comparable<Event> {
 	private String messageBoard;
 	private String eventHost;
 	// formatted String of attendees for database/listing on the eventdetailGUI
-	private String attendeeList;
+	private Vector<String> attendeeList;
 
 	public Event(String eventName, String eventDate, String eventStartTime,String eventEndTime, String eventDesc, String eventLoc,
 			 int type, String timePosted, String eventHost) {
@@ -152,14 +152,17 @@ public class Event implements Comparator<Event>, Comparable<Event> {
 		this.eventHost = eventHost;
 	}
 	public String getAttendeeList() {
-		return attendeeList;
+		String attendeeString = null;
+		for (String s : this.attendeeList) {
+			attendeeString = attendeeString + s + "\n";
+		}
+		return attendeeString;
 	}
-	public void setAttendeeList(String attendeeList) {
+	public void setAttendeeList(Vector<String> attendeeList) {
 		this.attendeeList = attendeeList;
 	}
-	// add attendee to formatted string of attendees & add 1 to number of attendees
 	public void addAttendee(String username) {
-		this.attendeeList = this.attendeeList + "\n" + username;
+		this.attendeeList.add(username);
 		this.attendees = this.attendees+1;
 	}
 

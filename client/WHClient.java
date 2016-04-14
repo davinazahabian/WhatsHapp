@@ -15,6 +15,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+import java.util.Vector;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -23,19 +24,38 @@ import Model.Event;
 import Model.InfoPackage;
 import Model.Message;
 import Model.User;
+import WHFrame.MainFeedFrame;
 import WHFrame.SplashPanel;
 import WHFrame.WHFrame;
 
 
 public class WHClient extends Thread {
-	// tells us whether current session is guest user or registered
-	private boolean isRegistered = false;
+	// networking
 	protected Socket s;
 	private int port = 6789;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
+	
+	// data
 	// instance of current user, for populating the about me page
 	private User currentUser = null;
+	// tells us whether current session is guest user or registered
+	private boolean isRegistered = false;
+	// set of events sorted by default (time posted) and by trending (upvotes)
+	private Vector<Event> allEventsDefault= new Vector<Event>();
+	private Vector<Event> allEventsTrending= new Vector<Event>();
+	
+	// should we have vector<event> ready for all categories?
+	private Vector<Event> sports= new Vector<Event>();
+	private Vector<Event> career= new Vector<Event>();
+	private Vector<Event> cultural= new Vector<Event>();
+	private Vector<Event> club= new Vector<Event>();
+
+
+	// GUI
+	private MainFeedFrame mff = new MainFeedFrame();
+	private EventDetailGUI edg;
+
 	
 	public WHClient() {		
 		try {
@@ -59,6 +79,7 @@ public class WHClient extends Thread {
 	
 	public void run() {
 		while(true) {
+			
 			// if closed, reestablish connection
 			if(s.isClosed()) {
 				try {
@@ -71,6 +92,7 @@ public class WHClient extends Thread {
 					e.printStackTrace();
 				}
 			}
+			
 			// otherwise, get ready to accept packages from server
 			InfoPackage p = null;
 			try {
@@ -79,7 +101,11 @@ public class WHClient extends Thread {
 					
 					// guest attempt returned
 					if (p.isGuest()) {
-						//TODO: create eventpanelguis using event vector and populate eventfeedgui
+						this.allEventsDefault = p.getEvents();
+						// TODO: sort events by trending and insert into allEventsTrending
+						for (Event e : allEventsDefault) {
+							//TODO: create eventpanelguis and populate eventfeedgui
+						}
 					
 					// login attempt returned
 					} else if (p.isLogin()) {
@@ -88,9 +114,12 @@ public class WHClient extends Thread {
 						} else {
 							isRegistered = true;
 							currentUser = p.getUser();
-							//TODO: create eventpanelguis using event vector and populate eventfeedgui
-							// create aboutme page
-							// enable all features for the user
+							this.allEventsDefault = p.getEvents();
+							// TODO: sort events by trending and insert into allEventsTrending
+							for (Event e : allEventsDefault) {
+								//TODO: create eventpanelguis and populate eventfeedgui
+							}
+							// TODO: create AboutMeFrame and store as data member
 						}
 						
 					
@@ -99,17 +128,29 @@ public class WHClient extends Thread {
 						if (p.isValid()) {
 							isRegistered = true;
 							currentUser = p.getUser();
-							//TODO: create eventpanelguis using event vector and populate eventfeedgui
-							// create aboutme page, other personalization
-							// enable all features for the user
+							this.allEventsDefault = p.getEvents();
+							// TODO: sort events by trending and insert into allEventsTrending
+							for (Event e : allEventsDefault) {
+								//TODO: create eventpanelguis and populate eventfeedgui
+							}
+							// TODO: create AboutMeFrame and store as data member
 						} else {
 							// TODO: notify user that signup was invalid (username already taken)
-							// please try again, or continue as guest
+							// "please try again, or continue as guest"
 						}
 						
 					// new event submission attempt returned
 					} else if (p.isNewEvent()) {
 						if (p.isValid()) {
+							// note: adding the event depends how we are creating the eventpanels
+							// we want the most recent event to be at the top, so:
+							// insert at index 0, create and place panels from 0...size-1
+							this.allEventsDefault.insertElementAt(p.getEvent(), 0);
+							// TODO: sort events by trending and insert into allEventsTrending
+//							for (Event e : allEventsDefault or allEventsTrending ) {
+//								//TODO: recreate eventpanelguis and re-populate eventfeedgui
+//								// check which sorting rule is in use when creating panels
+//							}
 							// TODO: display message to user saying, "Your event was submitted!"
 						} else {
 							// TODO: display warning message to user saying,
@@ -118,19 +159,31 @@ public class WHClient extends Thread {
 						
 					// category of events returned
 					} else if (p.isGettingSports()) {
-						// TODO: use for showing sports events only, p.getEvents()
+						this.sports = p.getEvents();
+						for (Event e : sports) {
+							//TODO: create eventpanelguis and re-populate eventfeedgui
+						}
 					} else if (p.isGettingCareer()) {
-						// TODO: use for showing career events only, p.getEvents()
+						this.career = p.getEvents();
+						for (Event e : career) {
+							//TODO: create eventpanelguis and re-populate eventfeedgui
+						}
 					} else if (p.isGettingCultural()) {
-						// TODO: use for showing cultural events only, p.getEvents()
+						this.cultural = p.getEvents();
+						for (Event e : cultural) {
+							//TODO: create eventpanelguis and re-populate eventfeedgui
+						}
 					} else if (p.isGettingClub()) {
-						// TODO: use for showing club events only, p.getEvents()
-					
+						this.club = p.getEvents();
+						for (Event e : club) {
+							//TODO: create eventpanelguis and re-populate eventfeedgui
+						}
+
 					// message send request returned
 					} else if (p.isPostingMessage()) {
 						if (p.isValid()) {
 							// TODO: update messageBoard of current eventdetailgui in real time,
-							// (event has new message stored already in memory)							
+							// (event has new message stored already in memory, just need to update textarea)							
 						} else {
 							// TODO: display system dialog to user saying, "Message failed to post."
 						}
@@ -138,8 +191,8 @@ public class WHClient extends Thread {
 					// add attendee request returned
 					} else if (p.isAddingAttendee()) {
 						if (p.isValid()) {
-							// TODO: update event in memory with newly changed event
-							// make sure attendee count/attendee list are updated in the GUIs
+							// TODO: make sure attendee count/attendee list are updated in the GUIs
+							// (event has it stored already in memory, just need to update GUIs)							
 						} else {
 							// TODO: display system dialog to user saying, "Cannot fulfill request at this time."
 						}
@@ -290,6 +343,7 @@ public class WHClient extends Thread {
 	// e = event being attended, u = user attending the event
 	public void addAttendee(Event e, User u) {
 		InfoPackage p = new InfoPackage();
+		// update attendee count and attendee list of event
 		e.addAttendee(u.username());
 		p.setUser(u);
 		p.setEvent(e);

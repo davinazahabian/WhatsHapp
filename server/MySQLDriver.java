@@ -36,13 +36,14 @@ public class MySQLDriver {
 	private final static String selectEventName = "SELECT * FROM EVENTS WHERE EVENTNAME=?";
 	private final static String insertEvent = "INSERT INTO EVENTS(EVENT_NAME,EVENT_HOST,EVENT_CATEGORY,STARTTIME,ENDTIME,TIMEPOSTED,EVENT_DESCRIPTION,EVENT_DATE,EVENT_LOCATION) VALUES(?,?,?,?,?,?,?,?,?)";
 	private final static String insertEventMessage = "UPDATE EVENTS SET MESSAGEBOARD=? WHERE EVENT_NAME=?";
-	private final static String insertSportsEvent = "INSERT INTO SPORTSEVENT(ID,NAME,HOST,DATE,TIME,DESCRIPTION,LOCATION,ATTENDEES,MESSAGEBOARD) VALUES(?,?,?,?,?,?,?,?,?)";
-	private final static String insertClubEvent = "INSERT INTO CLUBEVENT(ID,NAME,HOST,DATE,TIME,DESCRIPTION,LOCATION,ATTENDEES,MESSAGEBOARD) VALUES(?,?,?,?,?,?,?,?,?)";
-	private final static String insertCulturalEvent = "INSERT INTO CULTURALEVENT(ID,NAME,HOST,DATE,TIME,DESCRIPTION,LOCATION,ATTENDEES,MESSAGEBOARD) VALUES(?,?,?,?,?,?,?,?,?)";
-	private final static String insertCareerEvent = "INSERT INTO CAREEREVENT(EVENTID,EVENT_NAME,EVENT_HOST,EVENT_DATE,EVENT_TIME,EVENT_DESCRIPTION,EVENT_LOCATION,EMPLO";
+	private final static String insertSportsEvent = "INSERT INTO SPORTSEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)";
+	private final static String insertClubEvent = "INSERT INTO CLUBEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)";
+	private final static String insertCulturalEvent = "INSERT INTO CULTURALEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)";
+	private final static String insertCareerEvent = "INSERT INTO CAREEREVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)";
 	private final static String addAttendee = "INSERT INTO ATTEND(ATTENDEE_COUNT,USERNAME,EVENTID) VALUES(?,?,?)";
 	private final static String upvoteEvent = "UPDATE EVENTS SET NUM_UPVOTES=? WHERE EVENT_NAME=?";
 	private final static String updateAttendees = "UPDATE EVENTS SET MYATTENDEES=? WHERE EVENT_NAME=?";
+	
 	public MySQLDriver() {
 		try { new Driver(); }
 		catch(SQLException sqe){ sqe.printStackTrace(); }
@@ -172,6 +173,7 @@ public class MySQLDriver {
 	}
 	
 	// returns true if event submission successful, false if event exists/submission unsuccessful
+	// inserts into events table and corresponding category table
 	public boolean newEventEntry(Event event) {
 		try {
 			if (eventExists(event)) {
@@ -190,6 +192,32 @@ public class MySQLDriver {
 			ps.setString(8, event.getEventDate());
 			ps.setString(9, event.getEventLoc());
 			ps.executeUpdate();
+			
+			int type = event.getType();
+			PreparedStatement ps1;
+			// INSERT INTO SPORTSEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)
+			if (type == 0) {
+				ps1 = con.prepareStatement(insertSportsEvent);
+			// INSERT INTO CAREEREVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)
+			} else if (type == 1) {
+				ps1 = con.prepareStatement(insertCareerEvent);	
+			// INSERT INTO CULTURALEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)
+			} else if (type == 2) {
+				ps1 = con.prepareStatement(insertCulturalEvent);
+			// INSERT INTO CLUBEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)
+			} else {
+				ps1 = con.prepareStatement(insertClubEvent);
+			}
+			ps1.setString(1, event.getEventName());
+			ps1.setString(2, event.getEventHost());
+			ps1.setInt(3, event.getType());
+			ps1.setString(4, event.getEventStartTime());
+			ps1.setString(5, event.getEventEndTime());
+			ps1.setString(6, event.getTimePosted());
+			ps1.setString(7, event.getEventDesc());
+			ps1.setString(8, event.getEventDate());
+			ps1.setString(9, event.getEventLoc());
+			ps1.executeUpdate();
 			return true;
 		} catch(SQLException e){
 			e.printStackTrace();
@@ -218,11 +246,21 @@ public class MySQLDriver {
 				int upvotes = rs.getInt(10);
 				String attendees = rs.getString(11);				
 				String messageBoard = rs.getString(12);
+				// create new event
 				Event e = new Event(name,date,startTime,endTime,description,location,0,timePosted,host);
+				// set upvotes
 				e.setUpvotes(upvotes);
-				/* TODO: parse attendees to get attendee count, set attendee count of this event */
-				// maybe just store attendee count in database?
+				// parse attendees, put into vector, add attendee list and attendee count to event
+				String [] attendeeArray = attendees.split("\\s+");
+				Vector<String> attendeeVector = new Vector<String>();
+				for (String s : attendeeArray) {
+					attendeeVector.add(s);
+				}
+				e.setAttendeeList(attendeeVector);
+				e.setAttendees(attendeeVector.size());
+				// set message board
 				e.setMessageBoard(messageBoard);
+				// add to events vector
 				events.add(e);
 			}
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -249,11 +287,21 @@ public class MySQLDriver {
 				int upvotes = rs.getInt(10);
 				String attendees = rs.getString(11);				
 				String messageBoard = rs.getString(12);
+				// create new event
 				Event e = new Event(name,date,startTime,endTime,description,location,1,timePosted,host);
+				// set upvotes
 				e.setUpvotes(upvotes);
-				/* TODO: parse attendees to get attendee count, set attendee count of this event */
-				// maybe just store attendee count in database?
+				// parse attendees, put into vector, add attendee list and attendee count to event
+				String [] attendeeArray = attendees.split("\\s+");
+				Vector<String> attendeeVector = new Vector<String>();
+				for (String s : attendeeArray) {
+					attendeeVector.add(s);
+				}
+				e.setAttendeeList(attendeeVector);
+				e.setAttendees(attendeeVector.size());
+				// set message board
 				e.setMessageBoard(messageBoard);
+				// add to events vector
 				events.add(e);
 			}
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -280,11 +328,21 @@ public class MySQLDriver {
 				int upvotes = rs.getInt(10);
 				String attendees = rs.getString(11);				
 				String messageBoard = rs.getString(12);
+				// create new event
 				Event e = new Event(name,date,startTime,endTime,description,location,2,timePosted,host);
+				// set upvotes
 				e.setUpvotes(upvotes);
-				/* TODO: parse attendees to get attendee count, set attendee count of this event */
-				// maybe just store attendee count in database?
+				// parse attendees, put into vector, add attendee list and attendee count to event
+				String [] attendeeArray = attendees.split("\\s+");
+				Vector<String> attendeeVector = new Vector<String>();
+				for (String s : attendeeArray) {
+					attendeeVector.add(s);
+				}
+				e.setAttendeeList(attendeeVector);
+				e.setAttendees(attendeeVector.size());
+				// set message board
 				e.setMessageBoard(messageBoard);
+				// add to events vector
 				events.add(e);
 			}
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -311,11 +369,21 @@ public class MySQLDriver {
 				int upvotes = rs.getInt(10);
 				String attendees = rs.getString(11);				
 				String messageBoard = rs.getString(12);
+				// create new event
 				Event e = new Event(name,date,startTime,endTime,description,location,3,timePosted,host);
+				// set upvotes
 				e.setUpvotes(upvotes);
-				/* TODO: parse attendees to get attendee count, set attendee count of this event */
-				// maybe just store attendee count in database?
+				// parse attendees, put into vector, add attendee list and attendee count to event
+				String [] attendeeArray = attendees.split("\\s+");
+				Vector<String> attendeeVector = new Vector<String>();
+				for (String s : attendeeArray) {
+					attendeeVector.add(s);
+				}
+				e.setAttendeeList(attendeeVector);
+				e.setAttendees(attendeeVector.size());
+				// set message board
 				e.setMessageBoard(messageBoard);
+				// add to events vector
 				events.add(e);
 			}
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -353,6 +421,7 @@ public class MySQLDriver {
 		try {
 			// UPDATE EVENTS SET MYATTENDEES=? WHERE EVENT_NAME=?
 			ps = con.prepareStatement(updateAttendees);
+			// getAttendeeList returns string version of vector<string> for database
 			ps.setString(1, event.getAttendeeList());
 			ps.setString(2, event.getEventName());
 			ps.executeUpdate();
