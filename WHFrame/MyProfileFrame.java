@@ -78,12 +78,12 @@ public class MyProfileFrame extends JFrame{
 		eventInfoPanel.setLayout(new BoxLayout(eventInfoPanel, BoxLayout.Y_AXIS));
 		name = new JLabel(u.fname() + " " + u.lname());
 		useremail = new JLabel("Email: " + u.email());
-		eventStartTime = new JLabel("Starts: " + e.getEventStartTime());
+		username = new JLabel("Starts: " + e.getEventStartTime());
 		eventEndTime = new JLabel("Ends: " + e.getEventEndTime());
 		eventLocation = new JLabel("Location: " + e.getEventLoc());
 		eventDetail = new JLabel("About: " + e.getEventDesc());
 		
-		username.setFont(new Font ("Impact", Font.PLAIN, 25));
+		name.setFont(new Font ("Impact", Font.PLAIN, 25));
 		useremail.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventStartTime.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventEndTime.setFont(new Font ("Impact", Font.PLAIN, 25));
