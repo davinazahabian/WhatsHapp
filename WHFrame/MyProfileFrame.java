@@ -10,35 +10,39 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
-import Model.Event;
 import Model.User;
 import customui.WHButton;
+
+/* 
+ * 
+ * MyProfileFrame - the GUI that displays a user's profile information, which is shown after the
+ * user clicks the "About Me" button; when "Edit" is pressed, the EditProfileFrame is shown to
+ * allow the user to edit their profile information; when "Back" is pressed, the user is returned
+ * to the MainFeedFrame
+ * 
+ * you can test MyProfileFrame and EditProfileFrame by running the main method in this class.
+ * 
+ */
 
 public class MyProfileFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private User currentUser;
+	User currentUser;
 	private Color yellowColor;
 	private JPanel mainPanel;
 	private WHButton backButton;
 	private JLabel name;
-	private JPanel eventInfoPanel;
 	private JLabel useremail;
 	private JLabel username;
+	private JPanel eventInfoPanel;
 	private JLabel userImage;
-	private JPanel messageBoardPanel;
-	private JPanel conversationPanel;
+	private JPanel eastPanel;
+	private JPanel imagePanel;
 	private JPanel addPanel;
 	private JPanel westPanel;
-	private JPanel centerPanel;
-	private JPanel centerNorthPanel;
 	private ImageIcon profilepicture;
 	private WHButton editButton;
 	private JPanel titlePanel;
@@ -57,7 +61,7 @@ public class MyProfileFrame extends JFrame {
 	}
 	
 	private void instantiateComponents() {
-		editProfile = new EditProfileFrame(currentUser);
+		editProfile = new EditProfileFrame(this);
 		yellowColor = new Color(255,204,102);
 		mainPanel = new JPanel();
 		mainPanel.setBackground(yellowColor);
@@ -66,13 +70,11 @@ public class MyProfileFrame extends JFrame {
 		name = new JLabel(currentUser.fname() + " " + currentUser.lname());
 		useremail = new JLabel("Email: " + currentUser.email());
 		username = new JLabel("Username: " + currentUser.username());
-		messageBoardPanel = new JPanel();
-		conversationPanel = new JPanel();
+		eastPanel = new JPanel();
+		imagePanel = new JPanel();
 		addPanel = new JPanel();
 		editButton = new WHButton("Edit");
 		westPanel = new JPanel();
-		centerPanel = new JPanel();
-		centerNorthPanel = new JPanel();		
 		profilepicture = new ImageIcon("img/default_profile_pic.png");
 		userImage = new JLabel (profilepicture);
 		titlePanel = new JPanel();
@@ -83,25 +85,23 @@ public class MyProfileFrame extends JFrame {
 		name.setFont(new Font ("Impact", Font.PLAIN, 25));
 		useremail.setFont(new Font ("Impact", Font.PLAIN, 25));
 		username.setFont(new Font ("Impact", Font.PLAIN, 25));
-		messageBoardPanel.setBackground(yellowColor);
-		conversationPanel.setBackground(yellowColor);
-		messageBoardPanel.setLayout(new BorderLayout());
-		messageBoardPanel.setBackground(yellowColor);
+		eastPanel.setBackground(yellowColor);
+		imagePanel.setBackground(yellowColor);
+		eastPanel.setLayout(new BorderLayout());
+		eastPanel.setBackground(yellowColor);
 		addPanel.setLayout(new BorderLayout());
 		addPanel.setBackground(yellowColor);
 		westPanel.setBackground(yellowColor);
-		centerPanel.setBackground(yellowColor);
-		centerNorthPanel.setBackground(yellowColor);
 		westPanel.add(backButton, BorderLayout.NORTH);
 		add(westPanel, BorderLayout.WEST);
-		messageBoardPanel.setPreferredSize(new Dimension (300,600));
-		conversationPanel.add(userImage);
-		messageBoardPanel.add(conversationPanel, BorderLayout.CENTER);
+		eastPanel.setPreferredSize(new Dimension (300,600));
+		imagePanel.add(userImage);
+		eastPanel.add(imagePanel, BorderLayout.CENTER);
 		addPanel.setSize(100, 100);
 		addPanel.setBackground(yellowColor);
-		messageBoardPanel.add(addPanel, BorderLayout.SOUTH);
-		messageBoardPanel.setBackground(yellowColor);
-		add(messageBoardPanel, BorderLayout.EAST);
+		eastPanel.add(addPanel, BorderLayout.SOUTH);
+		eastPanel.setBackground(yellowColor);
+		add(eastPanel, BorderLayout.EAST);
 		name.setFont(new Font ("Phosphate", Font.BOLD, 45));
 		titlePanel.setBackground(yellowColor);
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
@@ -132,6 +132,13 @@ public class MyProfileFrame extends JFrame {
 				editProfile.setVisible(true);
 			}
 		});
+	}
+	
+	void updateUserInfo() {
+		String newName = editProfile.fname.getText() + editProfile.lname.getText();
+		name.setText(newName);
+		useremail.setText(editProfile.edituseremail.getText());
+		username.setText(editProfile.editusername.getText());
 	}
 	
 	public static void main (String [] args) {

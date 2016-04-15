@@ -6,37 +6,44 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import Model.Event;
 import Model.User;
 import customui.WHButton;
 
+/*
+ * 
+ * EditProfileFrame - the GUI that displays an editable form for users to edit their profile info,
+ * displayed when the user clicks "Edit" on the MyProfileFrame, pressing "Back" allows the user to
+ * return to their MyProfileFrame, pressing "Save" allows the user to save the info they've entered,
+ * pressing "Next" allows the user to scan through the available avatars to select one they like
+ * 
+ */
+
 public class EditProfileFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private User u;
+	private User currentUser;
 	private Color yellowColor;
 	private JPanel mainPanel;
 	private WHButton backButton;
 	private JPanel eventInfoPanel;
-	private JTextField fname;
-	private JTextField lname;
-	private JTextField useremail;
+	
+	JTextField fname;
+	JTextField lname;
+	JTextField useremail;
+	JTextField edituseremail;
+	JTextField editusername;
+	
 	private JLabel username;
-	private JLabel editname;
 	private JLabel email;
-	private JTextField edituseremail;
-	private JTextField editusername;
 	private JLabel userImage;
 	private JPanel messageBoardPanel;
 	private JPanel conversationPanel;
@@ -44,60 +51,50 @@ public class EditProfileFrame extends JFrame {
 	private JPanel westPanel;
 	private JPanel centerPanel;
 	private JPanel centerNorthPanel;
+	private JPanel titlePanel;
 	private ImageIcon profilepicture;
+	private Vector<ImageIcon> avatars;
 	private WHButton saveButton;
 	private WHButton nextButton;
+	
+	private MyProfileFrame myProfile;
+	private EditProfileFrame editProfile;
 
-	public EditProfileFrame(User u) {
+	public EditProfileFrame(MyProfileFrame mpf) {
+		this.currentUser = mpf.currentUser;
+		this.myProfile = mpf;
+		editProfile = this;
 		
 		this.setSize(new Dimension(900,602));
-		this.u = u;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		instantiateComponents();
 		createGUI();
 		addActions();
 	}
 	
-	private void instantiateComponents() {		
+	private void instantiateComponents() {
 		yellowColor = new Color(255,204,102);
 		mainPanel = new JPanel();
 		backButton = new WHButton("< Back");
 		eventInfoPanel = new JPanel();
-		fname = new JTextField(u.fname());
-		lname = new JTextField(u.lname());
+		fname = new JTextField(currentUser.fname());
+		lname = new JTextField(currentUser.lname());
 		email = new JLabel("Email :");
 		username = new JLabel("Username: ");
-		edituseremail = new JTextField( u.email());
-		editusername = new JTextField( u.username());		
+		edituseremail = new JTextField( currentUser.email());
+		editusername = new JTextField( currentUser.username());		
 		messageBoardPanel = new JPanel();
-		
-		messageBoardPanel.setBackground(yellowColor);
 		conversationPanel = new JPanel();
-		conversationPanel.setBackground(yellowColor);
-		messageBoardPanel.setLayout(new BorderLayout());
-		messageBoardPanel.setBackground(yellowColor);
-		
 		addPanel = new JPanel();
-		addPanel.setLayout(new BorderLayout());
-		addPanel.setBackground(yellowColor);
-	
 		saveButton = new WHButton("Save");
 		nextButton = new WHButton(">");
 		westPanel = new JPanel();
-		westPanel.setBackground(yellowColor);
-		
 		centerPanel = new JPanel();
-		centerPanel.setBackground(yellowColor);
 		centerNorthPanel = new JPanel();
-		centerNorthPanel.setBackground(yellowColor);
-		
-		//attending = new JLabel( e.getAttendees() + " attending");
 		profilepicture = new ImageIcon("img/default_profile_pic.png");
 		userImage = new JLabel (profilepicture);
-		
-		System.out.println("break 0");
-		
-
+		titlePanel = new JPanel();
+		avatars = new Vector<ImageIcon>();
 	}
 	
 	private void createGUI() {
@@ -109,82 +106,59 @@ public class EditProfileFrame extends JFrame {
 		username.setFont(new Font ("Impact", Font.PLAIN, 25));
 		edituseremail.setFont(new Font ("Impact", Font.PLAIN, 25));
 		editusername.setFont(new Font ("Impact", Font.PLAIN, 25));
-
+		messageBoardPanel.setBackground(yellowColor);
+		conversationPanel.setBackground(yellowColor);
+		messageBoardPanel.setLayout(new BorderLayout());
+		messageBoardPanel.setBackground(yellowColor);
+		addPanel.setLayout(new BorderLayout());
+		addPanel.setBackground(yellowColor);
+		westPanel.setBackground(yellowColor);
+		centerPanel.setBackground(yellowColor);
+		centerNorthPanel.setBackground(yellowColor);
 		westPanel.add(backButton, BorderLayout.NORTH);
 		add(westPanel, BorderLayout.WEST);
-		
-		
-		Dimension mbSize = new Dimension (300,600);
-		messageBoardPanel.setPreferredSize(mbSize);
-		
+		messageBoardPanel.setPreferredSize(new Dimension (300,600));
 		conversationPanel.add(userImage);
 		conversationPanel.add(nextButton);
 		messageBoardPanel.add(conversationPanel, BorderLayout.CENTER);
-		
 		addPanel.setSize(100, 100);
-		
 		addPanel.setBackground(yellowColor);
 		messageBoardPanel.add(addPanel, BorderLayout.SOUTH);
 		messageBoardPanel.setBackground(yellowColor);
 		add(messageBoardPanel, BorderLayout.EAST);
-		
-		System.out.println("break 2");
-		
-		//name.setFont(new Font ("Phosphate", Font.BOLD, 45));
-		
-		JPanel titlePanel = new JPanel();
 		titlePanel.setBackground(yellowColor);
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
 		titlePanel.add(fname);
 		titlePanel.add(Box.createHorizontalGlue());
 		titlePanel.add(lname);
 		titlePanel.add(Box.createVerticalGlue());
-
-		
-
-		System.out.println("break 3");
-
 		titlePanel.add(Box.createRigidArea(new Dimension(30,30)));
-
 		titlePanel.add(Box.createRigidArea(new Dimension(30,30)));
-		
 		titlePanel.add(username);
 		titlePanel.add(Box.createHorizontalGlue());
 		titlePanel.add(editusername);	
 		titlePanel.add(Box.createRigidArea(new Dimension(25,25)));
-		
-	
-		System.out.println("break 3.5");
-		
 		titlePanel.add(email);
 		titlePanel.add(Box.createHorizontalGlue());
 		titlePanel.add(edituseremail);
-		
 		titlePanel.add(Box.createRigidArea(new Dimension(0, 750)));
 		titlePanel.add(saveButton);
-				
 		mainPanel.add(titlePanel,BorderLayout.NORTH);
 		mainPanel.add(saveButton, BorderLayout.SOUTH);
-		
-		System.out.println("break 4");
-		
 		add(mainPanel, BorderLayout.CENTER);
-		
-//		setVisible(true);
-		System.out.println("break 5");
-		
 	}
 	
 	private void addActions() {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				// TODO
+				editProfile.setVisible(false);
+				myProfile.setVisible(true);
 			}
 		});
 		
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				// TODO
+				myProfile.updateUserInfo();
 			}
 		});
 		
@@ -195,19 +169,4 @@ public class EditProfileFrame extends JFrame {
 		});
 	}
 	
-	// called when new messages are sent to the server so that message board is updated.
-//	private void updateMessageBoard() {
-//		Vector<Message> messageBoardContents = e.getMessageBoard();
-//		for (int i=0; i<messageBoardContents.size(); i++) {
-//			Message m = messageBoardContents.elementAt(i);
-//			messageBoard.append(m.username()+": "+m.message()+"\n");
-//		}
-//	}
-	
-	public static void main (String [] args) {
-		User u = new User("Ziad", "Azar", "zazar@usc.edu", "zezefresh", "love2code");
-		EditProfileFrame epf = new EditProfileFrame(u);
-		epf.setVisible(true);
-
-	}
 }
