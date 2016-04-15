@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -38,19 +40,24 @@ public class MyProfileFrame extends JFrame {
 	private JPanel centerPanel;
 	private JPanel centerNorthPanel;
 	private ImageIcon profilepicture;
-	private WHButton edit;
+	private WHButton editButton;
 	private JPanel titlePanel;
+	
+	private EditProfileFrame editProfile;
+	private MyProfileFrame myProfile;
 
 
 	public MyProfileFrame(User u) {
 		this.setSize(new Dimension(900,602));
 		this.currentUser = u;
+		myProfile = this;
 		instantiateComponents();
 		createGUI();
 		addActions();
 	}
 	
 	private void instantiateComponents() {
+		editProfile = new EditProfileFrame(currentUser);
 		yellowColor = new Color(255,204,102);
 		mainPanel = new JPanel();
 		mainPanel.setBackground(yellowColor);
@@ -62,7 +69,7 @@ public class MyProfileFrame extends JFrame {
 		messageBoardPanel = new JPanel();
 		conversationPanel = new JPanel();
 		addPanel = new JPanel();
-		edit = new WHButton("Edit");
+		editButton = new WHButton("Edit");
 		westPanel = new JPanel();
 		centerPanel = new JPanel();
 		centerNorthPanel = new JPanel();		
@@ -106,15 +113,25 @@ public class MyProfileFrame extends JFrame {
 		titlePanel.add(Box.createRigidArea(new Dimension(25,25)));		
 		titlePanel.add(useremail);
 		titlePanel.add(Box.createRigidArea(new Dimension(10, 850)));
-		titlePanel.add(edit);	
+		titlePanel.add(editButton);	
 		mainPanel.add(titlePanel,BorderLayout.NORTH);
-		mainPanel.add(edit, BorderLayout.SOUTH);
+		mainPanel.add(editButton, BorderLayout.SOUTH);
 		add(mainPanel, BorderLayout.CENTER);
 		setVisible(true);
 	}
 	
 	private void addActions() {
-		
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				// TODO: go back to main feed page.
+			}
+		});
+		editButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				myProfile.setVisible(false);
+				editProfile.setVisible(true);
+			}
+		});
 	}
 	
 	public static void main (String [] args) {
