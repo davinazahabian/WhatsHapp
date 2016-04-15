@@ -27,21 +27,21 @@ import library.ImageLibrary;
 // individual panels of events on the eventfeedgui
 public class EventPanelGUI extends JPanel {
 	private UpVoteButton upArrowButton;
-	private JTextField upVoteCounter;
+	private JLabel upVoteCounter;
 	private JPanel leftContainer;
-	
-	private JTextField titleHolder;
-	private JTextField numAttendingHolder;
-	private JTextField locationHolder;
+	private JPanel buttonHolder;
+	private JLabel titleHolder;
+	private JLabel numAttendingHolder;
+	private JLabel locationHolder;
 	private JPanel rightContainer;
 	
-	private Event currEvent;
+	private Event e;
 	private int eventCategory;
 	
 	
-	EventPanelGUI(Event sample){
-		this.currEvent = sample;
-		setSize(640,480);
+	EventPanelGUI(Event e){
+		this.e = e;
+		setSize(100,100);
 		setLayout(new BorderLayout());
 		initializeVariables();
 		createGUI();
@@ -53,35 +53,49 @@ public class EventPanelGUI extends JPanel {
 	}// TODO
 	
 	private void initializeVariables() {
+		
+		
 		upArrowButton = new UpVoteButton();
-		upVoteCounter = new JTextField();
-		upVoteCounter.setText("100");
+		upVoteCounter = new JLabel();
+		upVoteCounter.setText("" + e.getUpvotes());
+		upVoteCounter.setFont(new Font ("Impact", Font.PLAIN, 25));
 		leftContainer = new JPanel();
 		
-		titleHolder = new JTextField();
-		titleHolder.setText("New Event");
-		numAttendingHolder = new JTextField();
-		numAttendingHolder.setText("Num Attending Event");
-		locationHolder = new JTextField();
-		locationHolder.setText("Location of Event");
+		titleHolder = new JLabel();
+		titleHolder.setText(e.getEventName());
+		titleHolder.setFont(new Font ("Impact", Font.PLAIN, 22));
+		
+		
+		numAttendingHolder = new JLabel();
+		numAttendingHolder.setText( e.getAttendees() + " attending");
+		numAttendingHolder.setFont(new Font ("Impact", Font.PLAIN, 18));
+		
+		
+		locationHolder = new JLabel();
+		locationHolder.setText("at " + e.getEventLoc());
+		locationHolder.setFont(new Font ("Impact", Font.PLAIN, 18));
 		rightContainer = new JPanel();
 	}
 	
 	private void createGUI(){
+		
 		leftContainer.setLayout(new BorderLayout());
 		leftContainer.add(upVoteCounter, BorderLayout.WEST);
+		
 		leftContainer.add(upArrowButton, BorderLayout.EAST);
 		
 		rightContainer.setLayout(new GridLayout(3,0));
 		rightContainer.add(titleHolder);
-		rightContainer.add(numAttendingHolder);
 		rightContainer.add(locationHolder);
+		rightContainer.add(numAttendingHolder);
 		
-	
+		
 		add(leftContainer, BorderLayout.WEST);
 		add(rightContainer, BorderLayout.EAST);
 		
-		this.setBackgroundColor(this.currEvent.getType(), leftContainer, rightContainer);
+		
+		this.setBackgroundColor(this.e.getType(), leftContainer, rightContainer);
+		
 	}
 	
 	private void setBackgroundColor(int category, JPanel left, JPanel right){
