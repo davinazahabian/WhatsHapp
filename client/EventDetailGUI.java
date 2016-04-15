@@ -25,7 +25,7 @@ import Model.Event;
 import customui.WHButton;
 
 public class EventDetailGUI extends JFrame {
-	
+	// random comment
 	private static final long serialVersionUID = 1L;
 	private Event e;
 	private Color yellowColor;
