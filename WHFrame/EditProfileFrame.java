@@ -177,19 +177,19 @@ public class EditProfileFrame extends JFrame {
 	
 	private void addActions() {
 		backButton.addActionListener(new ActionListener() {
-			public actionPerformed(ActionEvent ae) {
+			public void actionPerformed(ActionEvent ae) {
 				// TODO
 			}
 		});
 		
 		saveButton.addActionListener(new ActionListener() {
-			public actionPerformed(ActionEvent ae) {
+			public void actionPerformed(ActionEvent ae) {
 				// TODO
 			}
 		});
 		
 		nextButton.addActionListener(new ActionListener() {
-			public actionPerformed(ActionEvent ae) {
+			public void actionPerformed(ActionEvent ae) {
 				// TODO
 			}
 		});
