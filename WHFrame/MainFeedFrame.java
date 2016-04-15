@@ -2,151 +2,224 @@
 package WHFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
+import Model.Event;
 import client.EventPanelGUI;
+import customui.WHButton;
 import library.ImageLibrary;
 
 public class MainFeedFrame extends JFrame {
 	
-//	JButton AM;
-//	JButton sportsButton;
-//	JButton culturalButton;
-//	JButton careerButton;
-//	JButton clubButton;
-//	JButton trendingButton;
-//	JButton newEventButton;
-//	Event event;
-	JScrollPane jsp;
-	SplashFrame2 sf;
-//	JPanel mfButtons;
-//	JPanel mff;
-	//create an event which will make a jpanel and store with correct info
-	
-	public MainFeedFrame()
-	{
+	private static final long serialVersionUID = 1L;
+	private LeftPanel leftPanel;
+	private WHButton myProfileButton;
+	private WHButton signOutButton;
+
+	private MiddlePanel middlePanel;
+	private JPanel feedPanel;
+	private JScrollPane feedScrollPane;
+	private Vector<EventPanelGUI> eventPanels;
+
+	private JPanel rightPanel;
+	private RightUpperPanel upperPanel;
+	private RightLowerPanel lowerPanel;
+	private WHButton newEventButton;
+	private JPanel sortPanel;
+	private JPanel filterPanel;
+	private JPanel sortFilterPanel;
+	private JComboBox<String> categories;
+	private JRadioButton sortByTrending;
+	private JRadioButton sortByDefault;
+
+	public MainFeedFrame() {
 		setTitle("WhatsHapp");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new GridLayout(1,3));
 		setSize(900,602);
-		
-//		mfButtons = new JPanel();
-//		mff = new JPanel();
-//		AM = new JButton("About Me!");
-//		sportsButton = new JButton("Sports");
-//		culturalButton = new JButton("Cultural");
-//		careerButton = new JButton("Career");
-//		clubButton = new JButton("Club");
-//		newEventButton = new JButton("New Button");
-//		trendingButton = new JButton(); //"trending"
-//		trendingButton.setIcon(new ImageIcon("img/firebtn.png"));
-		sf = new SplashFrame2();
-		sf.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-//		sf.add(AM, gbc);
-		//mfButtons.add(AM);
-		//mfButtons.add(trendingButton);
-		
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-//		sf.add(trendingButton, gbc);
-		
-		gbc.gridx = 2;
-		gbc.gridy = 0;
-//		sf.add(sportsButton, gbc);
-		
-		gbc.gridx = 3;
-		gbc.gridy = 0;
-//		sf.add(culturalButton, gbc);
-		
-		gbc.gridx = 4;
-		gbc.gridy = 0;
-//		sf.add(careerButton, gbc);
-		
-		gbc.gridx = 5;
-		gbc.gridy = 0;
-//		sf.add(clubButton, gbc);
-		
-		gbc.gridx = 6;
-		gbc.gridy = 0;
-		
-//		sf.add(newEventButton, gbc);
-		
-		gbc.insets = new Insets(200,0,0,0);
-
-		//jsp = new JScrollPane();
-		//mff.add(jsp);
-		
-		
-//		sf.add(mfButtons, BorderLayout.NORTH);
-//		sf.add(mff, BorderLayout.SOUTH);
-
-		add(sf);
+		instantiateComponents();
+		createGUI();
+		addActions();
 	}
 	
-	public static void main(String [] args)
-	{
+	public void instantiateComponents() {
+		leftPanel = new LeftPanel();
+		myProfileButton = new WHButton("My Profile");
+		signOutButton = new WHButton("Sign Out");
+		
+		middlePanel = new MiddlePanel();
+		feedPanel = new JPanel();
+		feedScrollPane = new JScrollPane(feedPanel);
+		eventPanels = new Vector<EventPanelGUI>();
+
+		rightPanel = new JPanel();
+		upperPanel = new RightUpperPanel();
+		lowerPanel = new RightLowerPanel();
+		newEventButton = new WHButton("+ New Event");
+		sortPanel = new JPanel();
+		filterPanel = new JPanel();
+		sortFilterPanel = new JPanel(new BorderLayout());
+		categories = new JComboBox<String>();
+		sortByTrending = new JRadioButton("Trending", false);
+		sortByDefault = new JRadioButton("Most Recent", true);
+		
+	}
+	
+	public void createGUI() {
+		// setting button sizes
+		myProfileButton.setPreferredSize(newEventButton.getPreferredSize());
+//		signOutButton.setPreferredSize(newEventButton.getPreferredSize());
+		
+		// setting panel sizes
+		upperPanel.setPreferredSize(new Dimension(300,300));
+		lowerPanel.setPreferredSize(new Dimension(300,300));
+
+		
+		// left panel
+		leftPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
+		leftPanel.add(myProfileButton);
+		add(leftPanel);
+		
+		// middle panel
+		// TODO: create feed of EventPanelGUIs and place into the scrollpane
+		// would we initialize scroll pane here? after we've placed GUI's into the panel?
+		middlePanel.setLayout(new BorderLayout());
+//		middlePanel.add(feedScrollPane, BorderLayout.CENTER);
+		add(middlePanel);
+		
+		// right panel
+//		rightPanel.setLayout(new BorderLayout());
+//		upperPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
+//		lowerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		
+		// sort and filter panel
+		sortPanel.setBackground(new Color(255,204,102));
+		sortPanel.setBorder(BorderFactory.createTitledBorder("Sort By"));
+		sortPanel.add(sortByDefault);
+		sortPanel.add(sortByTrending);
+		filterPanel.setBackground(new Color(255,204,102));
+		filterPanel.setBorder(BorderFactory.createTitledBorder("Filter By"));
+		filterPanel.add(categories);
+		sortFilterPanel.add(sortPanel, BorderLayout.NORTH);
+		sortFilterPanel.add(filterPanel, BorderLayout.SOUTH);
+		
+//		upperPanel.add(newEventButton);
+//		lowerPanel.add(sortFilterPanel);
+		rightPanel.add(upperPanel, BorderLayout.NORTH);
+		rightPanel.add(lowerPanel, BorderLayout.SOUTH);
+		
+		// adding sort and filter panel to right panel
+		//rightGBC.gridy = 450;
+		//rightPanel.add(sortFilterPanel,rightGBC);
+		
+		add(rightPanel);		
+	}
+	
+	public void addActions() {
+		
+	}
+	
+	
+	public static void main(String [] args) {
 		MainFeedFrame mff = new MainFeedFrame();
 		mff.setVisible(true);
 	}
-
+	
 }
 
-class SplashFrame2 extends JPanel { //outer class - custom login frame
-	private static final long serialVersionUID = 7141608019316770268L;
-
-	private static final Image mBackgroundImage;
-	private static final String mTitle = "Here's What's Happening!";
+/*
+ * 
+ * LeftPanel, MiddlePanel, RightPanel - these panels are for the background of the MainFeedFrame, when placed together they
+ * display the background image.
+ * 
+ */
+class LeftPanel extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	private static final Image background;
 
 	static {
-		mBackgroundImage = ImageLibrary.getImage("img/campus.jpg");
+		background = ImageLibrary.getImage("img/left.png");
 	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(mBackgroundImage, 0, 0, getWidth(), getHeight(), null);
-		Font font = new Font("Phosphate", Font.PLAIN, 40);
-		g.setFont(font);
-		FontMetrics metrics = g.getFontMetrics(font);
-		int heightc = metrics.getHeight()/2;
-		int widthc = metrics.stringWidth(mTitle)/2;
-		int x = (getWidth()/2) - widthc;
-		int y = (getHeight()/4) - heightc;
-		g.setColor(new Color(128, 0, 0));
-		g.drawString(mTitle, ShiftWest(x, 1), ShiftNorth(y, 1)-60);
-		g.drawString(mTitle, ShiftWest(x, 1), ShiftSouth(y, 1)-60);
-		g.drawString(mTitle, ShiftEast(x, 1), ShiftNorth(y, 1)-60);
-		g.drawString(mTitle, ShiftEast(x, 1), ShiftSouth(y, 1)-60);
-		g.setColor(new Color(255, 204, 0));
-		g.drawString(mTitle, x, y-60);
-		
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 	}
-	int ShiftNorth(int p, int distance) {
-		return (p - distance);
+	
+}
+
+class MiddlePanel extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	private static final Image background;
+
+	static {
+		background = ImageLibrary.getImage("img/middle.png");
 	}
-	int ShiftSouth(int p, int distance) {
-		return (p + distance);
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 	}
-	int ShiftEast(int p, int distance) {
-		return (p + distance);
+	
+}
+
+class RightUpperPanel extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	private static final Image background;
+
+	static {
+		background = ImageLibrary.getImage("img/right_top.png");
 	}
-	int ShiftWest(int p, int distance) {
-		return (p - distance);
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 	}
+	
+}
+class RightLowerPanel extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	private static final Image background;
+
+	static {
+		background = ImageLibrary.getImage("img/right_bottom.png");
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
+	}
+	
 }
