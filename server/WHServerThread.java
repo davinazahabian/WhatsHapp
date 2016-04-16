@@ -52,8 +52,8 @@ public class WHServerThread extends Thread {
 				// guest attempt: server->driver->send back events
 				if (p.isGuest()) {
 					System.out.println("Guet is true");
-					p.setEvents(whs.getAllEvents());
-					p.setValid(true);
+//					p.setEvents(whs.getAllEvents());
+//					p.setValid(true);
 				// login attempt: server->driver->send back events and user info
 				} else if (p.isLogin()) {
 					p.setEvents(whs.getAllEvents());

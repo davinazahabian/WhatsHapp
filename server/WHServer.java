@@ -42,7 +42,7 @@ public class WHServer extends Thread {
 				serverThreads.add(wst);
 				InfoPackage ip = new InfoPackage();
 				ip.setGuest(true);
-				wst.sendToClient(ip);
+
 				wst.start();
 				sockets.add(s);
 			}

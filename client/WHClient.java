@@ -104,7 +104,7 @@ public class WHClient extends Thread {
 					
 					// guest attempt returned
 					if (p.isGuest()) {
-						System.out.println("Guest is truee");
+						System.out.println("Guest is true");
 						InfoPackage ip = new InfoPackage();
 						ip.setGuest(true);
 						sendToServer(ip);
