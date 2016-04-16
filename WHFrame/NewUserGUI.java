@@ -1,6 +1,5 @@
 package WHFrame;
 
-
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -14,17 +13,16 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Model.User;
 import client.WHClient;
 import customui.OutlinedLabel;
 import customui.WHButton;
@@ -50,9 +48,12 @@ public class NewUserGUI extends JFrame{
 	private WHButton backButton;
 	private WHButton signUpButton;
 	private WHClient whClient;
+	
+	private NewUserGUI newUserGUI;
 	 
 	 public NewUserGUI(WHClient whClient){
 		 this.whClient = whClient;
+		 this.newUserGUI = this;
 	 	
 		 setTitle("Sign Up!");
 		 setSize(900,602);
@@ -64,10 +65,14 @@ public class NewUserGUI extends JFrame{
 		 createGUI();
 		 addActions();
 		 
-//		 setVisible(true);
+		 setVisible(true);
 	 }
 
 	private void initializeComponents() {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+		setCursor(c);
+		
 		usernameField = new JTextField(10);
 		repasswordField = new JPasswordField(10);
 		passwordField = new JPasswordField(10);
@@ -112,10 +117,7 @@ public class NewUserGUI extends JFrame{
 		emailLabel.setOpaque(false);
 		
 		signUpButton = new WHButton("Sign Up");
-		
-		
 	    backButton = new WHButton("< Back");
-	   
 	    splash = new SplashPanel2();
 	}
 	
@@ -124,7 +126,6 @@ public class NewUserGUI extends JFrame{
 		splash.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		//c.anchor = GridBagConstraints.FIRST_LINE_START;
 		splash.add(backButton);
 		c.gridy = 0;
 		splash.add(backButton, c);
@@ -161,38 +162,31 @@ public class NewUserGUI extends JFrame{
 		
 		c.insets = new Insets(5,0,5,0);
 		
-//		c.anchor = GridBagConstraints.FIRST_LINE_START;
-//		
-//		JPanel panel = new JPanel();
-//		panel.setLayout(new GridLayout(1, 1));
-//		panel.setSize(new Dimension(50, 50));
-//		panel.splash.add(backButton);
-//		panel.setSize(new Dimension(50, 50));
-//		splash.add(panel);
-		
-		
-				
-		
 		add(splash);
-		addActions();
 	}
 
 	private void addActions() {
-		// TODO Auto-generated method stub
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				newUserGUI.setVisible(false);
+				whClient.whf.setVisible(true);
+			}
+		});
 		
+		signUpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				whClient.signupRequest(new User(firstNameField.getText(),lastNameField.getText(),emailField.getText(),usernameField.getText(),new String(passwordField.getPassword())));
+			}
+		});
 	}
 
 	public void showError() {
 		JOptionPane.showMessageDialog(this, "Username or password incorrect");
 	}
 	
-//	public static void main(String[] args){
-//		Toolkit toolkit = Toolkit.getDefaultToolkit();
-//		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
-//	
-//		//whf.setCursor(c);
-//		new NewUserGUI();
-//	}
+	public static void main(String[] args){
+		new NewUserGUI(new WHClient());
+	}
 }
 
 class SplashPanel2 extends JPanel {
@@ -224,14 +218,6 @@ class SplashPanel2 extends JPanel {
 		g.drawString(mTitle, ShiftEast(x, 1), ShiftSouth(y, 1));
 		g.setColor(new Color(255, 204, 0));
 		g.drawString(mTitle, x, y);
-		
-//		g.setColor(new Color(35, 139, 230));
-//		Font font = g.getFont().deriveFont(40.0f);
-//		g.setFont(font);
-//		FontMetrics metrics = g.getFontMetrics(font);
-//		int heightc = metrics.getHeight()/2;
-//		int widthc = metrics.stringWidth(mTitle)/2;
-//		g.drawString(mTitle, (getWidth()/2) - widthc, (getHeight()/3) - heightc);
 	}
 	int ShiftNorth(int p, int distance) {
 		return (p - distance);

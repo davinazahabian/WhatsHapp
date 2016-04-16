@@ -57,7 +57,7 @@ public class WHClient extends Thread {
 
 
 	// GUI
-	private WHFrame whf;
+	public WHFrame whf;
 	private MainFeedFrame mff = new MainFeedFrame();
 	//private EventDetailGUI edg;
 	private NewUserGUI nug;
