@@ -38,7 +38,6 @@ public class MainFeedFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private LeftPanel leftPanel;
 	private WHButton myProfileButton;
-	private WHButton signOutButton;
 
 	private MiddlePanel middlePanel;
 	private JPanel feedPanel;
@@ -61,8 +60,6 @@ public class MainFeedFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(1,3));
 		setSize(900,620);
-		this.setMinimumSize(new Dimension(900,620));
-		this.setMaximumSize(new Dimension(900,620));
 		instantiateComponents();
 		createGUI();
 		addActions();
@@ -71,12 +68,20 @@ public class MainFeedFrame extends JFrame {
 	public void instantiateComponents() {
 		leftPanel = new LeftPanel();
 		myProfileButton = new WHButton("My Profile");
-		signOutButton = new WHButton("Sign Out");
 		
 		middlePanel = new MiddlePanel();
 		feedPanel = new JPanel();
+		int curr = 0;
+		for (int i=0; i<100; i++) {
+			curr+=1;
+			EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"));
+		    epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			feedPanel.add(epg);
+		}
 		feedScrollPane = new JScrollPane(feedPanel);
-		eventPanels = new Vector<EventPanelGUI>();
+		feedScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		feedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//eventPanels = new Vector<EventPanelGUI>();
 
 		rightPanel = new JPanel();
 		upperPanel = new RightUpperPanel();
@@ -94,7 +99,6 @@ public class MainFeedFrame extends JFrame {
 	public void createGUI() {
 		// setting button sizes
 		myProfileButton.setPreferredSize(newEventButton.getPreferredSize());
-//		signOutButton.setPreferredSize(newEventButton.getPreferredSize());
 		
 		// setting panel sizes
 		leftPanel.setPreferredSize(new Dimension(300,600));
@@ -112,7 +116,7 @@ public class MainFeedFrame extends JFrame {
 		// TODO: create feed of EventPanelGUIs and place into the scrollpane
 		// would we initialize scroll pane here? after we've placed GUI's into the panel?
 		middlePanel.setLayout(new BorderLayout());
-//		middlePanel.add(feedScrollPane, BorderLayout.CENTER);
+		middlePanel.add(feedScrollPane, BorderLayout.CENTER);
 		add(middlePanel);
 		
 		// right panel

@@ -50,14 +50,11 @@ public class NewEventGUI extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField eventNameField;
-	private JTextField dateField;
-	private JTextField timeField;
 	private JTextField locationField;
 	private JTextArea descriptionField;
 	private JTextField hostField;
 	private JComboBox<String> typeBox;
 
-	private JScrollPane jsp;
 	private OutlinedLabel eventNameLabel;
 	private OutlinedLabel dateLabel;
 	private OutlinedLabel timeLabel;
@@ -84,13 +81,13 @@ public class NewEventGUI extends JFrame{
 	}
 
 	private void initializeComponents() {
+
 		eventNameField = new JTextField(10);
-		dateField = new JTextField(10);
-		timeField = new JTextField(10);
 		locationField = new JTextField(10);
 		hostField = new JTextField(10);
-		descriptionField = new JTextArea(5, 10);
+		descriptionField = new JTextArea(5,10);
 
+		typeBox = new JComboBox<String>();
 		eventNameLabel = new OutlinedLabel("Event Name: ");
 		dateLabel = new OutlinedLabel("Date: ");
 		timeLabel = new OutlinedLabel("Start Time: ");
@@ -100,22 +97,13 @@ public class NewEventGUI extends JFrame{
 		typeLabel = new OutlinedLabel ("Type: ");
 		endTimeLabel = new OutlinedLabel("End Time: ");
 		createButton = new WHButton("Create Event");
-		ImageIcon water = new ImageIcon("back-icon.png");
-		backButton = new WHButton(water);
+		backButton = new WHButton("Back");
 
-		DefaultComboBoxModel<String> typeName = new DefaultComboBoxModel<String>();
-
-		typeName.addElement("Sports");
-		typeName.addElement("Career");
-		typeName.addElement("Cultural");
-		typeName.addElement("Club");
-		typeBox = new JComboBox<String>(typeName);
-		typeBox.setSelectedIndex(0);
 		splash = new SplashPanel();
 
+		// date picker stuff
 		spinner = getSpinner();
 		spinner2 = getSpinner();
-
 		UtilDateModel model4 = new UtilDateModel();
 		Properties p = new Properties();
 		p.put("text.today", "Today");
@@ -124,53 +112,54 @@ public class NewEventGUI extends JFrame{
 		JDatePanelImpl datePanel = new JDatePanelImpl(model4, p);
 		// Don't know about the formatter, but there it is...
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-
 	}
 
 	private void createGUI() {
-		eventNameLabel = new OutlinedLabel("Event Name: ");
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Cursor cursor = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+		this.setCursor(cursor);
+		
+		typeBox.addItem("Sports");
+		typeBox.addItem("Career");
+		typeBox.addItem("Cultural");
+		typeBox.addItem("Club");
+		typeBox.setSelectedIndex(0);
+		
 		eventNameLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		eventNameLabel.setForeground(new Color(255, 204, 0));
 		eventNameLabel.setOutlineColor(Color.black);
 		eventNameLabel.setOpaque(false);
 		
-		dateLabel = new OutlinedLabel("Date: ");
 		dateLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		dateLabel.setForeground(new Color(255, 204, 0));
 		dateLabel.setOutlineColor(Color.black);
 		dateLabel.setOpaque(false);
 		
-		timeLabel = new OutlinedLabel("Start Time: ");
 		timeLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		timeLabel.setForeground(new Color(255, 204, 0));
 		timeLabel.setOutlineColor(Color.black);
 		timeLabel.setOpaque(false);
 		
-		hostLabel = new OutlinedLabel("Host: ");
 		hostLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		hostLabel.setForeground(new Color(255, 204, 0));
 		hostLabel.setOutlineColor(Color.black);
 		hostLabel.setOpaque(false);
 		
-		locationLabel = new OutlinedLabel("Location: ");
 		locationLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		locationLabel.setForeground(new Color(255, 204, 0));
 		locationLabel.setOutlineColor(Color.black);
 		locationLabel.setOpaque(false);
 		
-		descriptionLabel = new OutlinedLabel("Description: ");
 		descriptionLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		descriptionLabel.setForeground(new Color(255, 204, 0));
 		descriptionLabel.setOutlineColor(Color.black);
 		descriptionLabel.setOpaque(false);
 		
-		typeLabel = new OutlinedLabel ("Type: ");
 		typeLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		typeLabel.setForeground(new Color(255, 204, 0));
 		typeLabel.setOutlineColor(Color.black);
 		typeLabel.setOpaque(false);
 		
-		endTimeLabel = new OutlinedLabel("End Time: ");
 		endTimeLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		endTimeLabel.setForeground(new Color(255, 204, 0));
 		endTimeLabel.setOutlineColor(Color.black);
@@ -245,11 +234,8 @@ public class NewEventGUI extends JFrame{
 	}
 
 	public static void main(String[] args){
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
-
-		//whf.setCursor(c);
-		new NewEventGUI();
+		NewEventGUI neg = new NewEventGUI();
+		neg.setVisible(true);
 	}
 
 	public JSpinner getSpinner(){

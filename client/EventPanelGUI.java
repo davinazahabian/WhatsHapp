@@ -39,7 +39,7 @@ public class EventPanelGUI extends JPanel {
 	private int eventCategory;
 	
 	
-	EventPanelGUI(Event e){
+	public EventPanelGUI(Event e){
 		this.e = e;
 		setSize(100,100);
 		setLayout(new BorderLayout());
