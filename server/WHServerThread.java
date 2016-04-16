@@ -98,7 +98,7 @@ public class WHServerThread extends Thread {
 				
 				
 				// send package back to client
-				sendToClient(p);
+				//sendToClient(p);
 			} catch(EOFException e) {
 			    //eof - no error in this case
 			}catch (ClassNotFoundException | IOException e) {
@@ -120,6 +120,7 @@ public class WHServerThread extends Thread {
 		} catch (IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
 			ioe.printStackTrace();
+			
 		}
 	}
 }

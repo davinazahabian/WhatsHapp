@@ -126,6 +126,7 @@ public class WHFrame extends JFrame{
 		
 		add(sf);
 		addActions();
+		setVisible(true);
 	}
 	
 	private void addActions() {

@@ -38,7 +38,7 @@ public class WHClient extends Thread {
 	private int port = 6780;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
-	
+	//int x = 0;
 	// data
 	// instance of current user, for populating the about me page
 	private User currentUser = null;
@@ -70,17 +70,20 @@ public class WHClient extends Thread {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
-			try {
-				if (s != null) {
-					s.close();
-				}
-				 
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+//			try {
+//				if (s != null) {
+//					//s.close();
+//				}
+//				 
+//			} catch (IOException ioe) {
+//				ioe.printStackTrace();
+//			}
 		}
+
+
 		
 		whf = new WHFrame(this);
+
 	}
 	
 	public void run() {
@@ -106,7 +109,8 @@ public class WHClient extends Thread {
 				if (p != null) {
 					
 					// guest attempt returned
-					if (p.isGuest()) {
+					if (p.isGuest() ) {
+						//x++;
 						System.out.println("Guest is true");
 						InfoPackage ip = new InfoPackage();
 						ip.setGuest(true);
