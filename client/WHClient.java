@@ -1,35 +1,19 @@
 package client;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 import java.util.Vector;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import com.sun.org.apache.bcel.internal.generic.IFNONNULL;
-
 import Model.Event;
 import Model.InfoPackage;
 import Model.Message;
 import Model.User;
 import WHFrame.MainFeedFrame;
+import WHFrame.MyProfileFrame;
 import WHFrame.NewUserGUI;
-import WHFrame.SplashPanel;
 import WHFrame.WHFrame;
 
 
@@ -58,9 +42,10 @@ public class WHClient extends Thread {
 
 	// GUI
 	public WHFrame whf;
-	private MainFeedFrame mff = new MainFeedFrame();
+	private MainFeedFrame mff;
 	//private EventDetailGUI edg;
 	private NewUserGUI nug;
+	private MyProfileFrame mpf;
 	
 	public NewUserGUI getNug() {
 		return nug;

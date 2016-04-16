@@ -6,9 +6,12 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +21,16 @@ import Model.Event;
 import client.EventPanelGUI;
 import customui.WHButton;
 import library.ImageLibrary;
+
+/*
+ * 
+ * MainFeedFrame - the main GUI frame that displays the feed of events, which can be filtered by
+ * category or sorted by most recent or trending; clicking "My Profile" displays the user's profile
+ * information, or a message to Guest users to sign up; clicking "New Event" displays a form to
+ * create a new event
+ * 
+ */
+
 
 public class MainFeedFrame extends JFrame {
 	
@@ -37,9 +50,11 @@ public class MainFeedFrame extends JFrame {
 	private JPanel sortPanel;
 	private JPanel filterPanel;
 	private JPanel sortFilterPanel;
-	private JComboBox<String> categories;
+	private String[] categories = {"Sports", "Career", "Cultural", "Club"};
+	private JComboBox<String> categoryBox;
+	private ButtonGroup sortBy;
 	private JRadioButton sortByTrending;
-	private JRadioButton sortByDefault;
+	private JRadioButton sortByDefault;  // sort by time posted
 
 	public MainFeedFrame() {
 		setTitle("WhatsHapp");
@@ -56,24 +71,16 @@ public class MainFeedFrame extends JFrame {
 		myProfileButton = new WHButton("My Profile");
 		
 		middlePanel = new MiddlePanel();
+		eventPanels = new Vector<EventPanelGUI>();
 		feedPanel = new JPanel();
 		feedPanel.setLayout(new BoxLayout(feedPanel, BoxLayout.Y_AXIS));
 		
-		/***********************************************/
-		// the following is for testing the scroll pane, delete when creating
-		int curr = 0;
-		for (int i=0; i<100; i++) {
-			curr+=1;
-			EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"));
-		    epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			feedPanel.add(epg);
-		}
-		/************************************/
+		populateFeed("Default");
+		
 		feedScrollPane = new JScrollPane(feedPanel);
 		feedScrollPane.setPreferredSize(new Dimension(300,400));
 		feedScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		feedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		//eventPanels = new Vector<EventPanelGUI>();
 
 		rightPanel = new JPanel();
 		upperPanel = new RightUpperPanel();
@@ -82,7 +89,8 @@ public class MainFeedFrame extends JFrame {
 		sortPanel = new JPanel();
 		filterPanel = new JPanel();
 		sortFilterPanel = new JPanel(new BorderLayout());
-		categories = new JComboBox<String>();
+		categoryBox = new JComboBox<String>(categories);
+		sortBy = new ButtonGroup();
 		sortByTrending = new JRadioButton("Trending", false);
 		sortByDefault = new JRadioButton("Most Recent", true);
 		
@@ -105,8 +113,6 @@ public class MainFeedFrame extends JFrame {
 		add(leftPanel);
 		
 		// middle panel
-		// TODO: create feed of EventPanelGUIs and place into the scrollpane
-		// would we initialize scroll pane here? after we've placed GUI's into the panel?
 		middlePanel.setLayout(new BorderLayout());
 		middlePanel.add(feedScrollPane, BorderLayout.SOUTH);
 		add(middlePanel);
@@ -119,12 +125,14 @@ public class MainFeedFrame extends JFrame {
 		// sort and filter panel
 		sortPanel.setBackground(new Color(255,204,102));
 		sortPanel.setBorder(BorderFactory.createTitledBorder("Sort By"));
+		sortBy.add(sortByDefault);
+		sortBy.add(sortByTrending);
 		sortPanel.add(sortByDefault);
 		sortPanel.add(sortByTrending);
 		
 		filterPanel.setBackground(new Color(255,204,102));
 		filterPanel.setBorder(BorderFactory.createTitledBorder("Filter By"));
-		filterPanel.add(categories);
+		filterPanel.add(categoryBox);
 		
 		sortFilterPanel.add(sortPanel, BorderLayout.NORTH);
 		sortFilterPanel.add(filterPanel, BorderLayout.SOUTH);
@@ -142,9 +150,76 @@ public class MainFeedFrame extends JFrame {
 	}
 	
 	public void addActions() {
+		myProfileButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
 		
+		newEventButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
+		
+		sortByTrending.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
+		
+		sortByDefault.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
+		
+		categoryBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent ie) {
+				String category = categoryBox.getSelectedItem().toString();
+				
+			}
+		});
 	}
 	
+	public void populateFeed(String category) {
+		
+		if (category.equals("Sports")) {
+			
+		} else if (category.equals("Career")) {
+			
+		} else if (category.equals("Cultural")) {
+			
+		} else if (category.equals("Club")) {
+			
+		} else if (category.equals("Default")) {
+			/***********************************************/
+			// the following is for testing the scroll pane, delete when creating
+			int curr = 0;
+			for (int i=0; i<100; i++) {
+				curr+=1;
+				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"));
+			    epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			    eventPanels.add(epg);
+				feedPanel.add(epg);
+			}
+			/**********************************************/
+		} else if (category.equals("Trending")) {
+			
+		} else {
+			/***********************************************/
+			// the following is for testing the scroll pane, delete when creating
+			int curr = 0;
+			for (int i=0; i<100; i++) {
+				curr+=1;
+				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"));
+			    epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			    eventPanels.add(epg);
+				feedPanel.add(epg);
+			}
+			/**********************************************/
+		}
+	}
 	
 	public static void main(String [] args) {
 		MainFeedFrame mff = new MainFeedFrame();
