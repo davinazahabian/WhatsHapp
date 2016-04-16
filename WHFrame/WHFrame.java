@@ -29,6 +29,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 
 import WHFrame.SplashPanel;
+import client.WHClient;
 import customui.OutlinedLabel;
 //import WHFrame.ThemeColors;
 import customui.WHButton;
@@ -44,11 +45,12 @@ public class WHFrame extends JFrame{
 	OutlinedLabel suQuestion; //suQuestion
 	OutlinedLabel ul;
 	OutlinedLabel pl;
-	
-	public WHFrame()
+	WHClient mClient;
+	public WHFrame(WHClient whClient)
 	{
 		setTitle("WhatsHapp");
 		setSize(900,602);
+		mClient = whClient;
 		sf = new SplashPanel();
 		//sf.setLayout(new GridLayout(1,2)); //1 row and 2 columns
 		sf.setLayout(new GridBagLayout());
@@ -61,7 +63,6 @@ public class WHFrame extends JFrame{
 		suQuestion.setForeground(new Color(255, 204, 0));
 		suQuestion.setOutlineColor(Color.black);
 		suQuestion.setOpaque(false);
-		
 		
 		loginButton =  new WHButton("Login");
 		signUpButton = new WHButton("Create an account!");
@@ -134,36 +135,36 @@ public class WHFrame extends JFrame{
 		}
 	}
 	
-	public static void main(String [] args)
-	{
-		WHFrame whf = new WHFrame();//random comment to make commit
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
-		whf.setCursor(c);
-		whf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		
-		try {
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
-		try {
-			setUIFont(new javax.swing.plaf.FontUIResource(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/KaushanScript-Regular.ttf")).deriveFont(12.0f)));
-		} catch (FontFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		whf.setVisible(true);
-	}
+//	public static void main(String [] args)
+//	{
+//		WHFrame whf = new WHFrame();//random comment to make commit
+//		Toolkit toolkit = Toolkit.getDefaultToolkit();
+//		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+//		whf.setCursor(c);
+//		whf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//		
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (InstantiationException e) {
+//			e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			e.printStackTrace();
+//		} catch (UnsupportedLookAndFeelException e) {
+//			e.printStackTrace();
+//		}
+//		try {
+//			setUIFont(new javax.swing.plaf.FontUIResource(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/KaushanScript-Regular.ttf")).deriveFont(12.0f)));
+//		} catch (FontFormatException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		whf.setVisible(true);
+//	}
 }
 
 

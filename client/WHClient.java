@@ -56,6 +56,7 @@ public class WHClient extends Thread {
 
 
 	// GUI
+	private WHFrame whf;
 	private MainFeedFrame mff = new MainFeedFrame();
 	private EventDetailGUI edg;
 
@@ -78,6 +79,8 @@ public class WHClient extends Thread {
 				ioe.printStackTrace();
 			}
 		}
+		
+		whf = new WHFrame(this);
 	}
 	
 	public void run() {
