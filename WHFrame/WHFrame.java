@@ -30,6 +30,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 
+import Model.InfoPackage;
 import WHFrame.SplashPanel;
 import client.WHClient;
 import customui.OutlinedLabel;
@@ -136,6 +137,18 @@ public class WHFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				WHFrame.this.setVisible(false);
 				new NewUserGUI(mClient);
+			}
+		});
+		
+		loginButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String username = utf.getText();
+				String password = ptf.getPassword().toString();
+				InfoPackage ip = new InfoPackage();
+				ip.setLogin(true);
+				mClient.sendToServer(ip);
 			}
 		});
 
