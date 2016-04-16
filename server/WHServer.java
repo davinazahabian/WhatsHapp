@@ -42,8 +42,9 @@ public class WHServer extends Thread {
 				serverThreads.add(wst);
 				InfoPackage ip = new InfoPackage();
 				ip.setGuest(true);
-
+				wst.sendToClient(ip);
 				wst.start();
+				System.out.println("enters here ddsfd");
 				sockets.add(s);
 			}
 		} catch (Exception e) {
