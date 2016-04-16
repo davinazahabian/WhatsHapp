@@ -40,809 +40,809 @@ import WHFrame.WHFrame;
 
 public class WHClient extends Thread {
 
-// networking
+	// networking
 
-protected Socket s;
+	protected Socket s;
 
-private int port = 6780;
+	private int port = 6780;
 
-private ObjectInputStream ois;
+	private ObjectInputStream ois;
 
-private ObjectOutputStream oos;
+	private ObjectOutputStream oos;
 
-//int x = 0;
+	//int x = 0;
 
-// data
+	// data
 
-// instance of current user, for populating the about me page
+	// instance of current user, for populating the about me page
 
-private User currentUser = null;
+	private User currentUser = null;
 
-// tells us whether current session is guest user or registered
+	// tells us whether current session is guest user or registered
 
-private boolean isRegistered = false;
+	private boolean isRegistered = false;
 
-// set of events sorted by default (time posted) and by trending (upvotes)
+	// set of events sorted by default (time posted) and by trending (upvotes)
 
-private Vector<Event> allEventsDefault= new Vector<Event>();
+	private Vector<Event> allEventsDefault= new Vector<Event>();
 
-private Vector<Event> allEventsTrending= new Vector<Event>();
+	private Vector<Event> allEventsTrending= new Vector<Event>();
 
 
-// should we have vector<event> ready for all categories?
+	// should we have vector<event> ready for all categories?
 
-private Vector<Event> sports= new Vector<Event>();
+	private Vector<Event> sports= new Vector<Event>();
 
-private Vector<Event> career= new Vector<Event>();
+	private Vector<Event> career= new Vector<Event>();
 
-private Vector<Event> cultural= new Vector<Event>();
+	private Vector<Event> cultural= new Vector<Event>();
 
-private Vector<Event> club= new Vector<Event>();
+	private Vector<Event> club= new Vector<Event>();
 
 
 
 
 
-// GUI
+	// GUI
 
-private WHFrame whf;
+	private WHFrame whf;
 
 
 
-private MainFeedFrame mff ;
+	private MainFeedFrame mff ;
 
-private MyProfileFrame mpf;
+	private MyProfileFrame mpf;
 
-private NewEventGUI neg;
+	private NewEventGUI neg;
 
-//private EventDetailGUI edg;
+	//private EventDetailGUI edg;
 
-private NewUserGUI nug;
+	private NewUserGUI nug;
 
 
-public NewUserGUI getNug() {
+	public NewUserGUI getNug() {
 
-return nug;
+		return nug;
 
-}
+	}
 
 
 
-public void setNug(NewUserGUI nug) {
+	public void setNug(NewUserGUI nug) {
 
-this.nug = nug;
+		this.nug = nug;
 
-}
+	}
 
 
 
-public WHClient() {
+	public WHClient() {
 
-whf = new WHFrame(this);
+		whf = new WHFrame(this);
 
-whf.setVisible(true);
+		whf.setVisible(true);
 
 
-try {
+		try {
 
-s = new Socket("localhost", port);
+			s = new Socket("localhost", port);
 
-oos = new ObjectOutputStream(s.getOutputStream());
+			oos = new ObjectOutputStream(s.getOutputStream());
 
-ois = new ObjectInputStream(s.getInputStream());
+			ois = new ObjectInputStream(s.getInputStream());
 
-this.start();
+			this.start();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-} finally {
+		} finally {
 
-//	try {
+			//	try {
 
-//	if (s != null) {
+			//	if (s != null) {
 
-//	//s.close();
+			//	//s.close();
 
-//	}
+			//	}
 
-//	 
+			//	 
 
-//	} catch (IOException ioe) {
+			//	} catch (IOException ioe) {
 
-//	ioe.printStackTrace();
+			//	ioe.printStackTrace();
 
-//	}
+			//	}
 
-}
+		}
 
-}
+	}
 
 
-public void run() {
+	public void run() {
 
-while(true) {
+		while(true) {
 
 
-// if closed, reestablish connection
+			// if closed, reestablish connection
 
-if(s.isClosed()) {
+			if(s.isClosed()) {
 
-try {
+				try {
 
-s = new Socket("localhost", port);
+					s = new Socket("localhost", port);
 
-oos = new ObjectOutputStream(s.getOutputStream());
+					oos = new ObjectOutputStream(s.getOutputStream());
 
-ois = new ObjectInputStream(s.getInputStream());
+					ois = new ObjectInputStream(s.getInputStream());
 
-} catch (UnknownHostException e) {
+				} catch (UnknownHostException e) {
 
-e.printStackTrace();
+					e.printStackTrace();
 
-} catch (IOException e) {
+				} catch (IOException e) {
 
-e.printStackTrace();
+					e.printStackTrace();
 
-}
+				}
 
-}
+			}
 
 
-// otherwise, get ready to accept packages from server
+			// otherwise, get ready to accept packages from server
 
-InfoPackage p = null;
+			InfoPackage p = null;
 
-try {
+			try {
 
-p = (InfoPackage)ois.readObject();
+				p = (InfoPackage)ois.readObject();
 
-if (p != null) {
+				if (p != null) {
 
 
-// guest attempt returned
+					// guest attempt returned
 
-if (p.isGuest() ) {
+					if (p.isGuest() ) {
 
-//x++;
+						//x++;
 
-System.out.println("Guest is true");
+						System.out.println("Guest is true");
 
-InfoPackage ip = new InfoPackage();
+						InfoPackage ip = new InfoPackage();
 
-ip.setGuest(true);
+						ip.setGuest(true);
 
-sendToServer(ip);
+						sendToServer(ip);
 
-this.allEventsDefault = p.getEvents();
+						this.allEventsDefault = p.getEvents();
 
-// TODO: sort events by trending and insert into allEventsTrending
+						// TODO: sort events by trending and insert into allEventsTrending
 
-//	for (Event e : allEventsDefault) {
+						//	for (Event e : allEventsDefault) {
 
-//	//TODO: create eventpanelguis and populate eventfeedgui
+						//	//TODO: create eventpanelguis and populate eventfeedgui
 
-//	}
+						//	}
 
 
-// login attempt returned
+						// login attempt returned
 
-} else if (p.isLogin()) {
+					} else if (p.isLogin()) {
 
-if (p.getUser() == null) {
+						if (p.getUser() == null) {
 
-whf.showError();
+							whf.showError();
 
-} else {
+						} else {
 
-whf.shoSuccess();
+							whf.shoSuccess();
 
-setRegistered(true);
+							setRegistered(true);
 
-setCurrentUser(p.getUser());
+							setCurrentUser(p.getUser());
 
-//	this.allEventsDefault = p.getEvents();
+							//	this.allEventsDefault = p.getEvents();
 
-//	// TODO: sort events by trending and insert into allEventsTrending
+							//	// TODO: sort events by trending and insert into allEventsTrending
 
-//	for (Event e : allEventsDefault) {
+							//	for (Event e : allEventsDefault) {
 
-//	//TODO: create eventpanelguis and populate eventfeedgui
+							//	//TODO: create eventpanelguis and populate eventfeedgui
 
-//	}
+							//	}
 
-// TODO: create AboutMeFrame and store as data member
+							// TODO: create AboutMeFrame and store as data member
 
-}
+						}
 
 
 
-// signup attempt returned
+						// signup attempt returned
 
-} else if (p.isSignup()) {
+					} else if (p.isSignup()) {
 
-System.out.println("Recieved successfully");
+						System.out.println("Recieved successfully");
 
-if(p.isValid())
+						if(p.isValid())
 
-{
+						{
 
-nug.showSuccess();
+							nug.showSuccess();
 
-}
+						}
 
-else
+						else
 
-{
+						{
 
-nug.showFailure();
+							nug.showFailure();
 
-}
+						}
 
-//	if (p.isValid()) {
+						//	if (p.isValid()) {
 
-//	isRegistered = true;
+						//	isRegistered = true;
 
-//	currentUser = p.getUser();
+						//	currentUser = p.getUser();
 
-//	this.allEventsDefault = p.getEvents();
+						//	this.allEventsDefault = p.getEvents();
 
-//	// TODO: sort events by trending and insert into allEventsTrending
+						//	// TODO: sort events by trending and insert into allEventsTrending
 
-//	for (Event e : allEventsDefault) {
+						//	for (Event e : allEventsDefault) {
 
-//	//TODO: create eventpanelguis and populate eventfeedgui
+						//	//TODO: create eventpanelguis and populate eventfeedgui
 
-//	}
+						//	}
 
-//	// TODO: create AboutMeFrame and store as data member
+						//	// TODO: create AboutMeFrame and store as data member
 
-//	} else {
+						//	} else {
 
-//	// TODO: notify user that signup was invalid (username already taken)
+						//	// TODO: notify user that signup was invalid (username already taken)
 
-//	// "please try again, or continue as guest"
+						//	// "please try again, or continue as guest"
 
-//	}
+						//	}
 
 
-// new event submission attempt returned
+						// new event submission attempt returned
 
-} else if (p.isNewEvent()) {
+					} else if (p.isNewEvent()) {
 
-if (p.isValid()) {
+						if (p.isValid()) {
 
-// note: adding the event depends how we are creating the eventpanels
+							// note: adding the event depends how we are creating the eventpanels
 
-// we want the most recent event to be at the top, so:
+							// we want the most recent event to be at the top, so:
 
-// insert at index 0, create and place panels from 0...size-1
+							// insert at index 0, create and place panels from 0...size-1
 
-this.allEventsDefault.insertElementAt(p.getEvent(), 0);
+							this.allEventsDefault.insertElementAt(p.getEvent(), 0);
 
-// TODO: sort events by trending and insert into allEventsTrending
+							// TODO: sort events by trending and insert into allEventsTrending
 
-//	for (Event e : allEventsDefault or allEventsTrending ) {
+							//	for (Event e : allEventsDefault or allEventsTrending ) {
 
-//	//TODO: recreate eventpanelguis and re-populate eventfeedgui
+							//	//TODO: recreate eventpanelguis and re-populate eventfeedgui
 
-//	// check which sorting rule is in use when creating panels
+							//	// check which sorting rule is in use when creating panels
 
-//	}
+							//	}
 
-// TODO: display message to user saying, "Your event was submitted!"
+							// TODO: display message to user saying, "Your event was submitted!"
 
-} else {
+						} else {
 
-// TODO: display warning message to user saying,
+							// TODO: display warning message to user saying,
 
-// "There is an event at the same place and same time. Please try again"
+							// "There is an event at the same place and same time. Please try again"
 
-}
+						}
 
 
-// category of events returned
+						// category of events returned
 
-} else if (p.isGettingSports()) {
+					} else if (p.isGettingSports()) {
 
-this.sports = p.getEvents();
+						this.sports = p.getEvents();
 
-for (Event e : sports) {
+						for (Event e : sports) {
 
-//TODO: create eventpanelguis and re-populate eventfeedgui
+							//TODO: create eventpanelguis and re-populate eventfeedgui
 
-}
+						}
 
-} else if (p.isGettingCareer()) {
+					} else if (p.isGettingCareer()) {
 
-this.career = p.getEvents();
+						this.career = p.getEvents();
 
-for (Event e : career) {
+						for (Event e : career) {
 
-//TODO: create eventpanelguis and re-populate eventfeedgui
+							//TODO: create eventpanelguis and re-populate eventfeedgui
 
-}
+						}
 
-} else if (p.isGettingCultural()) {
+					} else if (p.isGettingCultural()) {
 
-this.cultural = p.getEvents();
+						this.cultural = p.getEvents();
 
-for (Event e : cultural) {
+						for (Event e : cultural) {
 
-//TODO: create eventpanelguis and re-populate eventfeedgui
+							//TODO: create eventpanelguis and re-populate eventfeedgui
 
-}
+						}
 
-} else if (p.isGettingClub()) {
+					} else if (p.isGettingClub()) {
 
-this.club = p.getEvents();
+						this.club = p.getEvents();
 
-for (Event e : club) {
+						for (Event e : club) {
 
-//TODO: create eventpanelguis and re-populate eventfeedgui
+							//TODO: create eventpanelguis and re-populate eventfeedgui
 
-}
+						}
 
 
 
-// message send request returned
+						// message send request returned
 
-} else if (p.isPostingMessage()) {
+					} else if (p.isPostingMessage()) {
 
-if (p.isValid()) {
+						if (p.isValid()) {
 
-// TODO: update messageBoard of current eventdetailgui in real time,
+							// TODO: update messageBoard of current eventdetailgui in real time,
 
-// (event has new message stored already in memory, just need to update textarea)
+							// (event has new message stored already in memory, just need to update textarea)
 
-} else {
+						} else {
 
-// TODO: display system dialog to user saying, "Message failed to post."
+							// TODO: display system dialog to user saying, "Message failed to post."
 
-}
+						}
 
 
-// add attendee request returned
+						// add attendee request returned
 
-} else if (p.isAddingAttendee()) {
+					} else if (p.isAddingAttendee()) {
 
-if (p.isValid()) {
+						if (p.isValid()) {
 
-// TODO: make sure attendee count/attendee list are updated in the GUIs
+							// TODO: make sure attendee count/attendee list are updated in the GUIs
 
-// (event has it stored already in memory, just need to update GUIs)
+							// (event has it stored already in memory, just need to update GUIs)
 
-} else {
+						} else {
 
-// TODO: display system dialog to user saying, "Cannot fulfill request at this time."
+							// TODO: display system dialog to user saying, "Cannot fulfill request at this time."
 
-}
+						}
 
-}
+					}
 
 
 
-}
+				}
 
 
-}catch(EOFException e) {
+			}catch(EOFException e) {
 
-    //eof - no error in this case
+				//eof - no error in this case
 
-} catch (ClassNotFoundException e) {
+			} catch (ClassNotFoundException e) {
 
-e.printStackTrace();
+				e.printStackTrace();
 
-} catch (IOException ioe) {
+			} catch (IOException ioe) {
 
-ioe.printStackTrace();
+				ioe.printStackTrace();
 
-}
+			}
 
-}
+		}
 
-}
+	}
 
 
-// action listener on guest button on splash screen activates this
+	// action listener on guest button on splash screen activates this
 
-public void guestRequest() {
+	public void guestRequest() {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-p.setGuest(true);
+		p.setGuest(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-// action listener on login button on splash screen activates this
+	// action listener on login button on splash screen activates this
 
-public void loginRequest(String username, String password) {
+	public void loginRequest(String username, String password) {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-p.setUsername(username); p.setPassword(password);
+		p.setUsername(username); p.setPassword(password);
 
-p.setLogin(true);
+		p.setLogin(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-// action listener on signup button on splash screen activates this.
+	// action listener on signup button on splash screen activates this.
 
-// create an instance of user from the information given, pass it in
+	// create an instance of user from the information given, pass it in
 
-public void signupRequest(User u) {
+	public void signupRequest(User u) {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-p.setUser(u);
+		p.setUser(u);
 
-p.setSignup(true);
+		p.setSignup(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-// action listener on "new event" button on main feed page activates this.
+	// action listener on "new event" button on main feed page activates this.
 
-// create an instance of event from the information given, pass it in
+	// create an instance of event from the information given, pass it in
 
-public void newEventRequest(Event newEvent) {
+	public void newEventRequest(Event newEvent) {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-p.setEvent(newEvent);
+		p.setEvent(newEvent);
 
-p.setNewEvent(true);
+		p.setNewEvent(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
 
-// TODO: method that populates AboutMe panel with currentUser's information
+	// TODO: method that populates AboutMe panel with currentUser's information
 
 
 
-public void getSportsEvents() {
+	public void getSportsEvents() {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-p.setGettingSports(true);
+		p.setGettingSports(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-public void getCareerEvents() {
+	public void getCareerEvents() {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-p.setGettingCareer(true);
+		p.setGettingCareer(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-public void getCulturalEvents() {
+	public void getCulturalEvents() {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-p.setGettingCultural(true);
+		p.setGettingCultural(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-public void getClubEvents() {
+	public void getClubEvents() {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-p.setGettingClub(true);
+		p.setGettingClub(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-// action listener on "Send Message" button on eventdetailgui activates this
+	// action listener on "Send Message" button on eventdetailgui activates this
 
-public void sendMessage(Event e, Message m) {
+	public void sendMessage(Event e, Message m) {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-// change Event's messageBoard, then send to driver to update database.
+		// change Event's messageBoard, then send to driver to update database.
 
-e.addMessage(m);
+		e.addMessage(m);
 
-p.setEvent(e);
+		p.setEvent(e);
 
-p.setMessage(m);
+		p.setMessage(m);
 
-p.setPostingMessage(true);
+		p.setPostingMessage(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-// action listener on thumbs up button on eventpanelGUI activates this
+	// action listener on thumbs up button on eventpanelGUI activates this
 
-public void incrementUpvote(Event e) {
+	public void incrementUpvote(Event e) {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-e.upvote();
+		e.upvote();
 
-p.setEvent(e);
+		p.setEvent(e);
 
-p.setUpvoting(true);
+		p.setUpvoting(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-// action listener on "Going" button on eventdetailGUI activates this
+	// action listener on "Going" button on eventdetailGUI activates this
 
-// e = event being attended, u = user attending the event
+	// e = event being attended, u = user attending the event
 
-public void addAttendee(Event e, User u) {
+	public void addAttendee(Event e, User u) {
 
-InfoPackage p = new InfoPackage();
+		InfoPackage p = new InfoPackage();
 
-// update attendee count and attendee list of event
+		// update attendee count and attendee list of event
 
-e.addAttendee(u.username());
+		e.addAttendee(u.username());
 
-p.setUser(u);
+		p.setUser(u);
 
-p.setEvent(e);
+		p.setEvent(e);
 
-p.setAddingAttendee(true);
+		p.setAddingAttendee(true);
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
 
-public void sendToServer(InfoPackage p){
+	public void sendToServer(InfoPackage p){
 
-try{
+		try{
 
-oos.writeObject(p);
+			oos.writeObject(p);
 
-oos.flush();
+			oos.flush();
 
-} catch (IOException ioe) {
+		} catch (IOException ioe) {
 
-ioe.printStackTrace();
+			ioe.printStackTrace();
 
-}
+		}
 
-}
+	}
 
-public static void main(String [] args) {
+	public static void main(String [] args) {
 
-WHClient whc = new WHClient();
+		WHClient whc = new WHClient();
 
-}
+	}
 
 
-public WHFrame getWhf() {
+	public WHFrame getWhf() {
 
-return whf;
+		return whf;
 
-}
+	}
 
 
 
-public void setWhf(WHFrame whf) {
+	public void setWhf(WHFrame whf) {
 
-this.whf = whf;
+		this.whf = whf;
 
-}
+	}
 
 
 
-public MainFeedFrame getMff() {
+	public MainFeedFrame getMff() {
 
-return mff;
+		return mff;
 
-}
+	}
 
 
 
-public void setMff(MainFeedFrame mff) {
+	public void setMff(MainFeedFrame mff) {
 
-this.mff = mff;
+		this.mff = mff;
 
-}
+	}
 
 
 
-public MyProfileFrame getMpf() {
+	public MyProfileFrame getMpf() {
 
-return mpf;
+		return mpf;
 
-}
+	}
 
 
 
-public void setMpf(MyProfileFrame mpf) {
+	public void setMpf(MyProfileFrame mpf) {
 
-this.mpf = mpf;
+		this.mpf = mpf;
 
-}
+	}
 
 
 
-public NewEventGUI getNeg() {
+	public NewEventGUI getNeg() {
 
-return neg;
+		return neg;
 
-}
+	}
 
 
 
-public void setNeg(NewEventGUI neg) {
+	public void setNeg(NewEventGUI neg) {
 
-this.neg = neg;
+		this.neg = neg;
 
-}
+	}
 
 
 
-public boolean isRegistered() {
+	public boolean isRegistered() {
 
-return isRegistered;
+		return isRegistered;
 
-}
+	}
 
 
 
-public void setRegistered(boolean isRegistered) {
+	public void setRegistered(boolean isRegistered) {
 
-this.isRegistered = isRegistered;
+		this.isRegistered = isRegistered;
 
-}
+	}
 
 
 
-public User getCurrentUser() {
+	public User getCurrentUser() {
 
-return currentUser;
+		return currentUser;
 
-}
+	}
 
 
 
-public void setCurrentUser(User currentUser) {
+	public void setCurrentUser(User currentUser) {
 
-this.currentUser = currentUser;
+		this.currentUser = currentUser;
 
-}
+	}
 
 
 }

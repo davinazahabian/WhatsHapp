@@ -220,7 +220,7 @@ public class EventDetailGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent f) {
-				Message msg = new Message(whc.getUseraname(), addMessageArea.getText());
+				Message msg = new Message(whc.getCurrentUser().username(), addMessageArea.getText());
 				whc.sendMessage(e,msg);
 			}
 		});

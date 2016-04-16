@@ -191,7 +191,7 @@ public class MainFeedFrame extends JFrame {
 			int curr = 0;
 			for (int i=0; i<100; i++) {
 				curr+=1;
-				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"));
+				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"),whClient);
 				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				eventPanels.add(epg);
 				feedPanel.add(epg);
@@ -204,7 +204,7 @@ public class MainFeedFrame extends JFrame {
 			int curr = 0;
 			for (int i=0; i<100; i++) {
 				curr+=1;
-				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"));
+				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"),whClient);
 				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				eventPanels.add(epg);
 				feedPanel.add(epg);
