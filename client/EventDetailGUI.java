@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.Box;
@@ -22,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Model.Event;
+import Model.Message;
 import customui.WHButton;
 
 public class EventDetailGUI extends JFrame {
@@ -59,9 +62,9 @@ public class EventDetailGUI extends JFrame {
 	private JButton thumbButton;
 	private WHButton going;
 	private JTextArea description;
-	
-	public EventDetailGUI(Event e) {
-		
+	private WHClient whc;
+	public EventDetailGUI(Event e, WHClient whc) {
+		this.whc = whc;
 		this.setSize(new Dimension(900,602));
 		this.e = e;
 		
@@ -212,7 +215,14 @@ public class EventDetailGUI extends JFrame {
 	}
 	
 	private void addActions() {
-		
+		postMessage.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent f) {
+				Message msg = new Message(whc.getUseraname(), addMessageArea.getText());
+				whc.sendMessage(e,msg);
+			}
+		});
 	}
 	
 	// called when new messages are sent to the server so that message board is updated.

@@ -24,6 +24,7 @@ public class WHClient extends Thread {
 	private int port = 6780;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
+	private String useraname;
 	//int x = 0;
 	// data
 	// instance of current user, for populating the about me page
@@ -428,6 +429,14 @@ public class WHClient extends Thread {
 
 	public void setRegistered(boolean isRegistered) {
 		this.isRegistered = isRegistered;
+	}
+
+	public String getUseraname() {
+		return useraname;
+	}
+
+	public void setUseraname(String useraname) {
+		this.useraname = useraname;
 	}
 		
 }

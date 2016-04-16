@@ -195,6 +195,7 @@ public class NewUserGUI extends JFrame{
 		this.setVisible(false);
 		//whClient.getMff().setVisible(true);
 		whClient.setMff(new MainFeedFrame(whClient));
+		whClient.setUseraname(this.usernameField.getText());
 		//instatnitate a mgui, set the , instatiate, instance of whclient into main feed
 	}
 

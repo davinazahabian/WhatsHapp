@@ -169,7 +169,7 @@ public class WHFrame extends JFrame {
 		this.setVisible(false);
 		//whClient.getMff().setVisible(true);
 		whClient.setMff(new MainFeedFrame(whClient));
-		
+		whClient.setUseraname(this.usernameTextField.getText());
 	}
 	
 //	public static void main(String [] args)
