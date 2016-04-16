@@ -42,11 +42,21 @@ public class WHClient extends Thread {
 
 
 	// GUI
-	public WHFrame whf;
-	public MainFeedFrame mff;
-	public NewUserGUI nug;
-	public MyProfileFrame mpf;
-	public NewEventGUI neg;
+	private WHFrame whf;
+
+	private MainFeedFrame mff ;
+	private MyProfileFrame mpf;
+	private NewEventGUI neg;
+	//private EventDetailGUI edg;
+	private NewUserGUI nug;
+	
+	public NewUserGUI getNug() {
+		return nug;
+	}
+
+	public void setNug(NewUserGUI nug) {
+		this.nug = nug;
+	}
 
 	public WHClient() {
 		whf = new WHFrame(this);
@@ -128,7 +138,7 @@ public class WHClient extends Thread {
 						System.out.println("Recieved successfully");
 						if(p.isValid())
 						{
-							nug.showSuccess();
+							nug.showSuccess();							
 						}
 						else
 						{
@@ -377,7 +387,39 @@ public class WHClient extends Thread {
 		}
 	}
 	public static void main(String [] args) {
-		new WHClient();
+		WHClient whc = new WHClient();		
+	}
+	
+	public WHFrame getWhf() {
+		return whf;
+	}
+
+	public void setWhf(WHFrame whf) {
+		this.whf = whf;
+	}
+
+	public MainFeedFrame getMff() {
+		return mff;
+	}
+
+	public void setMff(MainFeedFrame mff) {
+		this.mff = mff;
+	}
+
+	public MyProfileFrame getMpf() {
+		return mpf;
+	}
+
+	public void setMpf(MyProfileFrame mpf) {
+		this.mpf = mpf;
+	}
+
+	public NewEventGUI getNeg() {
+		return neg;
+	}
+
+	public void setNeg(NewEventGUI neg) {
+		this.neg = neg;
 	}
 
 	public boolean isRegistered() {
@@ -387,8 +429,5 @@ public class WHClient extends Thread {
 	public void setRegistered(boolean isRegistered) {
 		this.isRegistered = isRegistered;
 	}
-	
-	
-		
 		
 }

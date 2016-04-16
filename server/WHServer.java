@@ -23,7 +23,6 @@ public class WHServer extends Thread {
 	MySQLDriver driver;
 	
 	public WHServer() throws IOException {
-		//driver = new MySQLDriver();
 		serverThreads = new Vector<WHServerThread>();
 		sockets = new ArrayList<>();
 		driver = new MySQLDriver();

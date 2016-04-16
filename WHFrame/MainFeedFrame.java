@@ -156,8 +156,8 @@ public class MainFeedFrame extends JFrame {
 		myProfileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (whClient.isRegistered()) {
-					whClient.mff.setVisible(false);
-					whClient.mpf.setVisible(true);
+					whClient.getMff().setVisible(false);
+					whClient.getMpf().setVisible(true);
 				} else {
 					// TODO option pane that asks to sign up
 				}
@@ -167,8 +167,8 @@ public class MainFeedFrame extends JFrame {
 		newEventButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (whClient.isRegistered()) {
-					whClient.mff.setVisible(false);
-					whClient.neg.setVisible(true);
+					whClient.getMff().setVisible(false);
+					whClient.getNeg().setVisible(true);
 				} else {
 					// TODO option pane that asks to sign up
 				}

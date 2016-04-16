@@ -67,10 +67,21 @@ public class WHServerThread extends Thread {
 					// if not valid, set not valid and send package with user already in it back to client
 				} else if (p.isSignup()) {
 					if (whs.signupAttempt(p.getUser())) {
-						p.setEvents(whs.getAllEvents());
-						p.setValid(true);
+						InfoPackage p3 =  new InfoPackage();
+						p3.setUser(p.getUser());
+						p3.setSignup(true);
+						
+						p3.setEvents(whs.getAllEvents());
+						p3.setValid(true);
+						sendToClient(p3);
 					} else {
-						p.setValid(false);
+						InfoPackage p3 =  new InfoPackage();
+						p3.setUser(p.getUser());
+						p3.setSignup(true);
+						
+						p3.setEvents(whs.getAllEvents());
+						p3.setValid(false);
+						sendToClient(p3);
 					}
 				// new event submission attempt
 				} else if (p.isNewEvent()) {
@@ -98,9 +109,6 @@ public class WHServerThread extends Thread {
 				} else if (p.isAddingAttendee()) {
 					p.setValid(whs.addAttendeeAttempt(p.getEvent(), p.getUser()));
 				}
-				
-				
-				
 				// send package back to client
 				//sendToClient(p);
 			} catch(EOFException e) {

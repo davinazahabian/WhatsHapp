@@ -129,6 +129,7 @@ public class WHFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				WHFrame.this.setVisible(false);
+			//	whClient.setNu
 				whClient.setNug(new NewUserGUI(whClient));
 			}
 		});
@@ -147,7 +148,6 @@ public class WHFrame extends JFrame {
 //				whClient.sendToServer(ip);
 			}
 		});
-
 	}
 
 	public static void setUIFont (javax.swing.plaf.FontUIResource f) {

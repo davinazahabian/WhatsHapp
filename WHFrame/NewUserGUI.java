@@ -168,8 +168,8 @@ public class NewUserGUI extends JFrame{
 	private void addActions() {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				newUserGUI.setVisible(false);
-				whClient.whf.setVisible(true);
+				whClient.getNug().setVisible(false); //set clients newuser gui to false?
+				whClient.getWhf().setVisible(true);
 			}
 		});
 		
