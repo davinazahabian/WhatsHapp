@@ -175,7 +175,7 @@ public class NewUserGUI extends JFrame{
 		
 		signUpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				whClient.signupRequest(new User(firstNameField.getText(),lastNameField.getText(),emailField.getText(),usernameField.getText(),new String(passwordField.getPassword())));
+				whClient.signupRequest(new User(firstNameField.getText(),lastNameField.getText(),emailField.getText(),usernameField.getText(),passwordField.getPassword().toString()));
 			}
 		});
 	}
@@ -186,6 +186,14 @@ public class NewUserGUI extends JFrame{
 	
 	public static void main(String[] args){
 		new NewUserGUI(new WHClient());
+	}
+
+	public void showSuccess() {
+		JOptionPane.showMessageDialog(this, "Sign Up Success :)");
+	}
+
+	public void showFailure() {
+		JOptionPane.showMessageDialog(this, "Sign Up Failure:(");
 	}
 }
 

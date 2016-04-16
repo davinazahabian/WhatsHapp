@@ -429,5 +429,13 @@ public class MySQLDriver {
 		} catch (SQLException e) { e.printStackTrace(); return false;}
 	}
 
+	public int hash(String password){
+		int hash = 11;
+		for (int i = 0; i < password.length(); i++) {
+		    hash = hash*47 + (int)password.charAt(i);
+		}
+		
+		return hash;
+	}
 }
 
