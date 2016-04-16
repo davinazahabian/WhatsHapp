@@ -46,52 +46,44 @@ import customui.OutlinedLabel;
 import customui.WHButton;
 import library.ImageLibrary;
 
-
-
 public class NewEventGUI extends JFrame{
-	JTextField eventNameField;
-	JTextField dateField;
-	JTextField timeField;
-	JTextField locationField;
-	JTextArea descriptionField;
-	JTextField hostField;
-	JComboBox<String> typeBox;
+	private static final long serialVersionUID = 1L;
+	
+	private JTextField eventNameField;
+	private JTextField dateField;
+	private JTextField timeField;
+	private JTextField locationField;
+	private JTextArea descriptionField;
+	private JTextField hostField;
+	private JComboBox<String> typeBox;
 
-	JScrollPane jsp;
-	OutlinedLabel eventNameLabel;
-	OutlinedLabel dateLabel;
-	OutlinedLabel timeLabel;
-	OutlinedLabel endTimeLabel;
-	OutlinedLabel locationLabel;
-	OutlinedLabel descriptionLabel;
-	OutlinedLabel hostLabel;
-	OutlinedLabel typeLabel;
-	SplashPanel splash;
-	WHButton backButton;
-	WHButton createButton;
-	JSpinner spinner;
-	JSpinner spinner2;
-	JDatePickerImpl datePicker;
-	public NewEventGUI(){
-		setTitle("Trojan Office");
+	private JScrollPane jsp;
+	private OutlinedLabel eventNameLabel;
+	private OutlinedLabel dateLabel;
+	private OutlinedLabel timeLabel;
+	private OutlinedLabel endTimeLabel;
+	private OutlinedLabel locationLabel;
+	private OutlinedLabel descriptionLabel;
+	private OutlinedLabel hostLabel;
+	private OutlinedLabel typeLabel;
+	private SplashPanel splash;
+	private WHButton backButton;
+	private WHButton createButton;
+	private JSpinner spinner;
+	private JSpinner spinner2;
+	private JDatePickerImpl datePicker;
+	
+	public NewEventGUI() {
+		setTitle("What's Happ");
 		setSize(900,602);
-		setMinimumSize(new Dimension(640,480));
-		//setJMenuBar(new OfficeMenuBar());
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		initComps();
-		create();
+		initializeComponents();
+		createGUI();
 		addActions();
-
-		setVisible(true);
 	}
 
-
-
-
-
-	private void initComps() {
+	private void initializeComponents() {
 		eventNameField = new JTextField(10);
 		dateField = new JTextField(10);
 		timeField = new JTextField(10);
@@ -135,8 +127,7 @@ public class NewEventGUI extends JFrame{
 
 	}
 
-	private void create() {
-		
+	private void createGUI() {
 		eventNameLabel = new OutlinedLabel("Event Name: ");
 		eventNameLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		eventNameLabel.setForeground(new Color(255, 204, 0));
@@ -223,9 +214,6 @@ public class NewEventGUI extends JFrame{
 		c.gridwidth = 5;
 		splash.add(createButton,c);
 
-		//			c.gridy = 7;
-		//			c.gridwidth = 7;
-		//			splash.add(backButton,c);
 		add(splash);
 	}
 
@@ -291,6 +279,7 @@ public class NewEventGUI extends JFrame{
 
 class DateLabelFormatter extends AbstractFormatter {
 
+	private static final long serialVersionUID = 1L;
 	private String datePattern = "yyyy-MM-dd";
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
 
