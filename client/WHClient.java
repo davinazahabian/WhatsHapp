@@ -2,6 +2,7 @@ package client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +21,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.sun.org.apache.bcel.internal.generic.IFNONNULL;
+
 import Model.Event;
 import Model.InfoPackage;
 import Model.Message;
@@ -32,7 +35,7 @@ import WHFrame.WHFrame;
 public class WHClient extends Thread {
 	// networking
 	protected Socket s;
-	private int port = 6789;
+	private int port = 6780;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
 	
@@ -101,11 +104,15 @@ public class WHClient extends Thread {
 					
 					// guest attempt returned
 					if (p.isGuest()) {
+						System.out.println("Guest is truee");
+						InfoPackage ip = new InfoPackage();
+						ip.setGuest(true);
+						sendToServer(ip);
 						this.allEventsDefault = p.getEvents();
 						// TODO: sort events by trending and insert into allEventsTrending
-						for (Event e : allEventsDefault) {
-							//TODO: create eventpanelguis and populate eventfeedgui
-						}
+//						for (Event e : allEventsDefault) {
+//							//TODO: create eventpanelguis and populate eventfeedgui
+//						}
 					
 					// login attempt returned
 					} else if (p.isLogin()) {
@@ -125,19 +132,20 @@ public class WHClient extends Thread {
 					
 					// signup attempt returned
 					} else if (p.isSignup()) {
-						if (p.isValid()) {
-							isRegistered = true;
-							currentUser = p.getUser();
-							this.allEventsDefault = p.getEvents();
-							// TODO: sort events by trending and insert into allEventsTrending
-							for (Event e : allEventsDefault) {
-								//TODO: create eventpanelguis and populate eventfeedgui
-							}
-							// TODO: create AboutMeFrame and store as data member
-						} else {
-							// TODO: notify user that signup was invalid (username already taken)
-							// "please try again, or continue as guest"
-						}
+						System.out.println("Recieved successfully");
+//						if (p.isValid()) {
+//							isRegistered = true;
+//							currentUser = p.getUser();
+//							this.allEventsDefault = p.getEvents();
+//							// TODO: sort events by trending and insert into allEventsTrending
+//							for (Event e : allEventsDefault) {
+//								//TODO: create eventpanelguis and populate eventfeedgui
+//							}
+//							// TODO: create AboutMeFrame and store as data member
+//						} else {
+//							// TODO: notify user that signup was invalid (username already taken)
+//							// "please try again, or continue as guest"
+//						}
 						
 					// new event submission attempt returned
 					} else if (p.isNewEvent()) {
@@ -200,6 +208,9 @@ public class WHClient extends Thread {
 					
 					
 				}
+				
+			}catch(EOFException e) {
+			    //eof - no error in this case
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException ioe) {
@@ -356,6 +367,14 @@ public class WHClient extends Thread {
 		}
 	}
 	
+	public void sendToServer(InfoPackage p){
+		try{
+			oos.writeObject(p);
+			oos.flush();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 	public static void main(String [] args) {
 		WHClient c = new WHClient();
 	}

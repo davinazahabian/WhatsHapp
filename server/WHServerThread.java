@@ -1,12 +1,16 @@
 package server;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
+
 import Model.InfoPackage;
 public class WHServerThread extends Thread {
 	
@@ -29,9 +33,25 @@ public class WHServerThread extends Thread {
     	while(!isDone) {
 			InfoPackage p;
 			try {
+				// if closed, reestablish connection
+				if(s.isClosed()) {
+					System.out.println("enters here");
+					break;
+//					try {
+//						ServerSocket ss = new ServerSocket(6780);
+//						s = ss.accept();
+//						oos = new ObjectOutputStream(s.getOutputStream());
+//						ois = new ObjectInputStream(s.getInputStream());
+//					} catch (UnknownHostException e) {
+//						e.printStackTrace();
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+				}
 				p = (InfoPackage)ois.readObject();
 				// guest attempt: server->driver->send back events
 				if (p.isGuest()) {
+					System.out.println("Guet is true");
 					p.setEvents(whs.getAllEvents());
 					p.setValid(true);
 				// login attempt: server->driver->send back events and user info
@@ -79,10 +99,16 @@ public class WHServerThread extends Thread {
 				
 				// send package back to client
 				sendToClient(p);
-			} catch (ClassNotFoundException | IOException e) {
+			} catch(EOFException e) {
+			    //eof - no error in this case
+			}catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				//e.printStackTrace();
+				//System.out.println("It enters here");
+				//break;
 			}
+			
 
     	}
     }
@@ -93,6 +119,7 @@ public class WHServerThread extends Thread {
 			oos.flush();
 		} catch (IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
+			ioe.printStackTrace();
 		}
 	}
 }

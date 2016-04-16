@@ -19,7 +19,7 @@ public class WHServer extends Thread {
 	private ServerSocket ss = null;
 //	private static Vector<Event> allEvents;
 	private ArrayList<Socket> sockets;
-	private int port = 6789;
+	private int port = 6780;
 	MySQLDriver driver;
 	
 	public WHServer() throws IOException {
@@ -35,6 +35,7 @@ public class WHServer extends Thread {
 		try {
 			ss = new ServerSocket(port);
 			while (true) {
+				System.out.println("Enters here");
 				Socket s = ss.accept();
 				// once connection made with client, create a new thread to start accepting and sending connections from client
 				WHServerThread wst = new WHServerThread(s, this);
