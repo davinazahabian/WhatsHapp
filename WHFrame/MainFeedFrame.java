@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Vector;
@@ -19,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import Model.Event;
 import client.EventPanelGUI;
+import client.WHClient;
 import customui.WHButton;
 import library.ImageLibrary;
 
@@ -55,8 +58,12 @@ public class MainFeedFrame extends JFrame {
 	private ButtonGroup sortBy;
 	private JRadioButton sortByTrending;
 	private JRadioButton sortByDefault;  // sort by time posted
+	
+	private WHClient whClient;
 
-	public MainFeedFrame() {
+	public MainFeedFrame(WHClient whClient) {
+		this.whClient = whClient;
+		
 		setTitle("WhatsHapp");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(1,3));
@@ -142,42 +149,48 @@ public class MainFeedFrame extends JFrame {
 		rightPanel.add(lowerPanel, BorderLayout.SOUTH);
 		rightPanel.add(upperPanel, BorderLayout.CENTER);
 		
-		// adding sort and filter panel to right panel
-		//rightGBC.gridy = 450;
-		//rightPanel.add(sortFilterPanel,rightGBC);
-		
 		add(rightPanel);		
 	}
 	
 	public void addActions() {
 		myProfileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				
+				if (whClient.isRegistered()) {
+					whClient.mff.setVisible(false);
+					whClient.mpf.setVisible(true);
+				} else {
+					// TODO option pane that asks to sign up
+				}
 			}
 		});
 		
 		newEventButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				
+				if (whClient.isRegistered()) {
+					whClient.mff.setVisible(false);
+					whClient.neg.setVisible(true);
+				} else {
+					// TODO option pane that asks to sign up
+				}
 			}
 		});
 		
 		sortByTrending.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				
+				populateFeed("Trending");
 			}
 		});
 		
 		sortByDefault.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				
+				populateFeed("Default");
 			}
 		});
 		
 		categoryBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
 				String category = categoryBox.getSelectedItem().toString();
-				
+				populateFeed(category);
 			}
 		});
 	}
@@ -221,10 +234,10 @@ public class MainFeedFrame extends JFrame {
 		}
 	}
 	
-	public static void main(String [] args) {
-		MainFeedFrame mff = new MainFeedFrame();
-		mff.setVisible(true);
-	}
+//	public static void main(String [] args) {
+//		MainFeedFrame mff = new MainFeedFrame();
+//		mff.setVisible(true);
+//	}
 	
 }
 

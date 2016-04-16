@@ -13,6 +13,7 @@ import Model.Message;
 import Model.User;
 import WHFrame.MainFeedFrame;
 import WHFrame.MyProfileFrame;
+import WHFrame.NewEventGUI;
 import WHFrame.NewUserGUI;
 import WHFrame.WHFrame;
 
@@ -42,18 +43,10 @@ public class WHClient extends Thread {
 
 	// GUI
 	public WHFrame whf;
-	private MainFeedFrame mff;
-	//private EventDetailGUI edg;
-	private NewUserGUI nug;
-	private MyProfileFrame mpf;
-	
-	public NewUserGUI getNug() {
-		return nug;
-	}
-
-	public void setNug(NewUserGUI nug) {
-		this.nug = nug;
-	}
+	public MainFeedFrame mff;
+	public NewUserGUI nug;
+	public MyProfileFrame mpf;
+	public NewEventGUI neg;
 
 	public WHClient() {
 		whf = new WHFrame(this);
@@ -119,7 +112,7 @@ public class WHClient extends Thread {
 							whf.showError();
 						} else {
 							whf.shoSuccess();
-							isRegistered = true;
+							setRegistered(true);
 							currentUser = p.getUser();
 							this.allEventsDefault = p.getEvents();
 							// TODO: sort events by trending and insert into allEventsTrending
@@ -386,6 +379,16 @@ public class WHClient extends Thread {
 	public static void main(String [] args) {
 		new WHClient();
 	}
+
+	public boolean isRegistered() {
+		return isRegistered;
+	}
+
+	public void setRegistered(boolean isRegistered) {
+		this.isRegistered = isRegistered;
+	}
+	
+	
 		
 		
 }
