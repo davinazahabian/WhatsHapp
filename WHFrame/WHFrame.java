@@ -137,12 +137,14 @@ public class WHFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameTextField.getText();
-				String password = passwordTextField.getPassword().toString();
-				InfoPackage ip = new InfoPackage();
-				ip.setLogin(true);
-				ip.setUsername(username);
-				ip.setPassword(password);
-				whClient.sendToServer(ip);
+				String password = new String(passwordTextField.getPassword());
+				System.out.println(password);
+				whClient.loginRequest(username, password);
+//				InfoPackage ip = new InfoPackage();
+//				ip.setLogin(true);
+//				ip.setUsername(username);
+//				ip.setPassword(password);
+//				whClient.sendToServer(ip);
 			}
 		});
 
@@ -160,6 +162,10 @@ public class WHFrame extends JFrame {
 
 	public void showError() {
 		JOptionPane.showMessageDialog(this, "Username or password incorrect");
+	}
+
+	public void shoSuccess() {
+		JOptionPane.showMessageDialog(this, "LoginSuccess");
 	}
 	
 //	public static void main(String [] args)

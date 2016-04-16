@@ -118,6 +118,7 @@ public class WHClient extends Thread {
 						if (p.getUser() == null) {
 							whf.showError();
 						} else {
+							whf.shoSuccess();
 							isRegistered = true;
 							currentUser = p.getUser();
 							this.allEventsDefault = p.getEvents();
@@ -132,6 +133,14 @@ public class WHClient extends Thread {
 					// signup attempt returned
 					} else if (p.isSignup()) {
 						System.out.println("Recieved successfully");
+						if(p.isValid())
+						{
+							nug.showSuccess();
+						}
+						else
+						{
+							nug.showFailure();
+						}
 //						if (p.isValid()) {
 //							isRegistered = true;
 //							currentUser = p.getUser();

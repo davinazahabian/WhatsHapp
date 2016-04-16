@@ -57,6 +57,7 @@ public class WHServerThread extends Thread {
 				// login attempt: server->driver->send back events and user info
 				} else if (p.isLogin()) {
 					p.setEvents(whs.getAllEvents());
+					System.out.println("Username:" + p.getUsername() + " Password:" + p.getPassword());
 					p.setUser(whs.loginAttempt(p.getUsername(), p.getPassword()));
 					InfoPackage p2 =  new InfoPackage();
 					p2.setUser(p.getUser());

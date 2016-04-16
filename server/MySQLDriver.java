@@ -110,7 +110,7 @@ public class MySQLDriver {
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				if(rs.getString(2) == password) {
+				if(rs.getInt(2) == hash(password)) {
 					info = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
 					String eventsCreated = (rs.getString(6));
 					String eventsAttending = (rs.getString(7));
@@ -145,7 +145,7 @@ public class MySQLDriver {
 			// INSERT INTO USERS(USERNAME,PASSWORD,FNAME,LNAME,EMAIL)
 			PreparedStatement ps = con.prepareStatement(insertUser);
 			ps.setString(1, u.username());
-			ps.setString(2, u.password());
+			ps.setInt(2, hash(u.password()));
 			ps.setString(3, u.fname());
 			ps.setString(4, u.lname());
 			ps.setString(5, u.email());
@@ -429,5 +429,13 @@ public class MySQLDriver {
 		} catch (SQLException e) { e.printStackTrace(); return false;}
 	}
 
+	public int hash(String password){
+		int hash = 11;
+		for (int i = 0; i < password.length(); i++) {
+		    hash = hash*47 + (int)password.charAt(i);
+		}
+		
+		return hash;
+	}
 }
 
