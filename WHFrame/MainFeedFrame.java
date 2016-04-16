@@ -71,6 +71,10 @@ public class MainFeedFrame extends JFrame {
 		
 		middlePanel = new MiddlePanel();
 		feedPanel = new JPanel();
+		feedPanel.setLayout(new BoxLayout(feedPanel, BoxLayout.Y_AXIS));
+		
+		/***********************************************/
+		// the following is for testing the scroll pane, delete when creating
 		int curr = 0;
 		for (int i=0; i<100; i++) {
 			curr+=1;
@@ -78,7 +82,9 @@ public class MainFeedFrame extends JFrame {
 		    epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			feedPanel.add(epg);
 		}
+		/************************************/
 		feedScrollPane = new JScrollPane(feedPanel);
+		feedScrollPane.setPreferredSize(new Dimension(300,400));
 		feedScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		feedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		//eventPanels = new Vector<EventPanelGUI>();
@@ -116,7 +122,7 @@ public class MainFeedFrame extends JFrame {
 		// TODO: create feed of EventPanelGUIs and place into the scrollpane
 		// would we initialize scroll pane here? after we've placed GUI's into the panel?
 		middlePanel.setLayout(new BorderLayout());
-		middlePanel.add(feedScrollPane, BorderLayout.CENTER);
+		middlePanel.add(feedScrollPane, BorderLayout.SOUTH);
 		add(middlePanel);
 		
 		// right panel
