@@ -60,7 +60,7 @@ public class MainFeedFrame extends JFrame {
 		setTitle("WhatsHapp");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(1,3));
-		setSize(900,602);
+		setSize(900,620);
 		instantiateComponents();
 		createGUI();
 		addActions();
@@ -95,10 +95,12 @@ public class MainFeedFrame extends JFrame {
 //		signOutButton.setPreferredSize(newEventButton.getPreferredSize());
 		
 		// setting panel sizes
+		leftPanel.setPreferredSize(new Dimension(300,600));
+		middlePanel.setPreferredSize(new Dimension(300,600));
+		rightPanel.setPreferredSize(new Dimension(300,600));
 		upperPanel.setPreferredSize(new Dimension(300,300));
 		lowerPanel.setPreferredSize(new Dimension(300,300));
 
-		
 		// left panel
 		leftPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
 		leftPanel.add(myProfileButton);
@@ -112,25 +114,27 @@ public class MainFeedFrame extends JFrame {
 		add(middlePanel);
 		
 		// right panel
-//		rightPanel.setLayout(new BorderLayout());
-//		upperPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
-//		lowerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		rightPanel.setLayout(new BorderLayout());
+		upperPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
+		lowerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
 		// sort and filter panel
 		sortPanel.setBackground(new Color(255,204,102));
 		sortPanel.setBorder(BorderFactory.createTitledBorder("Sort By"));
 		sortPanel.add(sortByDefault);
 		sortPanel.add(sortByTrending);
+		
 		filterPanel.setBackground(new Color(255,204,102));
 		filterPanel.setBorder(BorderFactory.createTitledBorder("Filter By"));
 		filterPanel.add(categories);
+		
 		sortFilterPanel.add(sortPanel, BorderLayout.NORTH);
 		sortFilterPanel.add(filterPanel, BorderLayout.SOUTH);
 		
-//		upperPanel.add(newEventButton);
-//		lowerPanel.add(sortFilterPanel);
-		rightPanel.add(upperPanel, BorderLayout.NORTH);
+		upperPanel.add(newEventButton);
+		lowerPanel.add(sortFilterPanel);
 		rightPanel.add(lowerPanel, BorderLayout.SOUTH);
+		rightPanel.add(upperPanel, BorderLayout.CENTER);
 		
 		// adding sort and filter panel to right panel
 		//rightGBC.gridy = 450;
@@ -163,7 +167,7 @@ class LeftPanel extends JPanel {
 	private static final Image background;
 
 	static {
-		background = ImageLibrary.getImage("img/left.png");
+		background = ImageLibrary.getImage("img/left-1.png");
 	}
 	
 	@Override
@@ -180,7 +184,7 @@ class MiddlePanel extends JPanel {
 	private static final Image background;
 
 	static {
-		background = ImageLibrary.getImage("img/middle.png");
+		background = ImageLibrary.getImage("img/middle-1.png");
 	}
 	
 	@Override
@@ -197,7 +201,7 @@ class RightUpperPanel extends JPanel {
 	private static final Image background;
 
 	static {
-		background = ImageLibrary.getImage("img/right_top.png");
+		background = ImageLibrary.getImage("img/right_top-1.png");
 	}
 	
 	@Override
@@ -213,7 +217,7 @@ class RightLowerPanel extends JPanel {
 	private static final Image background;
 
 	static {
-		background = ImageLibrary.getImage("img/right_bottom.png");
+		background = ImageLibrary.getImage("img/right_bottom-1.png");
 	}
 	
 	@Override
