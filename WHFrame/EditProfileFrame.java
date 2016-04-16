@@ -51,12 +51,15 @@ public class EditProfileFrame extends JFrame {
 	private JPanel centerPanel;
 	private JPanel centerNorthPanel;
 	private JPanel titlePanel;
+	private JPanel buttonPanel;
+	private JPanel northButtonPanel;
 
 	private JPanel imagePanel = new JPanel();
 	
 	private ImageIcon defaultAvatar = new ImageIcon("img/default_profile_pic.png");
 	private JPanel defaultPanel = new JPanel();
 	private JLabel defaultLabel;
+
 	
 	private final ImageIcon millerAvatar = new ImageIcon("img/Avatar1-1.png");
 	private JPanel millerPanel = new JPanel();
@@ -82,7 +85,10 @@ public class EditProfileFrame extends JFrame {
 	private JPanel dogePanel = new JPanel();
 	private JLabel dogeLabel;
 
-
+	private final ImageIcon spaceFiller = new ImageIcon("img/space.png");
+	private JPanel spacePanel = new JPanel();
+	private JLabel spaceLabel;
+	
 	private int pictureIndex = 0;
 
 	private MyProfileFrame myProfile;
@@ -93,8 +99,10 @@ public class EditProfileFrame extends JFrame {
 		this.myProfile = mpf;
 		editProfile = this;
 		this.setSize(new Dimension(900,602));
+		this.setMinimumSize(new Dimension(900,620));
+		this.setMaximumSize(new Dimension(900,620));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		this.setBackground(yellowColor);
 		instantiateComponents();
 		createGUI();
 		addActions();
@@ -111,6 +119,8 @@ public class EditProfileFrame extends JFrame {
 		edituseremail = new JTextField( currentUser.email());
 		editusername = new JTextField( currentUser.username());		
 		eastPanel = new JPanel();
+		buttonPanel = new JPanel();
+		northButtonPanel = new JPanel();
 		saveButton = new WHButton("Save");
 		nextButton = new WHButton(">");
 		westPanel = new JPanel();
@@ -124,23 +134,34 @@ public class EditProfileFrame extends JFrame {
 		peachLabel = new JLabel(peachAvatar);
 		trumpLabel = new JLabel(trumpAvatar);
 		dogeLabel = new JLabel(dogeAvatar);
+		spaceLabel = new JLabel(spaceFiller);
 	}
 	
 	private void createGUI() {
 		eastPanel.setPreferredSize(new Dimension (300,600));
 		
 		eastPanel.setLayout(new BorderLayout());
+		
 		imagePanel.setLayout(new CardLayout());
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
-
+		
 		mainPanel.setBackground(yellowColor);
 		eastPanel.setBackground(yellowColor);
+		buttonPanel.setBackground(yellowColor);
 		imagePanel.setBackground(yellowColor);
 		westPanel.setBackground(yellowColor);
 		centerPanel.setBackground(yellowColor);
 		centerNorthPanel.setBackground(yellowColor);
 		titlePanel.setBackground(yellowColor);
-
+		defaultPanel.setBackground(yellowColor);
+		millerPanel.setBackground(yellowColor);
+		koalaPanel.setBackground(yellowColor);
+		linkPanel.setBackground(yellowColor);
+		peachLabel.setBackground(yellowColor);
+		peachPanel.setBackground(yellowColor);
+		trumpPanel.setBackground(yellowColor);
+		dogePanel.setBackground(yellowColor);
+		
 		fname.setFont(new Font ("Impact", Font.PLAIN, 25));
 		lname.setFont(new Font ("Impact", Font.PLAIN, 25));
 		email.setFont(new Font ("Impact", Font.PLAIN, 25));
@@ -165,8 +186,11 @@ public class EditProfileFrame extends JFrame {
 		imagePanel.add(peachPanel);
 		imagePanel.add(trumpPanel);
 		imagePanel.add(dogePanel);
-		eastPanel.add(imagePanel, BorderLayout.CENTER);
-		eastPanel.add(nextButton, BorderLayout.SOUTH);
+		eastPanel.add(imagePanel, BorderLayout.NORTH);
+
+		buttonPanel.add(nextButton, BorderLayout.NORTH);
+		eastPanel.add(buttonPanel, BorderLayout.CENTER);
+		
 		
 		titlePanel.add(fname);
 		titlePanel.add(Box.createHorizontalGlue());

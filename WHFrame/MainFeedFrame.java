@@ -61,6 +61,8 @@ public class MainFeedFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(1,3));
 		setSize(900,620);
+		this.setMinimumSize(new Dimension(900,620));
+		this.setMaximumSize(new Dimension(900,620));
 		instantiateComponents();
 		createGUI();
 		addActions();
