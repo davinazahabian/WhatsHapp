@@ -28,6 +28,7 @@ import Model.InfoPackage;
 import Model.Message;
 import Model.User;
 import WHFrame.MainFeedFrame;
+import WHFrame.NewUserGUI;
 import WHFrame.SplashPanel;
 import WHFrame.WHFrame;
 
@@ -59,8 +60,16 @@ public class WHClient extends Thread {
 	private WHFrame whf;
 	private MainFeedFrame mff = new MainFeedFrame();
 	private EventDetailGUI edg;
-
+	private NewUserGUI nug;
 	
+	public NewUserGUI getNug() {
+		return nug;
+	}
+
+	public void setNug(NewUserGUI nug) {
+		this.nug = nug;
+	}
+
 	public WHClient() {		
 		try {
 			s = new Socket("localhost", port);
@@ -124,7 +133,7 @@ public class WHClient extends Thread {
 					// login attempt returned
 					} else if (p.isLogin()) {
 						if (p.getUser() == null) {
-							// TODO: system dialog letting the user know that username/password does not exist
+							whf.showError();
 						} else {
 							isRegistered = true;
 							currentUser = p.getUser();

@@ -23,6 +23,7 @@ import java.util.Enumeration;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -136,7 +137,7 @@ public class WHFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				WHFrame.this.setVisible(false);
-				new NewUserGUI(mClient);
+				mClient.setNug(new NewUserGUI(mClient));
 			}
 		});
 		
@@ -148,6 +149,8 @@ public class WHFrame extends JFrame{
 				String password = ptf.getPassword().toString();
 				InfoPackage ip = new InfoPackage();
 				ip.setLogin(true);
+				ip.setUsername(username);
+				ip.setPassword(password);
 				mClient.sendToServer(ip);
 			}
 		});
@@ -162,6 +165,10 @@ public class WHFrame extends JFrame{
 			if (value != null && value instanceof javax.swing.plaf.FontUIResource)
 				UIManager.put (key, f);//font setter
 		}
+	}
+
+	public void showError() {
+		JOptionPane.showMessageDialog(this, "Username or password incorrect");
 	}
 	
 //	public static void main(String [] args)

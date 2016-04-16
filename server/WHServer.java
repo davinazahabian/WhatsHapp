@@ -26,6 +26,7 @@ public class WHServer extends Thread {
 		//driver = new MySQLDriver();
 		serverThreads = new Vector<WHServerThread>();
 		sockets = new ArrayList<>();
+		driver = new MySQLDriver();
 		this.start();
 	}
 	

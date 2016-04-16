@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
@@ -51,7 +52,8 @@ public class NewUserGUI extends JFrame{
 	 //TODO ADD BACK BUTTON YO
 	 
 	 public NewUserGUI(WHClient mClient){
-		 this.whc = mClient;
+		 	this.whc = mClient;
+		 	
 		 	setTitle("Sign Up!");
 			setSize(900,602);
 			setMinimumSize(new Dimension(640,480));
@@ -179,6 +181,10 @@ public class NewUserGUI extends JFrame{
 	private void addActions() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void showError() {
+		JOptionPane.showMessageDialog(this, "Username or password incorrect");
 	}
 	
 //	public static void main(String[] args){
