@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Vector;
 
+import client.WHClient;
+
 public class Event implements Comparator<Event>, Comparable<Event> {
 	
 	private static final long serialVersionUID = 1L;

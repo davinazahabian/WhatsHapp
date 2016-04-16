@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.lang.reflect.Method;
 
@@ -37,9 +39,10 @@ public class EventPanelGUI extends JPanel {
 	
 	private Event e;
 	private int eventCategory;
+	private WHClient whc;
 	
-	
-	public EventPanelGUI(Event e){
+	public EventPanelGUI(Event e, WHClient whClient){
+		this.whc = whClient;
 		this.e = e;
 		setSize(100,100);
 		setLayout(new BorderLayout());
@@ -47,6 +50,7 @@ public class EventPanelGUI extends JPanel {
 		createGUI();
 		//addActionAdapters();
 		//setLocationRelativeTo(null);
+		addMouseActions();
 		setMinimumSize(new Dimension(640,480));
 		setVisible(true);
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -98,6 +102,41 @@ public class EventPanelGUI extends JPanel {
 		
 	}
 	
+	private void addMouseActions(){
+		addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent me) {
+//				new EventDetailGUI(e, whc);
+//				System.out.println("Enters mouseClicked");
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent me) {
+				new EventDetailGUI(e, whc);
+				System.out.println("Enters mouseClicked");
+			}
+		});
+	}
+	
 	private void setBackgroundColor(int category, JPanel left, JPanel right){
 		if(category == 0){//sports = red
 			this.setBackground(new Color(255, 105, 98));
@@ -121,13 +160,13 @@ public class EventPanelGUI extends JPanel {
 		}
 	}
 	
-	public static void main(String [] args) {
-		JFrame frame = new JFrame();
-		frame.setSize(320, 240);
-		Event temp = new Event("event name", "event date", "event start time", "event end time", "event description", "event location",
-				  3, "time posted", "event host");
-		frame.add(new EventPanelGUI(temp));
-		frame.setVisible(true);
-	}
+//	public static void main(String [] args) {
+//		JFrame frame = new JFrame();
+//		frame.setSize(320, 240);
+//		Event temp = new Event("event name", "event date", "event start time", "event end time", "event description", "event location",
+//				  3, "time posted", "event host");
+//		frame.add(new EventPanelGUI(temp));
+//		frame.setVisible(true);
+//	}
 
 }

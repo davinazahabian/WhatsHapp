@@ -145,7 +145,8 @@ public class EventDetailGUI extends JFrame {
 		description.setWrapStyleWord(true);
 		description.setBackground(yellowColor);
 		description.setEditable(false);
-		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 	}
 	
 	private void createGUI() {
@@ -234,10 +235,10 @@ public class EventDetailGUI extends JFrame {
 //		}
 //	}
 	
-	public static void main (String [] args) {
-		Event e = new Event("BaseBall Game", "April 10, 2016", "12:00 p.m.", "4:00 p.m.", "USC Trojans Baseball will be playing against the UCLA Bruins! ", "Dedeaux Field", 1 , "10:00 a.m.", "USC Athletics");
-		EventDetailGUI edg = new EventDetailGUI(e);
-		edg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		edg.setVisible(true);
-	}
+//	public static void main (String [] args) {
+//		Event e = new Event("BaseBall Game", "April 10, 2016", "12:00 p.m.", "4:00 p.m.", "USC Trojans Baseball will be playing against the UCLA Bruins! ", "Dedeaux Field", 1 , "10:00 a.m.", "USC Athletics");
+//		EventDetailGUI edg = new EventDetailGUI(e);
+//		edg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		edg.setVisible(true);
+//	}
 }
