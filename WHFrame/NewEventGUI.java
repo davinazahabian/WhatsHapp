@@ -103,7 +103,7 @@ public class NewEventGUI extends JFrame{
 		ImageIcon water = new ImageIcon("back-icon.png");
 		backButton = new WHButton(water);
 
-		DefaultComboBoxModel<String> typeName = new DefaultComboBoxModel();
+		DefaultComboBoxModel<String> typeName = new DefaultComboBoxModel<String>();
 
 		typeName.addElement("Sports");
 		typeName.addElement("Career");
