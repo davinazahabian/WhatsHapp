@@ -32,43 +32,42 @@ import library.ImageLibrary;
 
 
 public class NewUserGUI extends JFrame{
-	 JTextField usernameField;
-	 JPasswordField passwordField;
-	 JPasswordField repasswordField;
-	 JTextField firstNameField;
-	 JTextField lastNameField;
-	 JTextField emailField;
+	private static final long serialVersionUID = 1L;
+	private JTextField usernameField;
+	private JPasswordField passwordField;
+	private JPasswordField repasswordField;
+	private JTextField firstNameField;
+	private JTextField lastNameField;
+	private JTextField emailField;
 	 
-	 OutlinedLabel usernameLabel;
-	 OutlinedLabel passwordLabel;
-	 OutlinedLabel repasswordLabel;
-	 OutlinedLabel firstNameLabel;
-	 OutlinedLabel lastNameLabel;
-	 OutlinedLabel emailLabel;
-	 SplashPanel2 splash;
-	 WHButton backButton;
-	 WHButton signUpButton;
-	 WHClient whc;
-	 //TODO ADD BACK BUTTON YO
+	private OutlinedLabel usernameLabel;
+	private OutlinedLabel passwordLabel;
+	private OutlinedLabel repasswordLabel;
+	private OutlinedLabel firstNameLabel;
+	private OutlinedLabel lastNameLabel;
+	private OutlinedLabel emailLabel;
+	private SplashPanel2 splash;
+	private WHButton backButton;
+	private WHButton signUpButton;
+	private WHClient whClient;
 	 
-	 public NewUserGUI(WHClient mClient){
-		 	this.whc = mClient;
-		 	
-		 	setTitle("Sign Up!");
-			setSize(900,602);
-			setMinimumSize(new Dimension(640,480));
-			//setJMenuBar(new OfficeMenuBar());
-			setLocationRelativeTo(null);
-			setDefaultCloseOperation(EXIT_ON_CLOSE);
+	 public NewUserGUI(WHClient whClient){
+		 this.whClient = whClient;
+	 	
+		 setTitle("Sign Up!");
+		 setSize(900,602);
+		 setMinimumSize(new Dimension(640,480));
+		 setLocationRelativeTo(null);
+		 setDefaultCloseOperation(EXIT_ON_CLOSE);
 		 
-		 initComps();
-		 create();
+		 initializeComponents();
+		 createGUI();
 		 addActions();
 		 
-		 setVisible(true);
+//		 setVisible(true);
 	 }
 
-	private void initComps() {
+	private void initializeComponents() {
 		usernameField = new JTextField(10);
 		repasswordField = new JPasswordField(10);
 		passwordField = new JPasswordField(10);
@@ -120,7 +119,7 @@ public class NewUserGUI extends JFrame{
 	    splash = new SplashPanel2();
 	}
 	
-	private void create() {
+	private void createGUI() {
 		setLayout(new GridLayout(1, 1));
 		splash.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

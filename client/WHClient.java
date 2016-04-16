@@ -59,7 +59,7 @@ public class WHClient extends Thread {
 	// GUI
 	private WHFrame whf;
 	private MainFeedFrame mff = new MainFeedFrame();
-	private EventDetailGUI edg;
+	//private EventDetailGUI edg;
 	private NewUserGUI nug;
 	
 	public NewUserGUI getNug() {
@@ -70,7 +70,10 @@ public class WHClient extends Thread {
 		this.nug = nug;
 	}
 
-	public WHClient() {		
+	public WHClient() {
+		whf = new WHFrame(this);
+		whf.setVisible(true);
+		
 		try {
 			s = new Socket("localhost", port);
 			oos = new ObjectOutputStream(s.getOutputStream());
@@ -88,11 +91,6 @@ public class WHClient extends Thread {
 //				ioe.printStackTrace();
 //			}
 		}
-
-
-		
-		whf = new WHFrame(this);
-
 	}
 	
 	public void run() {
@@ -392,7 +390,7 @@ public class WHClient extends Thread {
 		}
 	}
 	public static void main(String [] args) {
-		WHClient c = new WHClient();
+		new WHClient();
 	}
 		
 		
