@@ -1,11 +1,14 @@
 package WHFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -16,6 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -36,7 +40,6 @@ import library.ImageLibrary;
 
 
 public class MainFeedFrame extends JFrame {
-	
 	private static final long serialVersionUID = 1L;
 	private LeftPanel leftPanel;
 	private WHButton myProfileButton;
@@ -58,12 +61,10 @@ public class MainFeedFrame extends JFrame {
 	private ButtonGroup sortBy;
 	private JRadioButton sortByTrending;
 	private JRadioButton sortByDefault;  // sort by time posted
-	
 	private WHClient whClient;
 
 	public MainFeedFrame(WHClient whClient) {
 		this.whClient = whClient;
-		
 		setTitle("WhatsHapp");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(1,3));
@@ -71,21 +72,19 @@ public class MainFeedFrame extends JFrame {
 		instantiateComponents();
 		createGUI();
 		addActions();
-		
 		setVisible(true);
 	}
-	
 	public void instantiateComponents() {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+		setCursor(c);
 		leftPanel = new LeftPanel();
 		myProfileButton = new WHButton("My Profile");
-		
 		middlePanel = new MiddlePanel();
 		eventPanels = new Vector<EventPanelGUI>();
 		feedPanel = new JPanel();
 		feedPanel.setLayout(new BoxLayout(feedPanel, BoxLayout.Y_AXIS));
-		
 		populateFeed("Default");
-		
 		feedScrollPane = new JScrollPane(feedPanel);
 		feedScrollPane.setPreferredSize(new Dimension(300,400));
 		feedScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -102,13 +101,10 @@ public class MainFeedFrame extends JFrame {
 		sortBy = new ButtonGroup();
 		sortByTrending = new JRadioButton("Trending", false);
 		sortByDefault = new JRadioButton("Most Recent", true);
-		
 	}
-	
 	public void createGUI() {
 		// setting button sizes
 		myProfileButton.setPreferredSize(newEventButton.getPreferredSize());
-		
 		// setting panel sizes
 		leftPanel.setPreferredSize(new Dimension(300,600));
 		middlePanel.setPreferredSize(new Dimension(300,600));
@@ -120,17 +116,14 @@ public class MainFeedFrame extends JFrame {
 		leftPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
 		leftPanel.add(myProfileButton);
 		add(leftPanel);
-		
 		// middle panel
 		middlePanel.setLayout(new BorderLayout());
 		middlePanel.add(feedScrollPane, BorderLayout.SOUTH);
 		add(middlePanel);
-		
 		// right panel
 		rightPanel.setLayout(new BorderLayout());
 		upperPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 		lowerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		
 		// sort and filter panel
 		sortPanel.setBackground(new Color(255,204,102));
 		sortPanel.setBorder(BorderFactory.createTitledBorder("Sort By"));
@@ -138,57 +131,48 @@ public class MainFeedFrame extends JFrame {
 		sortBy.add(sortByTrending);
 		sortPanel.add(sortByDefault);
 		sortPanel.add(sortByTrending);
-		
 		filterPanel.setBackground(new Color(255,204,102));
 		filterPanel.setBorder(BorderFactory.createTitledBorder("Filter By"));
 		filterPanel.add(categoryBox);
-		
 		sortFilterPanel.add(sortPanel, BorderLayout.NORTH);
 		sortFilterPanel.add(filterPanel, BorderLayout.SOUTH);
-		
 		upperPanel.add(newEventButton);
 		lowerPanel.add(sortFilterPanel);
 		rightPanel.add(lowerPanel, BorderLayout.SOUTH);
 		rightPanel.add(upperPanel, BorderLayout.CENTER);
-		
-		add(rightPanel);		
+		add(rightPanel);
 	}
-	
 	public void addActions() {
 		myProfileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (whClient.isRegistered()) {
 					whClient.getMff().setVisible(false);
-					whClient.getMpf().setVisible(true);
+					whClient.setMpf(new MyProfileFrame(whClient.getCurrentUser()));
 				} else {
-					// TODO option pane that asks to sign up
+					askToSignup();
 				}
 			}
 		});
-		
 		newEventButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (whClient.isRegistered()) {
 					whClient.getMff().setVisible(false);
-					whClient.getNeg().setVisible(true);
+					whClient.setNeg(new NewEventGUI(whClient));
 				} else {
-					// TODO option pane that asks to sign up
+					askToSignup();
 				}
 			}
 		});
-		
 		sortByTrending.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				populateFeed("Trending");
 			}
 		});
-		
 		sortByDefault.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				populateFeed("Default");
 			}
 		});
-		
 		categoryBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
 				String category = categoryBox.getSelectedItem().toString();
@@ -196,51 +180,55 @@ public class MainFeedFrame extends JFrame {
 			}
 		});
 	}
-	
 	public void populateFeed(String category) {
-		
 		if (category.equals("Sports")) {
-			
 		} else if (category.equals("Career")) {
-			
 		} else if (category.equals("Cultural")) {
-			
 		} else if (category.equals("Club")) {
-			
 		} else if (category.equals("Default")) {
 			/***********************************************/
 			// the following is for testing the scroll pane, delete when creating
 			int curr = 0;
 			for (int i=0; i<100; i++) {
 				curr+=1;
-				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"), whClient);
-			    epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			    eventPanels.add(epg);
+				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"));
+				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				eventPanels.add(epg);
 				feedPanel.add(epg);
 			}
 			/**********************************************/
 		} else if (category.equals("Trending")) {
-			
 		} else {
 			/***********************************************/
 			// the following is for testing the scroll pane, delete when creating
 			int curr = 0;
 			for (int i=0; i<100; i++) {
 				curr+=1;
-				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"), whClient);
-			    epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			    eventPanels.add(epg);
+				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"));
+				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				eventPanels.add(epg);
 				feedPanel.add(epg);
 			}
 			/**********************************************/
 		}
 	}
-	
-//	public static void main(String [] args) {
-//		MainFeedFrame mff = new MainFeedFrame();
-//		mff.setVisible(true);
-//	}
-	
+	public void askToSignup() {
+		Object[] answers = {"Sign Me Up!", "No Thanks I'm Lame"};
+		int n = JOptionPane.showOptionDialog(whClient.getMff(),
+				"Would you like to sign up?",
+				"Sign up to get premium access to WhatsHapp!",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,answers,answers[0]);
+		if (n == JOptionPane.YES_OPTION) {
+			whClient.getMff().setVisible(false);
+			whClient.setNug(new NewUserGUI(whClient));
+		}
+	}
+	//	public static void main(String [] args) {
+	//	MainFeedFrame mff = new MainFeedFrame();
+	//	mff.setVisible(true);
+	//	}
 }
 
 /*
@@ -250,68 +238,56 @@ public class MainFeedFrame extends JFrame {
  * 
  */
 class LeftPanel extends JPanel {
-	
 	private static final long serialVersionUID = 1L;
 	private static final Image background;
 
 	static {
 		background = ImageLibrary.getImage("img/left-1.png");
 	}
-	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 	}
-	
 }
 
 class MiddlePanel extends JPanel {
-	
 	private static final long serialVersionUID = 1L;
 	private static final Image background;
 
 	static {
 		background = ImageLibrary.getImage("img/middle-1.png");
 	}
-	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 	}
-	
 }
 
 class RightUpperPanel extends JPanel {
-	
 	private static final long serialVersionUID = 1L;
 	private static final Image background;
 
 	static {
 		background = ImageLibrary.getImage("img/right_top-1.png");
 	}
-	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 	}
-	
 }
 class RightLowerPanel extends JPanel {
-	
 	private static final long serialVersionUID = 1L;
 	private static final Image background;
 
 	static {
 		background = ImageLibrary.getImage("img/right_bottom-1.png");
 	}
-	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 	}
-	
 }
