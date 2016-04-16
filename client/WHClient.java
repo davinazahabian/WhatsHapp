@@ -124,11 +124,11 @@ public class WHClient extends Thread {
 							whf.shoSuccess();
 							setRegistered(true);
 							currentUser = p.getUser();
-							this.allEventsDefault = p.getEvents();
-							// TODO: sort events by trending and insert into allEventsTrending
-							for (Event e : allEventsDefault) {
-								//TODO: create eventpanelguis and populate eventfeedgui
-							}
+//							this.allEventsDefault = p.getEvents();
+//							// TODO: sort events by trending and insert into allEventsTrending
+//							for (Event e : allEventsDefault) {
+//								//TODO: create eventpanelguis and populate eventfeedgui
+//							}
 							// TODO: create AboutMeFrame and store as data member
 						}
 						

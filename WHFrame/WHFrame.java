@@ -166,6 +166,10 @@ public class WHFrame extends JFrame {
 
 	public void shoSuccess() {
 		JOptionPane.showMessageDialog(this, "LoginSuccess");
+		this.setVisible(false);
+		//whClient.getMff().setVisible(true);
+		whClient.setMff(new MainFeedFrame(whClient));
+		
 	}
 	
 //	public static void main(String [] args)

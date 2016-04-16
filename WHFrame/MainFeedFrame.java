@@ -71,6 +71,8 @@ public class MainFeedFrame extends JFrame {
 		instantiateComponents();
 		createGUI();
 		addActions();
+		
+		setVisible(true);
 	}
 	
 	public void instantiateComponents() {

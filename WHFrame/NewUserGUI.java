@@ -50,6 +50,7 @@ public class NewUserGUI extends JFrame{
 	private WHClient whClient;
 	
 	private NewUserGUI newUserGUI;
+	//private MainFeedFrame mff;
 	 
 	 public NewUserGUI(WHClient whClient){
 		 this.whClient = whClient;
@@ -119,6 +120,7 @@ public class NewUserGUI extends JFrame{
 		signUpButton = new WHButton("Sign Up");
 	    backButton = new WHButton("< Back");
 	    splash = new SplashPanel2();
+	    setVisible(true);
 	}
 	
 	private void createGUI() {
@@ -190,6 +192,10 @@ public class NewUserGUI extends JFrame{
 
 	public void showSuccess() {
 		JOptionPane.showMessageDialog(this, "Sign Up Success :)");
+		this.setVisible(false);
+		//whClient.getMff().setVisible(true);
+		whClient.setMff(new MainFeedFrame(whClient));
+		//instatnitate a mgui, set the , instatiate, instance of whclient into main feed
 	}
 
 	public void showFailure() {
