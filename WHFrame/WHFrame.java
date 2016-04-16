@@ -14,6 +14,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -48,6 +50,7 @@ public class WHFrame extends JFrame{
 	WHClient mClient;
 	public WHFrame(WHClient whClient)
 	{
+		this.mClient = whClient;
 		setTitle("WhatsHapp");
 		setSize(900,602);
 		mClient = whClient;
@@ -122,9 +125,21 @@ public class WHFrame extends JFrame{
 		sf.add(guestButton, gbc); //add guest button
 		
 		add(sf);
-		
+		addActions();
 	}
 	
+	private void addActions() {
+		signUpButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				WHFrame.this.setVisible(false);
+				new NewUserGUI(mClient);
+			}
+		});
+
+	}
+
 	public static void setUIFont (javax.swing.plaf.FontUIResource f) {
 		Enumeration<Object> keys = UIManager.getDefaults().keys();
 		while (keys.hasMoreElements()) {

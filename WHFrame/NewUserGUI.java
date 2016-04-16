@@ -24,6 +24,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import client.WHClient;
 import customui.OutlinedLabel;
 import customui.WHButton;
 import library.ImageLibrary;
@@ -46,10 +47,11 @@ public class NewUserGUI extends JFrame{
 	 SplashPanel2 splash;
 	 WHButton backButton;
 	 WHButton signUpButton;
-	 
+	 WHClient whc;
 	 //TODO ADD BACK BUTTON YO
 	 
-	 public NewUserGUI(){
+	 public NewUserGUI(WHClient mClient){
+		 this.whc = mClient;
 		 	setTitle("Sign Up!");
 			setSize(900,602);
 			setMinimumSize(new Dimension(640,480));
@@ -171,6 +173,7 @@ public class NewUserGUI extends JFrame{
 				
 		
 		add(splash);
+		addActions();
 	}
 
 	private void addActions() {
@@ -178,13 +181,13 @@ public class NewUserGUI extends JFrame{
 		
 	}
 	
-	public static void main(String[] args){
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
-	
-		//whf.setCursor(c);
-		new NewUserGUI();
-	}
+//	public static void main(String[] args){
+//		Toolkit toolkit = Toolkit.getDefaultToolkit();
+//		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+//	
+//		//whf.setCursor(c);
+//		new NewUserGUI();
+//	}
 }
 
 class SplashPanel2 extends JPanel {
