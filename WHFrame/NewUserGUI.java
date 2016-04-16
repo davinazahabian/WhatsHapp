@@ -175,7 +175,7 @@ public class NewUserGUI extends JFrame{
 		
 		signUpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				whClient.signupRequest(new User(firstNameField.getText(),lastNameField.getText(),emailField.getText(),usernameField.getText(),passwordField.getPassword().toString()));
+				whClient.signupRequest(new User(firstNameField.getText(),lastNameField.getText(),emailField.getText(),usernameField.getText(),new String(passwordField.getPassword())));
 			}
 		});
 	}

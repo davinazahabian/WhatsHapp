@@ -137,7 +137,7 @@ public class WHFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameTextField.getText();
-				String password = passwordTextField.getPassword().toString();
+				String password = new String(passwordTextField.getPassword());
 				System.out.println(password);
 				whClient.loginRequest(username, password);
 //				InfoPackage ip = new InfoPackage();
