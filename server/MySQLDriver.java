@@ -48,7 +48,7 @@ public class MySQLDriver {
 		try { new Driver(); }
 		catch(SQLException sqe){ sqe.printStackTrace(); }
 		try {
-			con  = DriverManager.getConnection("jdbc:mysql://localhost:3306/WhatsHapp?user=root");
+			con  = DriverManager.getConnection("jdbc:mysql://localhost:3306/WhatsHapp?user=root&password=Froggy11");
 		} catch (SQLException e) { e.printStackTrace(); }
 	}
 	

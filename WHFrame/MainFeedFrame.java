@@ -180,8 +180,12 @@ public class MainFeedFrame extends JFrame {
 			}
 		});
 	}
+	
+	// TODO
 	public void populateFeed(String category) {
 		if (category.equals("Sports")) {
+			whClient.getSportsEvents();
+			
 		} else if (category.equals("Career")) {
 		} else if (category.equals("Cultural")) {
 		} else if (category.equals("Club")) {

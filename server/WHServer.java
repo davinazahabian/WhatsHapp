@@ -40,11 +40,12 @@ public class WHServer extends Thread {
 				// once connection made with client, create a new thread to start accepting and sending connections from client
 				WHServerThread wst = new WHServerThread(s, this);
 				serverThreads.add(wst);
-				InfoPackage ip = new InfoPackage();
-				ip.setGuest(true);
-				wst.sendToClient(ip);
+				
+//				InfoPackage ip = new InfoPackage();
+//				ip.setGuest(true);
+//				wst.sendToClient(ip);
 				wst.start();
-				System.out.println();
+//				System.out.println();
 				sockets.add(s);
 			}
 		} catch (Exception e) {
