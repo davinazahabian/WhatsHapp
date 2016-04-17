@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 
@@ -32,6 +33,7 @@ import javax.swing.JTextField;
 
 import javax.swing.UIManager;
 
+import Model.Event;
 import Model.InfoPackage;
 
 import WHFrame.SplashPanel;
@@ -48,357 +50,351 @@ import library.ImageLibrary;
 
 public class WHFrame extends JFrame {
 
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-private SplashPanel background;
+	private SplashPanel background;
 
-private JTextField usernameTextField;
+	private JTextField usernameTextField;
 
-private JPasswordField passwordTextField;
+	private JPasswordField passwordTextField;
 
-private WHButton loginButton;
+	private WHButton loginButton;
 
-private WHButton signUpButton;
+	private WHButton signUpButton;
 
-private WHButton guestButton;
+	private WHButton guestButton;
 
-private OutlinedLabel registerNow;
+	private OutlinedLabel registerNow;
 
-private OutlinedLabel usernameLabel;
+	private OutlinedLabel usernameLabel;
 
-private OutlinedLabel passwordLabel;
+	private OutlinedLabel passwordLabel;
 
-private WHClient whClient;
+	private WHClient whClient;
 
 
-public WHFrame(WHClient whClient) {
+	public WHFrame(WHClient whClient) {
 
-this.whClient = whClient;
+		this.whClient = whClient;
 
-setTitle("WhatsHapp");
+		setTitle("WhatsHapp");
 
-setSize(900,602);
+		setSize(900,602);
 
-setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 
-instantiateComponents();
+		instantiateComponents();
 
-createGUI();
+		createGUI();
 
-addActions();
+		addActions();
 
-setVisible(true);
+		setVisible(true);
 
-}
+	}
 
 
-private void instantiateComponents() {
+	private void instantiateComponents() {
 
-Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
 
-setCursor(c);
+		setCursor(c);
 
-background = new SplashPanel();
+		background = new SplashPanel();
 
-usernameTextField = new JTextField(10);
+		usernameTextField = new JTextField(10);
 
-passwordTextField = new JPasswordField(10);
+		passwordTextField = new JPasswordField(10);
 
-registerNow = new OutlinedLabel("Don't have an account? Register Now!");
+		registerNow = new OutlinedLabel("Don't have an account? Register Now!");
 
-loginButton =  new WHButton("Login");
+		loginButton =  new WHButton("Login");
 
-signUpButton = new WHButton("Create an account!");
+		signUpButton = new WHButton("Create an account!");
 
-guestButton = new WHButton("Continue in guest mode");
+		guestButton = new WHButton("Continue in guest mode");
 
-usernameLabel = new OutlinedLabel("Username:  ");
+		usernameLabel = new OutlinedLabel("Username:  ");
 
-passwordLabel = new OutlinedLabel("Password:  ");
+		passwordLabel = new OutlinedLabel("Password:  ");
 
-}
+	}
 
 
-private void createGUI() {
+	private void createGUI() {
 
-//sf.setLayout(new GridLayout(1,2)); //1 row and 2 columns
+		//sf.setLayout(new GridLayout(1,2)); //1 row and 2 columns
 
-background.setLayout(new GridBagLayout());
+		background.setLayout(new GridBagLayout());
 
-GridBagConstraints gbc = new GridBagConstraints();
+		GridBagConstraints gbc = new GridBagConstraints();
 
-registerNow.setFont(new Font ("Impact", Font.BOLD, 15));
+		registerNow.setFont(new Font ("Impact", Font.BOLD, 15));
 
-registerNow.setForeground(new Color(255, 204, 0));
+		registerNow.setForeground(new Color(255, 204, 0));
 
-registerNow.setOutlineColor(Color.black);
+		registerNow.setOutlineColor(Color.black);
 
-registerNow.setOpaque(false);
+		registerNow.setOpaque(false);
 
-usernameLabel.setFont(new Font ("Impact", Font.BOLD, 15));
+		usernameLabel.setFont(new Font ("Impact", Font.BOLD, 15));
 
-usernameLabel.setForeground(new Color(255, 204, 0));
+		usernameLabel.setForeground(new Color(255, 204, 0));
 
-usernameLabel.setOutlineColor(Color.black);
+		usernameLabel.setOutlineColor(Color.black);
 
-usernameLabel.setOpaque(false);
+		usernameLabel.setOpaque(false);
 
-passwordLabel.setFont(new Font ("Impact", Font.BOLD, 15));
+		passwordLabel.setFont(new Font ("Impact", Font.BOLD, 15));
 
-passwordLabel.setForeground(new Color(255, 204, 0));
+		passwordLabel.setForeground(new Color(255, 204, 0));
 
-passwordLabel.setOutlineColor(Color.black);
+		passwordLabel.setOutlineColor(Color.black);
 
-passwordLabel.setOpaque(false);
+		passwordLabel.setOpaque(false);
 
 
-gbc.gridx = 0;
+		gbc.gridx = 0;
 
-gbc.gridy = 0;
+		gbc.gridy = 0;
 
-background.add(usernameLabel, gbc); //add username label
+		background.add(usernameLabel, gbc); //add username label
 
 
-gbc.gridx = 0;
+		gbc.gridx = 0;
 
-gbc.gridy = 1;
+		gbc.gridy = 1;
 
 
-gbc.insets = new Insets(8,0,0,0);
+		gbc.insets = new Insets(8,0,0,0);
 
-background.add(passwordLabel, gbc); //add password label
+		background.add(passwordLabel, gbc); //add password label
 
 
-gbc.gridx = 1;
+		gbc.gridx = 1;
 
-gbc.gridy = 0;
+		gbc.gridy = 0;
 
-gbc.insets = new Insets(0,0,0,0);
+		gbc.insets = new Insets(0,0,0,0);
 
-background.add(usernameTextField, gbc); //add username text field
+		background.add(usernameTextField, gbc); //add username text field
 
 
-gbc.gridx = 1;
+		gbc.gridx = 1;
 
-gbc.gridy = 1;
+		gbc.gridy = 1;
 
-//	gbc.gridwidth = 2;
+		//	gbc.gridwidth = 2;
 
-gbc.insets = new Insets(8,0,0,0);
+		gbc.insets = new Insets(8,0,0,0);
 
-gbc.gridwidth = 2;
+		gbc.gridwidth = 2;
 
-background.add(passwordTextField, gbc); //add password text field
+		background.add(passwordTextField, gbc); //add password text field
 
 
 
-gbc.gridx = 1;
+		gbc.gridx = 1;
 
-gbc.gridy = 2;
+		gbc.gridy = 2;
 
-gbc.insets = new Insets(8,0,0,0);
+		gbc.insets = new Insets(8,0,0,0);
 
-background.add(loginButton, gbc); //add login button
+		background.add(loginButton, gbc); //add login button
 
 
-gbc.gridx = 2;
+		gbc.gridx = 2;
 
-gbc.gridy = 0;
+		gbc.gridy = 0;
 
-gbc.insets = new Insets(0,40,0,0);
+		gbc.insets = new Insets(0,40,0,0);
 
-background.add(registerNow, gbc); //add question label
+		background.add(registerNow, gbc); //add question label
 
 
-gbc.gridx = 2;
+		gbc.gridx = 2;
 
-gbc.gridy = 1;
+		gbc.gridy = 1;
 
-gbc.insets = new Insets(8,40,0,0);
+		gbc.insets = new Insets(8,40,0,0);
 
-background.add(signUpButton, gbc); //add sign up button
+		background.add(signUpButton, gbc); //add sign up button
 
 
-gbc.gridx = 2;
+		gbc.gridx = 2;
 
-gbc.gridy = 2;
+		gbc.gridy = 2;
 
-gbc.insets = new Insets(8,0,0,0);
+		gbc.insets = new Insets(8,0,0,0);
 
-background.add(guestButton, gbc); //add guest button
+		background.add(guestButton, gbc); //add guest button
 
 
-add(background);
+		add(background);
 
-}
+	}
 
 
-private void addActions() {
+	private void addActions() {
 
-signUpButton.addActionListener(new ActionListener() {
+		signUpButton.addActionListener(new ActionListener() {
 
-@Override
+			@Override
 
-public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 
-WHFrame.this.setVisible(false);
+				WHFrame.this.setVisible(false);
 
-whClient.setNug(new NewUserGUI(whClient));
+				whClient.setNug(new NewUserGUI(whClient));
 
-}
+			}
 
-});
+		});
 
 
-loginButton.addActionListener(new ActionListener() {
+		loginButton.addActionListener(new ActionListener() {
 
-@Override
+			@Override
 
-public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 
-String username = usernameTextField.getText();
+				String username = usernameTextField.getText();
 
-String password = new String(passwordTextField.getPassword());
+				String password = new String(passwordTextField.getPassword());
 
-System.out.println(password);
+				System.out.println(password);
 
-whClient.loginRequest(username, password);
+				whClient.loginRequest(username, password);
 
-//	InfoPackage ip = new InfoPackage();
+				//	InfoPackage ip = new InfoPackage();
 
-//	ip.setLogin(true);
+				//	ip.setLogin(true);
 
-//	ip.setUsername(username);
+				//	ip.setUsername(username);
 
-//	ip.setPassword(password);
+				//	ip.setPassword(password);
 
-//	whClient.sendToServer(ip);
+				//	whClient.sendToServer(ip);
 
-}
+			}
 
-});
+		});
 
-guestButton.addActionListener(new ActionListener() {
+		guestButton.addActionListener(new ActionListener() {
 
-public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 
-WHFrame.this.setVisible(false);
+				WHFrame.this.setVisible(false);
 
-whClient.setMff(new MainFeedFrame(whClient));
+				whClient.setMff(new MainFeedFrame(whClient));
 
-}
+			}
 
-});
+		});
 
 
-}
+	}
 
 
 
-public static void setUIFont (javax.swing.plaf.FontUIResource f) {
+	public static void setUIFont (javax.swing.plaf.FontUIResource f) {
 
-Enumeration<Object> keys = UIManager.getDefaults().keys();
+		Enumeration<Object> keys = UIManager.getDefaults().keys();
 
-while (keys.hasMoreElements()) {
+		while (keys.hasMoreElements()) {
 
-Object key = keys.nextElement();
+			Object key = keys.nextElement();
 
-Object value = UIManager.get (key);
+			Object value = UIManager.get (key);
 
-if (value != null && value instanceof javax.swing.plaf.FontUIResource)
+			if (value != null && value instanceof javax.swing.plaf.FontUIResource)
 
-UIManager.put (key, f);//font setter
+				UIManager.put (key, f);//font setter
 
-}
+		}
 
-}
+	}
 
 
 
-public void showError() {
+	public void showError() {
 
-JOptionPane.showMessageDialog(this, "Username or password incorrect");
+		JOptionPane.showMessageDialog(this, "Username or password incorrect");
 
-}
+	}
 
 
 
-public void showSuccess() {
+	public void showSuccess(Vector<Event> allEvents) {
+		JOptionPane.showMessageDialog(this, "Login successful :) Welcome to WhatsHapp!");
+		this.setVisible(false);
+		whClient.setMff(new MainFeedFrame(whClient));
+		whClient.getMff().populateFeed(allEvents);
+	}
 
-JOptionPane.showMessageDialog(this, "LoginSuccess");
 
-this.setVisible(false);
+	//	public static void main(String [] args)
 
-//whClient.getMff().setVisible(true);
+	//	{
 
-whClient.setMff(new MainFeedFrame(whClient));
+	//	WHFrame whf = new WHFrame();//random comment to make commit
 
+	//	Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-}
+	//	Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
 
+	//	whf.setCursor(c);
 
-//	public static void main(String [] args)
+	//	whf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//	{
+	//
 
-//	WHFrame whf = new WHFrame();//random comment to make commit
+	//
 
-//	Toolkit toolkit = Toolkit.getDefaultToolkit();
+	//	try {
 
-//	Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+	//	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 
-//	whf.setCursor(c);
+	//	} catch (ClassNotFoundException e) {
 
-//	whf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	e.printStackTrace();
 
-//
+	//	} catch (InstantiationException e) {
 
-//
+	//	e.printStackTrace();
 
-//	try {
+	//	} catch (IllegalAccessException e) {
 
-//	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+	//	e.printStackTrace();
 
-//	} catch (ClassNotFoundException e) {
+	//	} catch (UnsupportedLookAndFeelException e) {
 
-//	e.printStackTrace();
+	//	e.printStackTrace();
 
-//	} catch (InstantiationException e) {
+	//	}
 
-//	e.printStackTrace();
+	//	try {
 
-//	} catch (IllegalAccessException e) {
+	//	setUIFont(new javax.swing.plaf.FontUIResource(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/KaushanScript-Regular.ttf")).deriveFont(12.0f)));
 
-//	e.printStackTrace();
+	//	} catch (FontFormatException e) {
 
-//	} catch (UnsupportedLookAndFeelException e) {
+	//	e.printStackTrace();
 
-//	e.printStackTrace();
+	//	} catch (IOException e) {
 
-//	}
+	//	e.printStackTrace();
 
-//	try {
+	//	}
 
-//	setUIFont(new javax.swing.plaf.FontUIResource(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/KaushanScript-Regular.ttf")).deriveFont(12.0f)));
+	//
 
-//	} catch (FontFormatException e) {
+	//	whf.setVisible(true);
 
-//	e.printStackTrace();
-
-//	} catch (IOException e) {
-
-//	e.printStackTrace();
-
-//	}
-
-//
-
-//	whf.setVisible(true);
-
-//	}
+	//	}
 
 }

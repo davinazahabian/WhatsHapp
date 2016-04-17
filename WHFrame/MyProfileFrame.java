@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Model.User;
+import client.WHClient;
 import customui.WHButton;
 
 /* 
@@ -49,10 +50,12 @@ public class MyProfileFrame extends JFrame {
 	
 	private EditProfileFrame editProfile;
 	private MyProfileFrame myProfile;
+	private WHClient whClient;
 
 
-	public MyProfileFrame(User u) {
+	public MyProfileFrame(User u, WHClient whClient) {
 		this.setSize(new Dimension(900,602));
+		this.whClient = whClient;
 		this.currentUser = u;
 		myProfile = this;
 		instantiateComponents();
@@ -123,7 +126,8 @@ public class MyProfileFrame extends JFrame {
 	private void addActions() {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				// TODO: go back to main feed page.
+				myProfile.setVisible(false);
+				whClient.getMff().setVisible(true);
 			}
 		});
 		editButton.addActionListener(new ActionListener() {
@@ -135,17 +139,18 @@ public class MyProfileFrame extends JFrame {
 	}
 	
 	void updateUserInfo() {
-		String newName = editProfile.fname.getText() + editProfile.lname.getText();
+		String newName = editProfile.fname.getText() + " " + editProfile.lname.getText();
 		name.setText(newName);
 		useremail.setText(editProfile.edituseremail.getText());
 		username.setText(editProfile.editusername.getText());
+		// TODO: set picture as the chosen picture from editprofile
 	}
 	
-	public static void main (String [] args) {
-		User u = new User("Ziad", "Azar", "zazar@usc.edu", "zezefresh", "love2code");
-		MyProfileFrame mpf = new MyProfileFrame(u);
-		mpf.setVisible(true);
-		mpf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	}
+//	public static void main (String [] args) {
+//		User u = new User("Ziad", "Azar", "zazar@usc.edu", "zezefresh", "love2code");
+//		MyProfileFrame mpf = new MyProfileFrame(u);
+//		mpf.setVisible(true);
+//		mpf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//	}
 }

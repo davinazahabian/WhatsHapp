@@ -15,6 +15,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import Model.Event;
 import Model.User;
 import client.WHClient;
 import customui.OutlinedLabel;
@@ -190,11 +192,12 @@ public class NewUserGUI extends JFrame{
 		new NewUserGUI(new WHClient());
 	}
 
-	public void showSuccess() {
-		JOptionPane.showMessageDialog(this, "Sign Up Success :)");
+	public void showSuccess(Vector<Event> allEvents) {
+		JOptionPane.showMessageDialog(this, "Signup successful :) Welcome to WhatsHapp!");
 		this.setVisible(false);
 		whClient.setMff(new MainFeedFrame(whClient));
 		whClient.getCurrentUser().setUsername(this.usernameField.getText());
+		whClient.getMff().populateFeed(allEvents);
 	}
 }
 

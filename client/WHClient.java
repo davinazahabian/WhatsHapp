@@ -7,9 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Vector;
-
 import javax.swing.JOptionPane;
-
 import Model.Event;
 import Model.InfoPackage;
 import Model.Message;
@@ -44,57 +42,28 @@ public class WHClient extends Thread {
 	private WHFrame whf;
 	private MainFeedFrame mff;
 	private MyProfileFrame mpf;
-
 	private NewEventGUI neg;
-
-	//private EventDetailGUI edg;
-
 	private NewUserGUI nug;
 
-
-
-
-
-
 	public WHClient() {
-
 		whf = new WHFrame(this);
-
 		whf.setVisible(true);
-
-
 		try {
-
 			s = new Socket("localhost", port);
-
 			oos = new ObjectOutputStream(s.getOutputStream());
-
 			ois = new ObjectInputStream(s.getInputStream());
-
 			this.start();
-
 		} catch (IOException ioe) {
-
 			ioe.printStackTrace();
-
 		} finally {
-
 			//	try {
-
 			//	if (s != null) {
-
 			//	//s.close();
-
 			//	}
-
 			//	 
-
 			//	} catch (IOException ioe) {
-
 			//	ioe.printStackTrace();
-
 			//	}
-
 		}
 
 	}
@@ -140,9 +109,9 @@ public class WHClient extends Thread {
 							whf.showError();
 						} else {
 							setRegistered(true);
+							setAllEvents(p.getEvents());
 							setCurrentUser(p.getUser());
-							mff.populateFeed(p.getEvents());
-							whf.showSuccess();
+							whf.showSuccess(p.getEvents());
 						}
 
 
@@ -151,13 +120,10 @@ public class WHClient extends Thread {
 					} else if (p.isSignup()) {
 						System.out.println("Recieved successfully");
 						if(p.isValid()) {
-							isRegistered = true;
-							this.allEvents = p.getEvents();
-							this.currentUser = p.getUser();
-							this.mff = new MainFeedFrame(this);
-							this.mff.populateFeed(allEvents);
-							this.mpf = new MyProfileFrame(currentUser);
-							nug.showSuccess();
+							setRegistered(true);
+							setAllEvents(p.getEvents());
+							setCurrentUser(p.getUser());
+							nug.showSuccess(allEvents);
 						} else {
 							JOptionPane.showMessageDialog(nug, "Sign Up Failure:(");
 						}
