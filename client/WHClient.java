@@ -129,10 +129,12 @@ public class WHClient extends Thread {
 					// new event submission attempt returned
 					} else if (p.isNewEvent()) {
 						System.out.println("Enters new Event in run");
+						System.out.println("isnewevent");
 						if (p.isValid()) {
 							this.allEvents.insertElementAt(p.getEvent(), 0);
 							if (p.getEvent().getType() == 0) { // sports
 								sports.add(p.getEvent());
+								System.out.println("sports added");
 							} else if (p.getEvent().getType() == 1) { // career
 								career.add(p.getEvent());
 							} else if (p.getEvent().getType() == 2) { // cultural
