@@ -242,13 +242,13 @@ public class MainFeedFrame extends JFrame {
 		// sort by time posted and insert into feed
 		} else {
 			System.out.println("Default selected");
-			Collections.sort(events, new Event());
+			Collections.sort(events);
 			for (int i=0; i<events.size(); i++) {
 				EventPanelGUI epg = new EventPanelGUI(events.get(i),whClient);
 				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				eventPanels.add(epg);
 				feedPanel.add(epg);
-				System.out.println(events.get(i).getEventName());
+				System.out.println(events.get(i).getEventName() + " " + events.get(i).getTimePosted() );
 			}
 		}
 //		feedPanel.revalidate();
