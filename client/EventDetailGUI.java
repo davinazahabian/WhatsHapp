@@ -24,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Model.Event;
+import Model.InfoPackage;
 import Model.Message;
 import customui.WHButton;
 
@@ -227,7 +228,7 @@ public class EventDetailGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent f) {
 				whClient.sendMessage(e, new Message(whClient.getCurrentUser().username(), addMessageArea.getText()));
-				messageBoard.setText(e.getMessageBoard());
+				//messageBoard.setText(e.getMessageBoard());
 				addMessageArea.setText(" ");
 			}
 		});
@@ -249,5 +250,9 @@ public class EventDetailGUI extends JFrame {
 			}
 		});
 		
+	}
+
+	public void postToBoard(InfoPackage p) {
+		messageBoard.append(p.getMessage().username() + ":  " +p.getMessage().message() + '\n');
 	}
 }

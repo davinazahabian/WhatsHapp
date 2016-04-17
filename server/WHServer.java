@@ -117,4 +117,15 @@ public class WHServer extends Thread {
 			whServerThread.sendToClient(p);
 		}
 	}
+
+
+	public void sendToAll(InfoPackage p) {
+		if(p.getEvent() == null){
+			System.out.println("Event is null in server sendToAll");
+		}
+		for (Iterator iterator = serverThreads.iterator(); iterator.hasNext();) {
+			WHServerThread whServerThread = (WHServerThread) iterator.next();
+			whServerThread.sendToClient(p);
+		}
+	}
 }

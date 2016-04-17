@@ -181,7 +181,12 @@ public class WHClient extends Thread {
 						// message send request returned
 					} else if (p.isPostingMessage()) {
 						if (p.isValid()) {
-							return;
+							if(p.getEvent() == null)
+								System.out.println("event is null client run method");
+							else{
+								System.out.println("event is not null in run method");
+							}
+							mff.postToBoard(p);
 						} else {
 							JOptionPane.showMessageDialog(this.getMff(),"Cannot fulfill request at this time.","Warning",JOptionPane.WARNING_MESSAGE);
 						}

@@ -25,6 +25,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import Model.Event;
+import Model.InfoPackage;
 import customui.UpVoteButton;
 import library.ImageLibrary;
 
@@ -54,7 +55,7 @@ public class EventPanelGUI extends JPanel {
 	private int eventCategory;
 	private WHClient whClient;
 	private EventPanelGUI epg;
-	
+	private EventDetailGUI edg;
 	public EventPanelGUI(Event e, WHClient whClient) {
 		this.whClient = whClient;
 		this.e = e;
@@ -147,7 +148,7 @@ public class EventPanelGUI extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent me) {
-				new EventDetailGUI(e, whClient, epg);
+				edg = new EventDetailGUI(e, whClient, epg);
 				System.out.println("Enters mouseClicked");
 			}
 		});
@@ -186,4 +187,17 @@ public class EventPanelGUI extends JPanel {
 			rightContainer.setBackground(new Color(255, 179, 69));
 		}
 	}
+
+	public void postToBoard(InfoPackage p) {
+		edg.postToBoard(p);
+	}
+
+	public Event getE() {
+		return e;
+	}
+
+	public void setE(Event e) {
+		this.e = e;
+	}
+	
 }

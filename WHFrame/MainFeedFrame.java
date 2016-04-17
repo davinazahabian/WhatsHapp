@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -26,6 +27,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import Model.Event;
+import Model.InfoPackage;
+import client.EventDetailGUI;
 import client.EventPanelGUI;
 import client.WHClient;
 import customui.WHButton;
@@ -71,6 +74,7 @@ public class MainFeedFrame extends JFrame {
 	private JRadioButton sortByDefault;  // sort by time posted
 	private boolean isTrending;
 	private boolean isDefault;
+	private Vector<EventPanelGUI> panels; 
 	public boolean isTrending() {
 		return isTrending;
 	}
@@ -229,12 +233,14 @@ public class MainFeedFrame extends JFrame {
 //		feedPanel.removeAll();
 		System.out.println("entered populate");
 		System.out.println(events.size());
+		panels = new Vector<>();
 		// sort by trending and insert into feed
 		if (this.sortByTrending.isSelected()) {
 			System.out.println("Trending selected");
 			Collections.sort(events, new Event());
 			for (int i=0; i<events.size(); i++) {
 				EventPanelGUI epg = new EventPanelGUI(events.get(i),whClient);
+				panels.add(epg);
 				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				eventPanels.add(epg);
 				feedPanel.add(epg);
@@ -246,6 +252,7 @@ public class MainFeedFrame extends JFrame {
 			for (int i=0; i<events.size(); i++) {
 				EventPanelGUI epg = new EventPanelGUI(events.get(i),whClient);
 				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				panels.add(epg);
 				eventPanels.add(epg);
 				feedPanel.add(epg);
 				System.out.println(events.get(i).getEventName() + " " + events.get(i).getTimePosted() );
@@ -283,6 +290,14 @@ public class MainFeedFrame extends JFrame {
 		whClient.setMff(new MainFeedFrame(whClient));
 		whClient.getMff().populateFeed(whClient.getAllEvents());
 		whClient.getMff().setVisible(true);
+	}
+	public void postToBoard(InfoPackage p) {
+		for (Iterator iterator = eventPanels.iterator(); iterator.hasNext();) {
+			EventPanelGUI eventPanelGUI = (EventPanelGUI) iterator.next();
+			if(eventPanelGUI.getE().getEventName().equals(p.getEvent().getEventName())){
+				eventPanelGUI.postToBoard(p);
+			}
+		}
 	}
 
 	//	public static void main(String [] args) {

@@ -106,7 +106,8 @@ public class WHServerThread extends Thread {
 				// post message attempt
 				} else if (p.isPostingMessage()) {
 					p.setValid(whs.sendMessageAttempt(p.getEvent()));
-					sendToClient(p);
+					whs.sendToAll(p);
+					//sendToClient(p);
 				// upvoting event attempt
 				} else if (p.isUpvoting()) {
 					p.setValid(whs.upvoteEventAttempt(p.getEvent()));
