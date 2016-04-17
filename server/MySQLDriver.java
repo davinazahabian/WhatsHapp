@@ -397,7 +397,7 @@ public class MySQLDriver {
 	
 	// for now, look up by event name and post it on that event's message board
 	// edge case: what if two events of the same name? should we keep track of eventID?
-	public boolean postMessage(Event event, Message m) {
+	public boolean postMessage(Event event) {
 		PreparedStatement ps;
 		try {
 			// UPDATE EVENTS SET MESSAGEBOARD=? WHERE EVENT_NAME=?

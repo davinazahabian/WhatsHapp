@@ -175,8 +175,7 @@ public class WHClient extends Thread {
 						// message send request returned
 					} else if (p.isPostingMessage()) {
 						if (p.isValid()) {
-							// TODO: update messageBoard of current eventdetailgui in real time,
-							// (event has new message stored already in memory, just need to update textarea)
+							return;
 						} else {
 							JOptionPane.showMessageDialog(this.getMff(),"Cannot fulfill request at this time.","Warning",JOptionPane.WARNING_MESSAGE);
 						}
@@ -185,8 +184,7 @@ public class WHClient extends Thread {
 						// add attendee request returned
 					} else if (p.isAddingAttendee()) {
 						if (p.isValid()) {
-							// TODO: make sure attendee count/attendee list are updated in the GUIs
-							// (event has it stored already in memory, just need to update GUIs)
+							return;
 						} else {
 							JOptionPane.showMessageDialog(this.getMff(),"Cannot fulfill request at this time.","Warning",JOptionPane.WARNING_MESSAGE);
 						}

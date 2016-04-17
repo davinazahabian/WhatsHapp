@@ -111,7 +111,7 @@ public class EventDetailGUI extends JFrame {
 		messageBoardLabel = new JLabel("Message Board");
 		messageBoardPanel.setLayout(new BorderLayout());
 		messageBoardPanel.setBackground(yellowColor);
-		messageBoard = new JTextArea();
+		messageBoard = new JTextArea(e.getMessageBoard());
 		messageBoardPane = new JScrollPane(messageBoard);
 		messageBoard.setPreferredSize(new Dimension (292,406));
 		messageBoard.setEditable(false);
@@ -226,8 +226,9 @@ public class EventDetailGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent f) {
-//				Message msg = new Message(whClient.getCurrentUser().username(), addMessageArea.getText());
-//				whClient.sendMessage(e,msg);
+				whClient.sendMessage(e, new Message(whClient.getCurrentUser().username(), addMessageArea.getText()));
+				messageBoard.setText(e.getMessageBoard());
+				addMessageArea.setText(" ");
 			}
 		});
 		
@@ -249,20 +250,4 @@ public class EventDetailGUI extends JFrame {
 		});
 		
 	}
-	
-	// called when new messages are sent to the server so that message board is updated.
-//	private void updateMessageBoard() {
-//		Vector<Message> messageBoardContents = e.getMessageBoard();
-//		for (int i=0; i<messageBoardContents.size(); i++) {
-//			Message m = messageBoardContents.elementAt(i);
-//			messageBoard.append(m.username()+": "+m.message()+"\n");
-//		}
-//	}
-	
-//	public static void main (String [] args) {
-//		Event e = new Event("BaseBall Game", "April 10, 2016", "12:00 p.m.", "4:00 p.m.", "USC Trojans Baseball will be playing against the UCLA Bruins! ", "Dedeaux Field", 1 , "10:00 a.m.", "USC Athletics");
-//		EventDetailGUI edg = new EventDetailGUI(e);
-//		edg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		edg.setVisible(true);
-//	}
 }

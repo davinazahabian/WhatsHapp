@@ -91,8 +91,8 @@ public class WHServer extends Thread {
 		return driver.retrieveClubEvents();
 	}
 	
-	public boolean sendMessageAttempt(Event e, Message m) {
-		return driver.postMessage(e, m);
+	public boolean sendMessageAttempt(Event e) {
+		return driver.postMessage(e);
 	}
 	
 	public boolean upvoteEventAttempt(Event e) {

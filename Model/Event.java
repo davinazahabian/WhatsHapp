@@ -26,6 +26,7 @@ public class Event implements Comparator<Event>, Comparable<Event>, Serializable
 	private int attendees = 0;
 	private String messageBoard;
 	private String eventHost;
+	private boolean nonNull = false;
 	// formatted String of attendees for database/listing on the eventdetailGUI
 	private Vector<String> attendeeList = new Vector<String>();
 	public Event(){
@@ -131,6 +132,15 @@ public class Event implements Comparator<Event>, Comparable<Event>, Serializable
 		String username = m.username();
 		String message = m.message();
 		messageBoard = messageBoard + "\n" + username + ": " + message;
+		if (!nonNull) {
+			removeNull();
+			nonNull = true;
+		}
+	}
+	
+	// removes "null" from the beginning of the string
+	public void removeNull() {
+		messageBoard = messageBoard.substring(4, messageBoard.length());
 	}
 	
 	//Collections.sort(list); for most recent to least recent
