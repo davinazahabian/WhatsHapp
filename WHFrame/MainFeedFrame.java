@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Collections;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -56,12 +57,13 @@ public class MainFeedFrame extends JFrame {
 	private JPanel sortPanel;
 	private JPanel filterPanel;
 	private JPanel sortFilterPanel;
-	private String[] categories = {"Sports", "Career", "Cultural", "Club"};
+	private String[] categories = {"All", "Sports", "Career", "Cultural", "Club"};
 	private JComboBox<String> categoryBox;
 	private ButtonGroup sortBy;
 	private JRadioButton sortByTrending;
 	private JRadioButton sortByDefault;  // sort by time posted
 	private WHClient whClient;
+	
 
 	public MainFeedFrame(WHClient whClient) {
 		this.whClient = whClient;
@@ -84,7 +86,7 @@ public class MainFeedFrame extends JFrame {
 		eventPanels = new Vector<EventPanelGUI>();
 		feedPanel = new JPanel();
 		feedPanel.setLayout(new BoxLayout(feedPanel, BoxLayout.Y_AXIS));
-		populateFeed("Default");
+		getEvents("Default");
 		feedScrollPane = new JScrollPane(feedPanel);
 		feedScrollPane.setPreferredSize(new Dimension(300,400));
 		feedScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -165,57 +167,58 @@ public class MainFeedFrame extends JFrame {
 		});
 		sortByTrending.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				populateFeed("Trending");
+				getEvents(categoryBox.getSelectedItem().toString());
 			}
 		});
 		sortByDefault.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				populateFeed("Default");
+				getEvents(categoryBox.getSelectedItem().toString());
 			}
 		});
 		categoryBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
-				String category = categoryBox.getSelectedItem().toString();
-				populateFeed(category);
+				getEvents(categoryBox.getSelectedItem().toString());
 			}
 		});
 	}
 	
 	// TODO
-	public void populateFeed(String category) {
-		if (category.equals("Sports")) {
-			whClient.getSportsEvents();
+	public void getEvents(String category) {
+		if (category.equals("All")) {
 			
+		} else if (category.equals("Sports")) {
+			whClient.getSportsEvents();
 		} else if (category.equals("Career")) {
+			whClient.getCareerEvents();
 		} else if (category.equals("Cultural")) {
+			whClient.getCulturalEvents();
 		} else if (category.equals("Club")) {
-		} else if (category.equals("Default")) {
-			/***********************************************/
-			// the following is for testing the scroll pane, delete when creating
-			int curr = 0;
-			for (int i=0; i<100; i++) {
-				curr+=1;
-				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"),whClient);
-				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-				eventPanels.add(epg);
-				feedPanel.add(epg);
-			}
-			/**********************************************/
-		} else if (category.equals("Trending")) {
-		} else {
-			/***********************************************/
-			// the following is for testing the scroll pane, delete when creating
-			int curr = 0;
-			for (int i=0; i<100; i++) {
-				curr+=1;
-				EventPanelGUI epg = new EventPanelGUI(new Event("Coachella","April 15","12 AM","12 PM","A popular music and arts festival","Indio, CA",curr%3,"now","Davina Zahabian"),whClient);
-				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-				eventPanels.add(epg);
-				feedPanel.add(epg);
-			}
-			/**********************************************/
+			whClient.getClubEvents();
 		}
 	}
+	
+	public void populateFeed(Vector<Event> events) {
+		// sort by trending and insert into feed
+		if (this.sortByTrending.isSelected()) {
+			Collections.sort(events, new Event());
+			for (int i=0; i<events.size(); i++) {
+				EventPanelGUI epg = new EventPanelGUI(events.get(i),whClient);
+				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				eventPanels.add(epg);
+				feedPanel.add(epg);
+			}
+		// sort by time posted and insert into feed
+		} else if (this.sortByDefault.isSelected()) {
+			Collections.sort(events, new Event());
+			for (int i=0; i<events.size(); i++) {
+				EventPanelGUI epg = new EventPanelGUI(events.get(i),whClient);
+				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				eventPanels.add(epg);
+				feedPanel.add(epg);
+			}
+		}
+	}
+	
 	public void askToSignup() {
 		Object[] answers = {"Sign Me Up!", "No Thanks I'm Lame"};
 		int n = JOptionPane.showOptionDialog(whClient.getMff(),
@@ -228,6 +231,12 @@ public class MainFeedFrame extends JFrame {
 			whClient.getMff().setVisible(false);
 			whClient.setNug(new NewUserGUI(whClient));
 		}
+	}
+	public JRadioButton getSortByDefault() {
+		return sortByDefault;
+	}
+	public JRadioButton getSortByTrending() {
+		return sortByTrending;
 	}
 	//	public static void main(String [] args) {
 	//	MainFeedFrame mff = new MainFeedFrame();

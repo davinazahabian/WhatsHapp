@@ -32,7 +32,7 @@ public class MySQLDriver {
 	private final static String clubEvents = "SELECT * FROM CLUBEVENT";
 	private final static String insertUser = "INSERT INTO USERS(USERNAME,PASSWORD,FNAME,LNAME,EMAIL) VALUES(?,?,?,?,?)";
 	private final static String selectUser = "SELECT * FROM USERS WHERE USERNAME=?";
-	private final static String selectEvent = "SELECT * FROM EVENTS WHERE STARTTIME=? AND EVENTLOCATION=?";
+	private final static String selectEvent = "SELECT * FROM EVENTS WHERE STARTTIME=? AND EVENT_LOCATION=?";
 	private final static String selectEventName = "SELECT * FROM EVENTS WHERE EVENTNAME=?";
 	private final static String insertEvent = "INSERT INTO EVENTS(EVENT_NAME,EVENT_HOST,EVENT_CATEGORY,STARTTIME,ENDTIME,TIMEPOSTED,EVENT_DESCRIPTION,EVENT_DATE,EVENT_LOCATION) VALUES(?,?,?,?,?,?,?,?,?)";
 	private final static String insertEventMessage = "UPDATE EVENTS SET MESSAGEBOARD=? WHERE EVENT_NAME=?";

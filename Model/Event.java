@@ -27,7 +27,9 @@ public class Event implements Comparator<Event>, Comparable<Event> {
 	private String eventHost;
 	// formatted String of attendees for database/listing on the eventdetailGUI
 	private Vector<String> attendeeList;
-
+	public Event(){
+		
+	}
 	public Event(String eventName, String eventDate, String eventStartTime,String eventEndTime, String eventDesc, String eventLoc,
 			 int type, String timePosted, String eventHost) {
 		this.eventName = eventName;
