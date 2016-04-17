@@ -201,46 +201,23 @@ public class WHFrame extends JFrame {
 
 
 		loginButton.addActionListener(new ActionListener() {
-
 			@Override
-
 			public void actionPerformed(ActionEvent e) {
-
 				String username = usernameTextField.getText();
-
 				String password = new String(passwordTextField.getPassword());
-
 				System.out.println(password);
-
 				whClient.loginRequest(username, password);
-
-				//	InfoPackage ip = new InfoPackage();
-
-				//	ip.setLogin(true);
-
-				//	ip.setUsername(username);
-
-				//	ip.setPassword(password);
-
-				//	whClient.sendToServer(ip);
-
 			}
 
 		});
 
 		guestButton.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-
-				WHFrame.this.setVisible(false);
-
-				whClient.setMff(new MainFeedFrame(whClient));
-
+//				WHFrame.this.setVisible(false);
+//				whClient.setMff(new MainFeedFrame(whClient));
+				whClient.guestRequest();
 			}
-
 		});
-
-
 	}
 
 
@@ -263,82 +240,14 @@ public class WHFrame extends JFrame {
 
 	}
 
-
-
 	public void showError() {
-
 		JOptionPane.showMessageDialog(this, "Username or password incorrect");
-
 	}
-
-
-
+	
 	public void showSuccess(Vector<Event> allEvents) {
 		JOptionPane.showMessageDialog(this, "Login successful :) Welcome to WhatsHapp!");
 		this.setVisible(false);
 		whClient.setMff(new MainFeedFrame(whClient));
 		whClient.getMff().populateFeed(allEvents);
 	}
-
-
-	//	public static void main(String [] args)
-
-	//	{
-
-	//	WHFrame whf = new WHFrame();//random comment to make commit
-
-	//	Toolkit toolkit = Toolkit.getDefaultToolkit();
-
-	//	Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
-
-	//	whf.setCursor(c);
-
-	//	whf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	//
-
-	//
-
-	//	try {
-
-	//	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-
-	//	} catch (ClassNotFoundException e) {
-
-	//	e.printStackTrace();
-
-	//	} catch (InstantiationException e) {
-
-	//	e.printStackTrace();
-
-	//	} catch (IllegalAccessException e) {
-
-	//	e.printStackTrace();
-
-	//	} catch (UnsupportedLookAndFeelException e) {
-
-	//	e.printStackTrace();
-
-	//	}
-
-	//	try {
-
-	//	setUIFont(new javax.swing.plaf.FontUIResource(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/KaushanScript-Regular.ttf")).deriveFont(12.0f)));
-
-	//	} catch (FontFormatException e) {
-
-	//	e.printStackTrace();
-
-	//	} catch (IOException e) {
-
-	//	e.printStackTrace();
-
-	//	}
-
-	//
-
-	//	whf.setVisible(true);
-
-	//	}
-
 }

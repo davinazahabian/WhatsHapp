@@ -17,7 +17,6 @@ public class WHServer extends Thread {
 	
 	private Vector<WHServerThread> serverThreads;
 	private ServerSocket ss = null;
-//	private static Vector<Event> allEvents;
 	private ArrayList<Socket> sockets;
 	private int port = 6780;
 	MySQLDriver driver;

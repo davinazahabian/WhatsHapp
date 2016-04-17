@@ -25,7 +25,6 @@ public class WHClient extends Thread {
 	private int port = 6780;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
-	//int x = 0;
 	
 	// data
 	// instance of current user, for populating the about me page
@@ -91,17 +90,14 @@ public class WHClient extends Thread {
 				p = (InfoPackage)ois.readObject();
 				if (p != null) {
 					// guest attempt returned
-					if (p.isGuest() ) {
-//						x++;
-//						System.out.println("Guest is true");	
-//						// what does this do:
-//						InfoPackage ip = new InfoPackage();
-//						ip.setGuest(true);
-//						sendToServer(ip);
+					if (p.isGuest()) {
 						
-						this.allEvents = p.getEvents();
-						mff.populateFeed(allEvents);
+						System.out.println("Guest is true");	
 
+						allEvents = p.getEvents();
+						setMff(new MainFeedFrame(this));
+						this.whf.setVisible(false);
+						getMff().populateFeed(allEvents);
 
 						// login attempt returned
 					} else if (p.isLogin()) {
@@ -113,7 +109,6 @@ public class WHClient extends Thread {
 							System.out.println("events size" + p.getEvents().size());
 							setCurrentUser(p.getUser());
 							whf.showSuccess(p.getEvents());
-							
 						}
 
 
@@ -135,9 +130,16 @@ public class WHClient extends Thread {
 					} else if (p.isNewEvent()) {
 						System.out.println("Enters new Event in run");
 						if (p.isValid()) {
-							
 							this.allEvents.insertElementAt(p.getEvent(), 0);
-//							this.mff.populateFeed(allEvents);
+							if (p.getEvent().getType() == 0) { // sports
+								sports.add(p.getEvent());
+							} else if (p.getEvent().getType() == 1) { // career
+								career.add(p.getEvent());
+							} else if (p.getEvent().getType() == 2) { // cultural
+								cultural.add(p.getEvent());
+							} else { // club
+								club.add(p.getEvent());
+							}
 							neg.newEvent();
 							JOptionPane.showMessageDialog(this.getNeg(),"Your event was submitted!");
 						} else {
@@ -148,22 +150,25 @@ public class WHClient extends Thread {
 						// category of events returned
 					} else if (p.isGettingSports()) {
 						this.sports = p.getEvents();
-						// Davina
-						this.mff.populateFeed(sports);
+						mff.setVisible(false);
+						
+						boolean trending = mff.isTrending();
+						setMff(new MainFeedFrame(this));
+					    getMff().getCategoryBox().setSelectedItem("Sports");
+						if (trending) { getMff().getSortByTrending().setSelected(true); }
+						getMff().populateFeed(sports);
+//						getMff().setVisible(true);
 
 					} else if (p.isGettingCareer()) {
 						this.career = p.getEvents();
-						// Davina
 						this.mff.populateFeed(career);
 
 					} else if (p.isGettingCultural()) {
 						this.cultural = p.getEvents();
-						// Davina
 						this.mff.populateFeed(cultural);
 
 					} else if (p.isGettingClub()) {
 						this.club = p.getEvents();
-						// Davina
 						this.mff.populateFeed(club);
 
 

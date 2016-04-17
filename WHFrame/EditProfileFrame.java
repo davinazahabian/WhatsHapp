@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -77,7 +78,7 @@ public class EditProfileFrame extends JFrame {
 	private JPanel peachPanel = new JPanel();
 	private JLabel peachLabel;
 
-	private final ImageIcon trumpAvatar = new ImageIcon("img/Avatar5.png");
+	final ImageIcon trumpAvatar = new ImageIcon("img/Avatar5.png");
 	private JPanel trumpPanel = new JPanel();
 	private JLabel trumpLabel;
 
@@ -89,9 +90,8 @@ public class EditProfileFrame extends JFrame {
 	private JPanel spacePanel = new JPanel();
 	private JLabel spaceLabel;
 	
-	private int pictureIndex = 0;
-	
-	private JLabel currentImage;
+	int pictureIndex = 0;
+	ArrayList<JLabel> pictures;
 
 	private MyProfileFrame myProfile;
 	private EditProfileFrame editProfile;
@@ -100,6 +100,7 @@ public class EditProfileFrame extends JFrame {
 		this.currentUser = mpf.currentUser;
 		this.myProfile = mpf;
 		editProfile = this;
+		pictures = new ArrayList<JLabel>();
 		this.setSize(new Dimension(900,602));
 		this.setMinimumSize(new Dimension(900,620));
 		this.setMaximumSize(new Dimension(900,620));
@@ -130,12 +131,19 @@ public class EditProfileFrame extends JFrame {
 		centerNorthPanel = new JPanel();
 		titlePanel = new JPanel();
 		defaultLabel = new JLabel(defaultAvatar);
+		pictures.add(defaultLabel);
 		millerLabel = new JLabel(millerAvatar);
+		pictures.add(millerLabel);
 		koalaLabel = new JLabel(koalaAvatar);
+		pictures.add(koalaLabel);
 		linkLabel = new JLabel(linkAvatar);
+		pictures.add(linkLabel);
 		peachLabel = new JLabel(peachAvatar);
+		pictures.add(peachLabel);
 		trumpLabel = new JLabel(trumpAvatar);
+		pictures.add(trumpLabel);
 		dogeLabel = new JLabel(dogeAvatar);
+		pictures.add(dogeLabel);
 		spaceLabel = new JLabel(spaceFiller);
 	}
 	
@@ -173,13 +181,14 @@ public class EditProfileFrame extends JFrame {
 		
 		westPanel.add(backButton, BorderLayout.NORTH);
 		
-		defaultPanel.add(defaultLabel);
-		millerPanel.add(millerLabel);
-		koalaPanel.add(koalaLabel);
-		linkPanel.add(linkLabel);
-		peachPanel.add(peachLabel);
-		trumpPanel.add(trumpLabel);
-		dogePanel.add(dogeLabel);
+										// picture indexes:
+		defaultPanel.add(defaultLabel);	// 0
+		millerPanel.add(millerLabel);	// 1
+		koalaPanel.add(koalaLabel);		// 2
+		linkPanel.add(linkLabel);		// 3
+		peachPanel.add(peachLabel);		// 4
+		trumpPanel.add(trumpLabel);		// 5
+		dogePanel.add(dogeLabel);		// 6
 		
 		imagePanel.add(defaultPanel);
 		imagePanel.add(millerPanel);
@@ -228,6 +237,8 @@ public class EditProfileFrame extends JFrame {
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				myProfile.updateUserInfo();
+				editProfile.setVisible(false);
+				myProfile.setVisible(true);
 			}
 		});
 		
@@ -235,17 +246,10 @@ public class EditProfileFrame extends JFrame {
 			public void actionPerformed(ActionEvent ae) {
 				CardLayout cl = (CardLayout)imagePanel.getLayout();
 				cl.next(imagePanel);
-				
+				if (pictureIndex == 6) {pictureIndex = 0;}
+				pictureIndex += 1;
 			}
 		});
-	}
-
-	public JLabel getCurrentImage() {
-		return currentImage;
-	}
-
-	public void setCurrentImage(JLabel currentImage) {
-		this.currentImage = currentImage;
 	}
 	
 }

@@ -58,6 +58,8 @@ public class MyProfileFrame extends JFrame {
 		this.whClient = whClient;
 		this.currentUser = u;
 		myProfile = this;
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		instantiateComponents();
 		createGUI();
 		addActions();
@@ -143,6 +145,9 @@ public class MyProfileFrame extends JFrame {
 		name.setText(newName);
 		useremail.setText(editProfile.edituseremail.getText());
 		username.setText(editProfile.editusername.getText());
+//		userImage = new JLabel(editProfile.trumpAvatar);
+////		userImage = new JLabel(editProfile.pictures.get(editProfile.pictureIndex));
+		
 		// TODO: set picture as the chosen picture from editprofile
 		// TODO: send new user info to the database!
 	}

@@ -245,6 +245,7 @@ public class NewEventGUI extends JFrame{
 	
 	public void newEvent() {
 		System.out.println("entered new event");
+		
 		setVisible(false);
 		whClient.setMff(new MainFeedFrame(whClient));
 		whClient.getMff().populateFeed(whClient.getAllEvents());

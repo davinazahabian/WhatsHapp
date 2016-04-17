@@ -60,13 +60,34 @@ public class MainFeedFrame extends JFrame {
 	private JPanel sortFilterPanel;
 	private String[] categories = {"All", "Sports", "Career", "Cultural", "Club"};
 	private JComboBox<String> categoryBox;
+	public JComboBox<String> getCategoryBox() {
+		return categoryBox;
+	}
+	public void setCategoryBox(JComboBox<String> categoryBox) {
+		this.categoryBox = categoryBox;
+	}
 	private ButtonGroup sortBy;
 	private JRadioButton sortByTrending;
 	private JRadioButton sortByDefault;  // sort by time posted
+	private boolean isTrending;
+	private boolean isDefault;
+	public boolean isTrending() {
+		return isTrending;
+	}
+	public void setTrending(boolean isTrending) {
+		this.isTrending = isTrending;
+	}
+	public boolean isDefault() {
+		return isDefault;
+	}
+	public void setDefault(boolean isDefault) {
+		this.isDefault = isDefault;
+	}
 	private WHClient whClient;
 	
 
 	public MainFeedFrame(WHClient whClient) {
+		
 		this.whClient = whClient;
 		setTitle("WhatsHapp");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -168,11 +189,15 @@ public class MainFeedFrame extends JFrame {
 		});
 		sortByTrending.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				setTrending(true);
+				setDefault(false);
 				getEvents(categoryBox.getSelectedItem().toString());
 			}
 		});
 		sortByDefault.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				setDefault(true);
+				setTrending(false);
 				getEvents(categoryBox.getSelectedItem().toString());
 			}
 		});
@@ -186,8 +211,10 @@ public class MainFeedFrame extends JFrame {
 	// TODO
 	public void getEvents(String category) {
 		if (category.equals("All")) {
-			
+			System.out.println("All events");
+			populateFeed(whClient.getAllEvents());
 		} else if (category.equals("Sports")) {
+			System.out.println("Sports events");
 			whClient.getSportsEvents();
 		} else if (category.equals("Career")) {
 			whClient.getCareerEvents();
@@ -204,6 +231,7 @@ public class MainFeedFrame extends JFrame {
 		System.out.println(events.size());
 		// sort by trending and insert into feed
 		if (this.sortByTrending.isSelected()) {
+			System.out.println("Trending selected");
 			Collections.sort(events, new Event());
 			for (int i=0; i<events.size(); i++) {
 				EventPanelGUI epg = new EventPanelGUI(events.get(i),whClient);
@@ -213,6 +241,7 @@ public class MainFeedFrame extends JFrame {
 			}
 		// sort by time posted and insert into feed
 		} else {
+			System.out.println("Default selected");
 			Collections.sort(events, new Event());
 			for (int i=0; i<events.size(); i++) {
 				EventPanelGUI epg = new EventPanelGUI(events.get(i),whClient);

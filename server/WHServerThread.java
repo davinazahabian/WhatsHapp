@@ -53,35 +53,32 @@ public class WHServerThread extends Thread {
 				if (p.isGuest()) {
 					System.out.println("Guet is true");
 					p.setEvents(whs.getAllEvents());
+					System.out.println("events size:" + p.getEvents().size());
 					p.setValid(true);
+					sendToClient(p);
 				// login attempt: server->driver->send back events and user info
 				} else if (p.isLogin()) {
 					System.out.println("Username:" + p.getUsername() + " Password:" + p.getPassword());
 					p.setUser(whs.loginAttempt(p.getUsername(), p.getPassword()));
-					InfoPackage p2 =  new InfoPackage();
-					p2.setUser(p.getUser());
-					p2.setLogin(true);
-					p2.setEvents(whs.getAllEvents());
-					sendToClient(p2);
+					p.setUser(p.getUser());
+					p.setLogin(true);
+					p.setEvents(whs.getAllEvents());
+					sendToClient(p);
 				// signup attempt: if valid attempt, set valid and send package with user already in it and events back to client
-					// if not valid, set not valid and send package with user already in it back to client
+				// if not valid, set not valid and send package with user already in it back to client
 				} else if (p.isSignup()) {
 					if (whs.signupAttempt(p.getUser())) {
-						InfoPackage p3 =  new InfoPackage();
-						p3.setUser(p.getUser());
-						p3.setSignup(true);
-						
-						p3.setEvents(whs.getAllEvents());
-						p3.setValid(true);
-						sendToClient(p3);
+						p.setUser(p.getUser());
+						p.setSignup(true);
+						p.setEvents(whs.getAllEvents());
+						p.setValid(true);
+						sendToClient(p);
 					} else {
-						InfoPackage p3 =  new InfoPackage();
-						p3.setUser(p.getUser());
-						p3.setSignup(true);
-						
-						p3.setEvents(whs.getAllEvents());
-						p3.setValid(false);
-						sendToClient(p3);
+						p.setUser(p.getUser());
+						p.setSignup(true);
+						p.setEvents(whs.getAllEvents());
+						p.setValid(false);
+						sendToClient(p);
 					}
 				// new event submission attempt
 				} else if (p.isNewEvent()) {
@@ -92,27 +89,33 @@ public class WHServerThread extends Thread {
 				} else if (p.isGettingSports()) {
 					p.setEvents(whs.sportsEvents());
 					p.setValid(true);
+					sendToClient(p);
 				} else if (p.isGettingCareer()) {
 					p.setEvents(whs.careerEvents());
 					p.setValid(true);
+					sendToClient(p);
 				} else if (p.isGettingCultural()) {
 					p.setEvents(whs.culturalEvents());
 					p.setValid(true);
+					sendToClient(p);
 				} else if (p.isGettingClub()) {
 					p.setEvents(whs.clubEvents());
 					p.setValid(true);
+					sendToClient(p);
 				// post message attempt
 				} else if (p.isPostingMessage()) {
 					p.setValid(whs.sendMessageAttempt(p.getEvent(), p.getMessage()));
+					sendToClient(p);
 				// upvoting event attempt
 				} else if (p.isUpvoting()) {
 					p.setValid(whs.upvoteEventAttempt(p.getEvent()));
+					sendToClient(p);
 				// add attendee attempt
 				} else if (p.isAddingAttendee()) {
 					p.setValid(whs.addAttendeeAttempt(p.getEvent(), p.getUser()));
+					sendToClient(p);
 				}
-				// send package back to client
-//				sendToClient(p);
+
 			} catch(EOFException e) {
 			    //eof - no error in this case
 			}catch (ClassNotFoundException | IOException e) {
