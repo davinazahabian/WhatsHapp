@@ -75,7 +75,7 @@ public class MainFeedFrame extends JFrame {
 		instantiateComponents();
 		createGUI();
 		addActions();
-		setVisible(true);
+//		setVisible(true);
 	}
 	public void instantiateComponents() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -201,6 +201,7 @@ public class MainFeedFrame extends JFrame {
 	public void populateFeed(Vector<Event> events) {
 //		feedPanel.removeAll();
 		System.out.println("entered populate");
+		System.out.println(events.size());
 		// sort by trending and insert into feed
 		if (this.sortByTrending.isSelected()) {
 			Collections.sort(events, new Event());
@@ -211,18 +212,19 @@ public class MainFeedFrame extends JFrame {
 				feedPanel.add(epg);
 			}
 		// sort by time posted and insert into feed
-		} else if (this.sortByDefault.isSelected()) {
+		} else {
 			Collections.sort(events, new Event());
 			for (int i=0; i<events.size(); i++) {
 				EventPanelGUI epg = new EventPanelGUI(events.get(i),whClient);
 				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				eventPanels.add(epg);
 				feedPanel.add(epg);
+				System.out.println(events.get(i).getEventName());
 			}
 		}
 //		feedPanel.revalidate();
 //		feedPanel.repaint();
-		
+		setVisible(true);
 	}
 	
 	public void askToSignup() {

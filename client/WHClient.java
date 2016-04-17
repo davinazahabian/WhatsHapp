@@ -110,8 +110,10 @@ public class WHClient extends Thread {
 						} else {
 							setRegistered(true);
 							setAllEvents(p.getEvents());
+							System.out.println("events size" + p.getEvents().size());
 							setCurrentUser(p.getUser());
 							whf.showSuccess(p.getEvents());
+							
 						}
 
 
@@ -134,6 +136,7 @@ public class WHClient extends Thread {
 						if (p.isValid()) {
 							this.allEvents.insertElementAt(p.getEvent(), 0);
 //							this.mff.populateFeed(allEvents);
+							neg.newEvent();
 							JOptionPane.showMessageDialog(this.getNeg(),"Your event was submitted!");
 						} else {
 							JOptionPane.showMessageDialog(this.getNeg(),"There is already an event at the same place and same time. Please try again!","Warning",JOptionPane.WARNING_MESSAGE);

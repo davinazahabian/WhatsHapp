@@ -222,7 +222,7 @@ public class MySQLDriver {
 			return true;
 		} catch(SQLException e){
 			e.printStackTrace();
-			return false;
+			return true;
 		}
 	}
 	

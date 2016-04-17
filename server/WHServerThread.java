@@ -52,8 +52,8 @@ public class WHServerThread extends Thread {
 				// guest attempt: server->driver->send back events
 				if (p.isGuest()) {
 					System.out.println("Guet is true");
-//					p.setEvents(whs.getAllEvents());
-//					p.setValid(true);
+					p.setEvents(whs.getAllEvents());
+					p.setValid(true);
 				// login attempt: server->driver->send back events and user info
 				} else if (p.isLogin()) {
 					System.out.println("Username:" + p.getUsername() + " Password:" + p.getPassword());
@@ -86,6 +86,7 @@ public class WHServerThread extends Thread {
 				// new event submission attempt
 				} else if (p.isNewEvent()) {
 					p.setValid(whs.addEventAttempt(p.getEvent()));
+//					sendToClient(p);
 				// getting category of events
 				} else if (p.isGettingSports()) {
 					p.setEvents(whs.sportsEvents());
@@ -110,7 +111,7 @@ public class WHServerThread extends Thread {
 					p.setValid(whs.addAttendeeAttempt(p.getEvent(), p.getUser()));
 				}
 				// send package back to client
-				//sendToClient(p);
+//				sendToClient(p);
 			} catch(EOFException e) {
 			    //eof - no error in this case
 			}catch (ClassNotFoundException | IOException e) {

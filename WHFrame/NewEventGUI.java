@@ -228,11 +228,9 @@ public class NewEventGUI extends JFrame{
 				String endTime = end[3];
 				String host = hostField.getText();
 				Event event = new Event(name, date2, startTime, endTime, description, location,typeBox.getSelectedIndex(), new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()), host);
+				
 				whClient.newEventRequest(event);
-				setVisible(false);
-				whClient.setMff(new MainFeedFrame(whClient));
-				whClient.getMff().populateFeed(whClient.getAllEvents());
-				whClient.getMff().setVisible(true);
+
 				
 			}
 		});
@@ -243,6 +241,14 @@ public class NewEventGUI extends JFrame{
 				whClient.getMff().setVisible(true);
 			}
 		});
+	}
+	
+	public void newEvent() {
+		System.out.println("entered new event");
+		setVisible(false);
+		whClient.setMff(new MainFeedFrame(whClient));
+		whClient.getMff().populateFeed(whClient.getAllEvents());
+		whClient.getMff().setVisible(true);
 	}
 
 	//	public static void main(String[] args){
