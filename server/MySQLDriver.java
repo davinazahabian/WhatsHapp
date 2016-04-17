@@ -34,12 +34,12 @@ public class MySQLDriver {
 	private final static String selectUser = "SELECT * FROM USERS WHERE USERNAME=?";
 	private final static String selectEvent = "SELECT * FROM EVENTS WHERE STARTTIME=? AND EVENT_LOCATION=?";
 	private final static String selectEventName = "SELECT * FROM EVENTS WHERE EVENTNAME=?";
-	private final static String insertEvent = "INSERT INTO EVENTS(EVENT_NAME,EVENT_HOST,EVENT_CATEGORY,STARTTIME,ENDTIME,TIMEPOSTED,EVENT_DESCRIPTION,EVENT_DATE,EVENT_LOCATION) VALUES(?,?,?,?,?,?,?,?,?)";
+	private final static String insertEvent = "INSERT INTO EVENTS( EVENT_NAME, EVENT_HOST , EVENT_CATEGORY , STARTTIME , ENDTIME  , TIMEPOSTED , EVENT_DESCRIPTION , EVENT_DATE , EVENT_LOCATION) VALUES(?,?,?,?,?,?,?,?,?)";
 	private final static String insertEventMessage = "UPDATE EVENTS SET MESSAGEBOARD=? WHERE EVENT_NAME=?";
-	private final static String insertSportsEvent = "INSERT INTO SPORTSEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)";
-	private final static String insertClubEvent = "INSERT INTO CLUBEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)";
-	private final static String insertCulturalEvent = "INSERT INTO CULTURALEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)";
-	private final static String insertCareerEvent = "INSERT INTO CAREEREVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)";
+	private final static String insertSportsEvent = "INSERT INTO SPORTSEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION) VALUES(?,?,?,?,?,?,?,?)";
+	private final static String insertClubEvent = "INSERT INTO CLUBEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION) VALUES(?,?,?,?,?,?,?,?)";
+	private final static String insertCulturalEvent = "INSERT INTO CULTURALEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION) VALUES(?,?,?,?,?,?,?,?)";
+	private final static String insertCareerEvent = "INSERT INTO CAREEREVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION) VALUES(?,?,?,?,?,?,?,?)";
 	private final static String addAttendee = "INSERT INTO ATTEND(ATTENDEE_COUNT,USERNAME,EVENTID) VALUES(?,?,?)";
 	private final static String upvoteEvent = "UPDATE EVENTS SET NUM_UPVOTES=? WHERE EVENT_NAME=?";
 	private final static String updateAttendees = "UPDATE EVENTS SET MYATTENDEES=? WHERE EVENT_NAME=?";
@@ -48,7 +48,7 @@ public class MySQLDriver {
 		try { new Driver(); }
 		catch(SQLException sqe){ sqe.printStackTrace(); }
 		try {
-			con  = DriverManager.getConnection("jdbc:mysql://localhost:3306/WhatsHapp?user=root&password=Froggy11");
+			con  = DriverManager.getConnection("jdbc:mysql://localhost:3306/WhatsHapp?user=root");
 		} catch (SQLException e) { e.printStackTrace(); }
 	}
 	
@@ -194,6 +194,10 @@ public class MySQLDriver {
 			ps.setString(9, event.getEventLoc());
 			ps.executeUpdate();
 			
+//			Statement st;
+//			st = con.createStatement();
+//			st.executeUpdate("INSERT INTO Events (event_name, event_host, event_category, startTime, endTime, timePosted, event_description, event_date, event_location) " + "VALUES ('" + event.getEventName() + "', '" + event.getEventHost() + "', '" + event.getType() + "', '" + event.getEventStartTime() + "', '" + event.getEventEndTime() + "', '" + event.getTimePosted() + "', '" + event.getEventDesc() + "', '" + event.getEventLoc() + "')");
+			
 			int type = event.getType();
 			PreparedStatement ps1;
 			// INSERT INTO SPORTSEVENT(NAME,HOST,DATE,TIMEPOSTED,STARTTIME,ENDTIME,DESCRIPTION,LOCATION VALUES(?,?,?,?,?,?,?,?)
@@ -211,13 +215,13 @@ public class MySQLDriver {
 			}
 			ps1.setString(1, event.getEventName());
 			ps1.setString(2, event.getEventHost());
-			ps1.setInt(3, event.getType());
-			ps1.setString(4, event.getEventStartTime());
-			ps1.setString(5, event.getEventEndTime());
-			ps1.setString(6, event.getTimePosted());
-			ps1.setString(7, event.getEventDesc());
-			ps1.setString(8, event.getEventDate());
-			ps1.setString(9, event.getEventLoc());
+//			ps1.setInt(3, event.getType());
+			ps1.setString(3, event.getEventStartTime());
+			ps1.setString(4, event.getEventEndTime());
+			ps1.setString(5, event.getTimePosted());
+			ps1.setString(6, event.getEventDesc());
+			ps1.setString(7, event.getEventDate());
+			ps1.setString(8, event.getEventLoc());
 			ps1.executeUpdate();
 			return true;
 		} catch(SQLException e){

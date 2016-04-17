@@ -133,7 +133,9 @@ public class WHClient extends Thread {
 
 					// new event submission attempt returned
 					} else if (p.isNewEvent()) {
+						System.out.println("Enters new Event in run");
 						if (p.isValid()) {
+							
 							this.allEvents.insertElementAt(p.getEvent(), 0);
 //							this.mff.populateFeed(allEvents);
 							neg.newEvent();
