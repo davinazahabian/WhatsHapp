@@ -84,7 +84,8 @@ public class WHServerThread extends Thread {
 				} else if (p.isNewEvent()) {
 					System.out.println("enters new event run method in server");
 					p.setValid(whs.addEventAttempt(p.getEvent()));
-					sendToClient(p);
+					whs.sendEventToAll(p);
+					//sendToClient(p);
 				// getting category of events
 				} else if (p.isGettingSports()) {
 					p.setEvents(whs.sportsEvents());

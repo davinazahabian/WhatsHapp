@@ -275,12 +275,23 @@ public class MainFeedFrame extends JFrame {
 	public JRadioButton getSortByTrending() {
 		return sortByTrending;
 	}
+	
+	public void newEvent() {
+		
+		
+		setVisible(false);
+		whClient.setMff(new MainFeedFrame(whClient));
+		whClient.getMff().populateFeed(whClient.getAllEvents());
+		whClient.getMff().setVisible(true);
+	}
+
 	//	public static void main(String [] args) {
 	//	MainFeedFrame mff = new MainFeedFrame();
 	//	mff.setVisible(true);
 	//	}
 }
 
+	
 /*
  * 
  * LeftPanel, MiddlePanel, RightPanel - these panels are for the background of the MainFeedFrame, when placed together they

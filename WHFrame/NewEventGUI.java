@@ -45,12 +45,12 @@ import client.WHClient;
 import customui.OutlinedLabel;
 import customui.WHButton;
 import library.ImageLibrary;
-
+import WHFrame.*;
 public class NewEventGUI extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JTextField eventNameField;
 	private JTextField locationField;
-	private JTextArea descriptionField;
+	private JTextArea descriptionField; 
 	private JTextField hostField;
 	private JComboBox<String> typeBox;
 

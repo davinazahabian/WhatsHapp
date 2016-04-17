@@ -142,7 +142,11 @@ public class WHClient extends Thread {
 							} else { // club
 								club.add(p.getEvent());
 							}
-							neg.newEvent();
+							if(neg!=null)
+								neg.newEvent();
+							
+							else
+								mff.newEvent();
 							JOptionPane.showMessageDialog(this.getNeg(),"Your event was submitted!");
 						} else {
 							JOptionPane.showMessageDialog(this.getNeg(),"There is already an event at the same place and same time. Please try again!","Warning",JOptionPane.WARNING_MESSAGE);
