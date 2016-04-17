@@ -108,7 +108,7 @@ public class Event implements Comparator<Event>, Comparable<Event>, Serializable
 	}
 	
 	public void upvote() {
-		this.upvotes = this.upvotes+1;
+		this.upvotes += 1;
 	}
 
 	public int getAttendees() {

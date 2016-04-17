@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -28,8 +30,10 @@ import library.ImageLibrary;
 
 // individual panels of events on the eventfeedgui
 public class EventPanelGUI extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private UpVoteButton upArrowButton;
 	private JLabel upVoteCounter;
+	
 	private JPanel leftContainer;
 	private JPanel buttonHolder;
 	private JLabel titleHolder;
@@ -39,10 +43,10 @@ public class EventPanelGUI extends JPanel {
 	
 	private Event e;
 	private int eventCategory;
-	private WHClient whc;
+	private WHClient whClient;
 	
-	public EventPanelGUI(Event e, WHClient whClient){
-		this.whc = whClient;
+	public EventPanelGUI(Event e, WHClient whClient) {
+		this.whClient = whClient;
 		this.e = e;
 		setSize(100,100);
 		setLayout(new BorderLayout());
@@ -131,8 +135,15 @@ public class EventPanelGUI extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent me) {
-				new EventDetailGUI(e, whc);
+				new EventDetailGUI(e, whClient);
 				System.out.println("Enters mouseClicked");
+			}
+		});
+		
+		upArrowButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				whClient.incrementUpvote(e);
+				upVoteCounter.setText("" + e.getUpvotes());
 			}
 		});
 	}
@@ -159,14 +170,4 @@ public class EventPanelGUI extends JPanel {
 			rightContainer.setBackground(new Color(255, 179, 69));
 		}
 	}
-	
-//	public static void main(String [] args) {
-//		JFrame frame = new JFrame();
-//		frame.setSize(320, 240);
-//		Event temp = new Event("event name", "event date", "event start time", "event end time", "event description", "event location",
-//				  3, "time posted", "event host");
-//		frame.add(new EventPanelGUI(temp));
-//		frame.setVisible(true);
-//	}
-
 }
