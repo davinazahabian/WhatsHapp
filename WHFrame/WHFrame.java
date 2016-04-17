@@ -327,7 +327,7 @@ JOptionPane.showMessageDialog(this, "Username or password incorrect");
 
 
 
-public void shoSuccess() {
+public void showSuccess() {
 
 JOptionPane.showMessageDialog(this, "LoginSuccess");
 

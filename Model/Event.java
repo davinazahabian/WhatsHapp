@@ -1,6 +1,7 @@
 package Model;
 
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Vector;
 
 import client.WHClient;
 
-public class Event implements Comparator<Event>, Comparable<Event> {
+public class Event implements Comparator<Event>, Comparable<Event>, Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	public static final String[] types = {"Sports", "Career", "Cultural", "Club"};

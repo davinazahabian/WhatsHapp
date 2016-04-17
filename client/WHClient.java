@@ -35,78 +35,14 @@ public class WHClient extends Thread {
 	// tells us whether current session is guest user or registered
 	private boolean isRegistered = false;
 	private Vector<Event> allEvents= new Vector<Event>();
-
-
-	// should we have vector<event> ready for all categories?
-
 	private Vector<Event> sports= new Vector<Event>();
-
-	public Vector<Event> getSports() {
-		return sports;
-	}
-
-
-
-	public void setSports(Vector<Event> sports) {
-		this.sports = sports;
-	}
-
-
-
-	public Vector<Event> getCareer() {
-		return career;
-	}
-
-
-
-	public void setCareer(Vector<Event> career) {
-		this.career = career;
-	}
-
-
-
-	public Vector<Event> getCultural() {
-		return cultural;
-	}
-
-
-
-	public void setCultural(Vector<Event> cultural) {
-		this.cultural = cultural;
-	}
-
-
-
-	public Vector<Event> getClub() {
-		return club;
-	}
-
-
-
-	public void setClub(Vector<Event> club) {
-		this.club = club;
-	}
-
-
-
 	private Vector<Event> career= new Vector<Event>();
-
 	private Vector<Event> cultural= new Vector<Event>();
-
 	private Vector<Event> club= new Vector<Event>();
 
-
-
-
-
 	// GUI
-
 	private WHFrame whf;
-
-
-
-	private MainFeedFrame mff ;
-
+	private MainFeedFrame mff;
 	private MyProfileFrame mpf;
 
 	private NewEventGUI neg;
@@ -185,50 +121,28 @@ public class WHClient extends Thread {
 			try {
 				p = (InfoPackage)ois.readObject();
 				if (p != null) {
-
 					// guest attempt returned
 					if (p.isGuest() ) {
 //						x++;
-//						System.out.println("Guest is true");
+//						System.out.println("Guest is true");	
+//						// what does this do:
+//						InfoPackage ip = new InfoPackage();
+//						ip.setGuest(true);
+//						sendToServer(ip);
 						
-						// what does this do:
-						InfoPackage ip = new InfoPackage();
-						ip.setGuest(true);
-						sendToServer(ip);
-						
-						this.allEventsDefault = p.getEvents();
-						// Davina
-						mff.populateFeed("Default");
+						this.allEvents = p.getEvents();
+						mff.populateFeed(allEvents);
 
 
 						// login attempt returned
-
 					} else if (p.isLogin()) {
-
 						if (p.getUser() == null) {
-
 							whf.showError();
-
 						} else {
-
-							whf.shoSuccess();
-
 							setRegistered(true);
-
 							setCurrentUser(p.getUser());
-
-							//	this.allEventsDefault = p.getEvents();
-
-							//	// TODO: sort events by trending and insert into allEventsTrending
-
-							//	for (Event e : allEventsDefault) {
-
-							//	//TODO: create eventpanelguis and populate eventfeedgui
-
-							//	}
-
-							// TODO: create AboutMeFrame and store as data member
-
+							mff.populateFeed(p.getEvents());
+							whf.showSuccess();
 						}
 
 
@@ -239,21 +153,14 @@ public class WHClient extends Thread {
 						if(p.isValid()) {
 							isRegistered = true;
 							this.allEvents = p.getEvents();
+							this.currentUser = p.getUser();
+							this.mff = new MainFeedFrame(this);
 							this.mff.populateFeed(allEvents);
-							this.mpf = new MyProfileFrame()
+							this.mpf = new MyProfileFrame(currentUser);
 							nug.showSuccess();
 						} else {
-							nug.showFailure();
+							JOptionPane.showMessageDialog(nug, "Sign Up Failure:(");
 						}
-
-						
-
-						
-						//	// TODO: notify user that signup was invalid (username already taken)
-
-						//	// "please try again, or continue as guest"
-
-						//	}
 
 
 					// new event submission attempt returned
@@ -315,6 +222,7 @@ public class WHClient extends Thread {
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
+		}
 	}
 
 	// action listener on guest button on splash screen activates this
@@ -510,25 +418,65 @@ public class WHClient extends Thread {
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
 	}
-	public Vector<Event> getAllEventsDefault() {
-		return allEventsDefault;
-	}
-	public void setAllEventsDefault(Vector<Event> allEventsDefault) {
-		this.allEventsDefault = allEventsDefault;
-	}
-	public Vector<Event> getAllEventsTrending() {
-		return allEventsTrending;
-	}
-	public void setAllEventsTrending(Vector<Event> allEventsTrending) {
-		this.allEventsTrending = allEventsTrending;
-	}
 	public NewUserGUI getNug() {
 		return nug;
 	}
 	public void setNug(NewUserGUI nug) {
 		this.nug = nug;
 	}
+	public Vector<Event> getAllEvents() {
+		return allEvents;
+	}
+	public void setAllEvents(Vector<Event> allEvents) {
+		this.allEvents = allEvents;
+	}
+	public Vector<Event> getSports() {
+		return sports;
+	}
+
+
+
+	public void setSports(Vector<Event> sports) {
+		this.sports = sports;
+	}
+
+
+
+	public Vector<Event> getCareer() {
+		return career;
+	}
+
+
+
+	public void setCareer(Vector<Event> career) {
+		this.career = career;
+	}
+
+
+
+	public Vector<Event> getCultural() {
+		return cultural;
+	}
+
+
+
+	public void setCultural(Vector<Event> cultural) {
+		this.cultural = cultural;
+	}
+
+
+
+	public Vector<Event> getClub() {
+		return club;
+	}
+
+
+
+	public void setClub(Vector<Event> club) {
+		this.club = club;
+	}
 	public static void main(String [] args) {
 		WHClient whc = new WHClient();
 	}
+	
 }

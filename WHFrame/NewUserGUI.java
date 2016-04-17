@@ -193,14 +193,8 @@ public class NewUserGUI extends JFrame{
 	public void showSuccess() {
 		JOptionPane.showMessageDialog(this, "Sign Up Success :)");
 		this.setVisible(false);
-		//whClient.getMff().setVisible(true);
 		whClient.setMff(new MainFeedFrame(whClient));
 		whClient.getCurrentUser().setUsername(this.usernameField.getText());
-		//instatnitate a mgui, set the , instatiate, instance of whclient into main feed
-	}
-
-	public void showFailure() {
-		JOptionPane.showMessageDialog(this, "Sign Up Failure:(");
 	}
 }
 

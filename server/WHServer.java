@@ -59,7 +59,6 @@ public class WHServer extends Thread {
 	}
 	
 	// communicating with the driver:
-	
 	// returns a vector of events
 	public Vector<Event> getAllEvents() {
 		return driver.retrieveAllEvents();
