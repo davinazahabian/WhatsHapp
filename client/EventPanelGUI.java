@@ -39,7 +39,7 @@ public class EventPanelGUI extends JPanel {
 	private JPanel buttonHolder;
 	private JLabel titleHolder;
 	private JLabel numAttendingHolder;
-	
+	private int pressed = 0;
 	public JLabel numAttendingHolder() {
 		return numAttendingHolder;
 	}
@@ -154,8 +154,12 @@ public class EventPanelGUI extends JPanel {
 		
 		upArrowButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				if(pressed > 0){
+					return;
+				}
 				whClient.incrementUpvote(e);
 				upVoteCounter.setText("" + e.getUpvotes());
+				pressed++;
 			}
 		});
 	}
