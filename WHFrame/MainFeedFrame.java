@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.ScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -149,7 +150,7 @@ public class MainFeedFrame extends JFrame {
 			public void actionPerformed(ActionEvent ae) {
 				if (whClient.isRegistered()) {
 					whClient.getMff().setVisible(false);
-					whClient.setMpf(new MyProfileFrame(whClient.getCurrentUser()));
+					whClient.setMpf(new MyProfileFrame(whClient.getCurrentUser(), whClient));
 				} else {
 					askToSignup();
 				}
@@ -198,6 +199,8 @@ public class MainFeedFrame extends JFrame {
 	}
 	
 	public void populateFeed(Vector<Event> events) {
+//		feedPanel.removeAll();
+		System.out.println("entered populate");
 		// sort by trending and insert into feed
 		if (this.sortByTrending.isSelected()) {
 			Collections.sort(events, new Event());
@@ -217,6 +220,9 @@ public class MainFeedFrame extends JFrame {
 				feedPanel.add(epg);
 			}
 		}
+//		feedPanel.revalidate();
+//		feedPanel.repaint();
+		
 	}
 	
 	public void askToSignup() {

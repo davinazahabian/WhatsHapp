@@ -56,12 +56,12 @@ public class WHServerThread extends Thread {
 //					p.setValid(true);
 				// login attempt: server->driver->send back events and user info
 				} else if (p.isLogin()) {
-					p.setEvents(whs.getAllEvents());
 					System.out.println("Username:" + p.getUsername() + " Password:" + p.getPassword());
 					p.setUser(whs.loginAttempt(p.getUsername(), p.getPassword()));
 					InfoPackage p2 =  new InfoPackage();
 					p2.setUser(p.getUser());
 					p2.setLogin(true);
+					p2.setEvents(whs.getAllEvents());
 					sendToClient(p2);
 				// signup attempt: if valid attempt, set valid and send package with user already in it and events back to client
 					// if not valid, set not valid and send package with user already in it back to client

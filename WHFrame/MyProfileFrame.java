@@ -144,6 +144,7 @@ public class MyProfileFrame extends JFrame {
 		useremail.setText(editProfile.edituseremail.getText());
 		username.setText(editProfile.editusername.getText());
 		// TODO: set picture as the chosen picture from editprofile
+		// TODO: send new user info to the database!
 	}
 	
 //	public static void main (String [] args) {

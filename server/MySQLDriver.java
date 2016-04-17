@@ -96,6 +96,7 @@ public class MySQLDriver {
 				e.setMessageBoard(messageBoard);
 				/* TODO: parse attendees to get attendee count, set attendee count of this event */
 				// maybe just store attendee count in database?
+				events.add(e);
 			}
 		} catch (SQLException e) { e.printStackTrace(); }
 		return events;

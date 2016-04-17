@@ -49,126 +49,70 @@ import library.ImageLibrary;
 
 
 public class WHFrame extends JFrame {
-
 	private static final long serialVersionUID = 1L;
-
 	private SplashPanel background;
-
 	private JTextField usernameTextField;
-
 	private JPasswordField passwordTextField;
-
 	private WHButton loginButton;
-
 	private WHButton signUpButton;
-
 	private WHButton guestButton;
-
 	private OutlinedLabel registerNow;
-
 	private OutlinedLabel usernameLabel;
-
 	private OutlinedLabel passwordLabel;
-
 	private WHClient whClient;
 
-
 	public WHFrame(WHClient whClient) {
-
 		this.whClient = whClient;
-
 		setTitle("WhatsHapp");
-
 		setSize(900,602);
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-
 		instantiateComponents();
-
 		createGUI();
-
 		addActions();
-
 		setVisible(true);
-
 	}
 
 
 	private void instantiateComponents() {
-
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-
 		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
-
 		setCursor(c);
-
 		background = new SplashPanel();
-
 		usernameTextField = new JTextField(10);
-
 		passwordTextField = new JPasswordField(10);
-
 		registerNow = new OutlinedLabel("Don't have an account? Register Now!");
-
 		loginButton =  new WHButton("Login");
-
 		signUpButton = new WHButton("Create an account!");
-
 		guestButton = new WHButton("Continue in guest mode");
-
 		usernameLabel = new OutlinedLabel("Username:  ");
-
 		passwordLabel = new OutlinedLabel("Password:  ");
-
 	}
 
 
 	private void createGUI() {
-
 		//sf.setLayout(new GridLayout(1,2)); //1 row and 2 columns
-
 		background.setLayout(new GridBagLayout());
-
 		GridBagConstraints gbc = new GridBagConstraints();
-
 		registerNow.setFont(new Font ("Impact", Font.BOLD, 15));
-
 		registerNow.setForeground(new Color(255, 204, 0));
-
 		registerNow.setOutlineColor(Color.black);
-
 		registerNow.setOpaque(false);
-
 		usernameLabel.setFont(new Font ("Impact", Font.BOLD, 15));
-
 		usernameLabel.setForeground(new Color(255, 204, 0));
-
 		usernameLabel.setOutlineColor(Color.black);
-
 		usernameLabel.setOpaque(false);
-
 		passwordLabel.setFont(new Font ("Impact", Font.BOLD, 15));
-
 		passwordLabel.setForeground(new Color(255, 204, 0));
-
 		passwordLabel.setOutlineColor(Color.black);
-
 		passwordLabel.setOpaque(false);
-
-
 		gbc.gridx = 0;
-
 		gbc.gridy = 0;
-
 		background.add(usernameLabel, gbc); //add username label
 
-
 		gbc.gridx = 0;
-
 		gbc.gridy = 1;
-
 
 		gbc.insets = new Insets(8,0,0,0);
 

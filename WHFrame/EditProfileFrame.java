@@ -90,6 +90,8 @@ public class EditProfileFrame extends JFrame {
 	private JLabel spaceLabel;
 	
 	private int pictureIndex = 0;
+	
+	private JLabel currentImage;
 
 	private MyProfileFrame myProfile;
 	private EditProfileFrame editProfile;
@@ -233,8 +235,17 @@ public class EditProfileFrame extends JFrame {
 			public void actionPerformed(ActionEvent ae) {
 				CardLayout cl = (CardLayout)imagePanel.getLayout();
 				cl.next(imagePanel);
+				
 			}
 		});
+	}
+
+	public JLabel getCurrentImage() {
+		return currentImage;
+	}
+
+	public void setCurrentImage(JLabel currentImage) {
+		this.currentImage = currentImage;
 	}
 	
 }

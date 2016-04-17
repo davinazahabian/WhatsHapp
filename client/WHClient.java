@@ -133,7 +133,7 @@ public class WHClient extends Thread {
 					} else if (p.isNewEvent()) {
 						if (p.isValid()) {
 							this.allEvents.insertElementAt(p.getEvent(), 0);
-							this.mff.populateFeed(allEvents);
+//							this.mff.populateFeed(allEvents);
 							JOptionPane.showMessageDialog(this.getNeg(),"Your event was submitted!");
 						} else {
 							JOptionPane.showMessageDialog(this.getNeg(),"There is already an event at the same place and same time. Please try again!","Warning",JOptionPane.WARNING_MESSAGE);

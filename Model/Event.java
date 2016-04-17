@@ -136,7 +136,7 @@ public class Event implements Comparator<Event>, Comparable<Event>, Serializable
 	//Collections.sort(list); for most recent to least recent
 	@Override
 	public int compareTo(Event o) {
-		return (this.timePosted).compareTo(o.timePosted);
+		return (o.timePosted).compareTo(this.timePosted);
 	}
 	
 	//Collections.sort(list, new Event()); for most upvotes to least upvotes
