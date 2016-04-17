@@ -27,7 +27,7 @@ public class Event implements Comparator<Event>, Comparable<Event>, Serializable
 	private String messageBoard;
 	private String eventHost;
 	// formatted String of attendees for database/listing on the eventdetailGUI
-	private Vector<String> attendeeList;
+	private Vector<String> attendeeList = new Vector<String>();
 	public Event(){
 		
 	}
@@ -157,7 +157,7 @@ public class Event implements Comparator<Event>, Comparable<Event>, Serializable
 		this.eventHost = eventHost;
 	}
 	public String getAttendeeList() {
-		String attendeeString = null;
+		String attendeeString = "\0";
 		for (String s : this.attendeeList) {
 			attendeeString = attendeeString + s + "\n";
 		}
@@ -167,8 +167,9 @@ public class Event implements Comparator<Event>, Comparable<Event>, Serializable
 		this.attendeeList = attendeeList;
 	}
 	public void addAttendee(String username) {
+		System.out.println(username);
 		this.attendeeList.add(username);
-		this.attendees = this.attendees+1;
+		this.attendees += 1;
 	}
 
 }

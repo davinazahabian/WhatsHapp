@@ -62,11 +62,17 @@ public class EventDetailGUI extends JFrame {
 	private JButton thumbButton;
 	private WHButton going;
 	private JTextArea description;
-	private WHClient whc;
-	public EventDetailGUI(Event e, WHClient whc) {
-		this.whc = whc;
+	
+	private WHClient whClient;
+	private EventDetailGUI edg;
+	private EventPanelGUI epg;
+	
+	public EventDetailGUI(Event e, WHClient whc, EventPanelGUI epg) {
+		this.whClient = whc;
 		this.setSize(new Dimension(900,602));
 		this.e = e;
+		this.edg = this;
+		this.epg = epg;
 		
 		instantiateComponents();
 		createGUI();
@@ -220,10 +226,28 @@ public class EventDetailGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent f) {
-				Message msg = new Message(whc.getCurrentUser().username(), addMessageArea.getText());
-				whc.sendMessage(e,msg);
+//				Message msg = new Message(whClient.getCurrentUser().username(), addMessageArea.getText());
+//				whClient.sendMessage(e,msg);
 			}
 		});
+		
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				edg.setVisible(false);
+				whClient.getMff().setVisible(true);
+			}
+		});
+		
+		going.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				whClient.addAttendee(e, whClient.getCurrentUser());
+				attending.setText("" + e.getAttendees() + " attending");
+				epg.numAttendingHolder().setText("" + e.getAttendees() + " attending");
+			}
+		});
+		
 	}
 	
 	// called when new messages are sent to the server so that message board is updated.

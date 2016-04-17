@@ -112,9 +112,9 @@ public class MySQLDriver {
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				if(rs.getInt(2) == hash(password)) {
-					info = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
-					String eventsCreated = (rs.getString(6));
-					String eventsAttending = (rs.getString(7));
+					info = new User(rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(1),rs.getString(2));
+//					String eventsCreated = (rs.getString(6));
+//					String eventsAttending = (rs.getString(7));
 					// TODO: above are strings of eventID's, parse through and match to the events in Events table,
 					// grab those events, put them in vectors, set as eventsCreated and eventsAttending for this User
 				}

@@ -33,21 +33,33 @@ public class EventPanelGUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private UpVoteButton upArrowButton;
 	private JLabel upVoteCounter;
-	
+
+
 	private JPanel leftContainer;
 	private JPanel buttonHolder;
 	private JLabel titleHolder;
 	private JLabel numAttendingHolder;
+	
+	public JLabel numAttendingHolder() {
+		return numAttendingHolder;
+	}
+
+	public void numAttendingHolder(JLabel numAttendingHolder) {
+		this.numAttendingHolder = numAttendingHolder;
+	}
 	private JLabel locationHolder;
 	private JPanel rightContainer;
 	
 	private Event e;
 	private int eventCategory;
 	private WHClient whClient;
+	private EventPanelGUI epg;
 	
 	public EventPanelGUI(Event e, WHClient whClient) {
 		this.whClient = whClient;
 		this.e = e;
+		this.epg = this;
+		
 		setSize(100,100);
 		setLayout(new BorderLayout());
 		initializeVariables();
@@ -135,7 +147,7 @@ public class EventPanelGUI extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent me) {
-				new EventDetailGUI(e, whClient);
+				new EventDetailGUI(e, whClient, epg);
 				System.out.println("Enters mouseClicked");
 			}
 		});
