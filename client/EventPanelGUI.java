@@ -39,11 +39,26 @@ public class EventPanelGUI extends JPanel {
 	private JLabel upVoteCounter;
 
 
+	public JLabel getUpVoteCounter() {
+		return upVoteCounter;
+	}
+
+	public void setUpVoteCounter(JLabel upVoteCounter) {
+		this.upVoteCounter = upVoteCounter;
+	}
 	private JPanel leftContainer;
 	private JPanel buttonHolder;
 	private JLabel titleHolder;
 	private JLabel numAttendingHolder;
 	private int pressed = 0;
+	public int getPressed() {
+		return pressed;
+	}
+
+	public void setPressed(int pressed) {
+		this.pressed = pressed;
+	}
+
 	public JLabel numAttendingHolder() {
 		return numAttendingHolder;
 	}
@@ -158,12 +173,17 @@ public class EventPanelGUI extends JPanel {
 		
 		upArrowButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				if(pressed > 0){
-					return;
+				if (whClient.isRegistered()) {
+					if(pressed > 0){
+						return;
+					}
+					whClient.incrementUpvote(e);
+					upVoteCounter.setText("" + e.getUpvotes());
+					pressed++;					
+				} else {
+					whClient.getMff().askToSignup();
 				}
-				whClient.incrementUpvote(e);
-				upVoteCounter.setText("" + e.getUpvotes());
-				pressed++;
+
 			}
 		});
 	}

@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -26,6 +27,7 @@ import javax.swing.JTextField;
 import Model.Event;
 import Model.InfoPackage;
 import Model.Message;
+import WHFrame.NewUserGUI;
 import customui.WHButton;
 /*
  * 
@@ -232,9 +234,14 @@ public class EventDetailGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent f) {
-				whClient.sendMessage(e, new Message(whClient.getCurrentUser().username(), addMessageArea.getText()));
-				//messageBoard.setText(e.getMessageBoard());
-				addMessageArea.setText(" ");
+				if (whClient.isRegistered()) {
+					whClient.sendMessage(e, new Message(whClient.getCurrentUser().username(), addMessageArea.getText()));
+					//messageBoard.setText(e.getMessageBoard());
+					addMessageArea.setText(" ");					
+				} else {
+					askToSignup();
+				}
+
 			}
 		});
 		
@@ -249,14 +256,50 @@ public class EventDetailGUI extends JFrame {
 		going.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				whClient.addAttendee(e, whClient.getCurrentUser());
-				attending.setText("" + e.getAttendees() + " attending");
-				epg.numAttendingHolder().setText("" + e.getAttendees() + " attending");
+				if (whClient.isRegistered()) {
+					whClient.addAttendee(e, whClient.getCurrentUser());
+					attending.setText("" + e.getAttendees() + " attending");
+					epg.numAttendingHolder().setText("" + e.getAttendees() + " attending");					
+				} else {
+					askToSignup();
+				}
+
+			}
+		});
+		
+		thumbButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				if (whClient.isRegistered()) {
+					if(epg.getPressed() > 0){
+						return;
+					}
+					whClient.incrementUpvote(e);
+					epg.getUpVoteCounter().setText("" + e.getUpvotes());
+					epg.setPressed(epg.getPressed()+1);
+				} else {
+					askToSignup();
+				}
+
 			}
 		});
 		
 	}
 
+	public void askToSignup() {
+		Object[] answers = {"Sign Me Up!", "No Thanks I'm Lame"};
+		int n = JOptionPane.showOptionDialog(whClient.getMff(),
+				"Would you like to sign up?",
+				"Sign up to get premium access to WhatsHapp!",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,answers,answers[0]);
+		if (n == JOptionPane.YES_OPTION) {
+			this.setVisible(false);
+			whClient.setNug(new NewUserGUI(whClient));
+		}
+	}
+	
 	public void postToBoard(InfoPackage p) {
 		messageBoard.append(p.getMessage().username() + ":  " +p.getMessage().message() + '\n');
 	}
