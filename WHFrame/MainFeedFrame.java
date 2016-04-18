@@ -75,6 +75,7 @@ public class MainFeedFrame extends JFrame {
 	private boolean isTrending;
 	private boolean isDefault;
 	private Vector<EventPanelGUI> panels; 
+	public boolean manual = false;
 	public boolean isTrending() {
 		return isTrending;
 	}
@@ -193,9 +194,17 @@ public class MainFeedFrame extends JFrame {
 		});
 		sortByTrending.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				if(manual)
+					return;
+				feedPanel.removeAll();
 				setTrending(true);
 				setDefault(false);
-				getEvents(categoryBox.getSelectedItem().toString());
+				populateFeed(whClient.getAllEvents());
+				repaint();
+				revalidate();
+				System.out.println("Enters here in sortByTrending");
+				
+				//getEvents(categoryBox.getSelectedItem().toString());
 			}
 		});
 		sortByDefault.addActionListener(new ActionListener() {
@@ -207,6 +216,7 @@ public class MainFeedFrame extends JFrame {
 		});
 		categoryBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
+				if(!manual)
 				getEvents(categoryBox.getSelectedItem().toString());
 			}
 		});
@@ -216,7 +226,11 @@ public class MainFeedFrame extends JFrame {
 	public void getEvents(String category) {
 		if (category.equals("All")) {
 			System.out.println("All events");
-			populateFeed(whClient.getAllEvents());
+			setVisible(false);
+			MainFeedFrame mff = new MainFeedFrame(whClient);
+			whClient.setMff(mff);
+			mff.populateFeed(whClient.getAllEvents());
+			mff.setVisible(true);
 		} else if (category.equals("Sports")) {
 			System.out.println("Sports events");
 			whClient.getSportsEvents();
@@ -244,6 +258,7 @@ public class MainFeedFrame extends JFrame {
 				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				eventPanels.add(epg);
 				feedPanel.add(epg);
+				System.out.println(events.get(i).getEventName() + " " + events.get(i).getTimePosted() );
 			}
 		// sort by time posted and insert into feed
 		} else {
@@ -260,6 +275,9 @@ public class MainFeedFrame extends JFrame {
 		}
 //		feedPanel.revalidate();
 //		feedPanel.repaint();
+//		revalidate();
+//		repaint();
+		setVisible(false);
 		setVisible(true);
 	}
 	

@@ -165,22 +165,51 @@ public class WHClient extends Thread {
 						
 						boolean trending = mff.isTrending();
 						setMff(new MainFeedFrame(this));
+						getMff().manual = true;
 					    getMff().getCategoryBox().setSelectedItem("Sports");
+					    getMff().manual = false;
 						if (trending) { getMff().getSortByTrending().setSelected(true); }
 						getMff().populateFeed(sports);
-//						getMff().setVisible(true);
+						getMff().setVisible(true);
 
 					} else if (p.isGettingCareer()) {
 						this.career = p.getEvents();
-						this.mff.populateFeed(career);
+						mff.setVisible(false);
+						
+						boolean trending = mff.isTrending();
+						setMff(new MainFeedFrame(this));
+						getMff().manual = true;
+					    getMff().getCategoryBox().setSelectedItem("Career");
+					    getMff().manual = false;
+						if (trending) { getMff().getSortByTrending().setSelected(true); }
+						getMff().populateFeed(career);
+						getMff().setVisible(true);
 
 					} else if (p.isGettingCultural()) {
 						this.cultural = p.getEvents();
-						this.mff.populateFeed(cultural);
+						mff.setVisible(false);
+						
+						boolean trending = mff.isTrending();
+						setMff(new MainFeedFrame(this));
+						getMff().manual = true;
+					    getMff().getCategoryBox().setSelectedItem("Cultural");
+					    getMff().manual = false;
+						if (trending) { getMff().getSortByTrending().setSelected(true); }
+						getMff().populateFeed(cultural);
+						getMff().setVisible(true);
 
 					} else if (p.isGettingClub()) {
 						this.club = p.getEvents();
-						this.mff.populateFeed(club);
+						mff.setVisible(false);
+						
+						boolean trending = mff.isTrending();
+						setMff(new MainFeedFrame(this));
+						getMff().manual = true;
+					    getMff().getCategoryBox().setSelectedItem("Club");
+					    getMff().manual = false;
+						if (trending) { getMff().getSortByTrending().setSelected(true); }
+						getMff().populateFeed(club);
+						getMff().setVisible(true);
 
 
 						// message send request returned
