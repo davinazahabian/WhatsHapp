@@ -194,9 +194,17 @@ public class MainFeedFrame extends JFrame {
 		});
 		sortByTrending.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				if(manual)
+					return;
+				feedPanel.removeAll();
 				setTrending(true);
 				setDefault(false);
-				getEvents(categoryBox.getSelectedItem().toString());
+				populateFeed(whClient.getAllEvents());
+				repaint();
+				revalidate();
+				System.out.println("Enters here in sortByTrending");
+				
+				//getEvents(categoryBox.getSelectedItem().toString());
 			}
 		});
 		sortByDefault.addActionListener(new ActionListener() {
@@ -250,6 +258,7 @@ public class MainFeedFrame extends JFrame {
 				epg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				eventPanels.add(epg);
 				feedPanel.add(epg);
+				System.out.println(events.get(i).getEventName() + " " + events.get(i).getTimePosted() );
 			}
 		// sort by time posted and insert into feed
 		} else {
@@ -266,6 +275,9 @@ public class MainFeedFrame extends JFrame {
 		}
 //		feedPanel.revalidate();
 //		feedPanel.repaint();
+//		revalidate();
+//		repaint();
+		setVisible(false);
 		setVisible(true);
 	}
 	
