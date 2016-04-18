@@ -27,9 +27,14 @@ import Model.Event;
 import Model.InfoPackage;
 import Model.Message;
 import customui.WHButton;
+/*
+ * 
+ * EventDetailGUI - the GUI for the individual event detail page containing event details and the
+ * message board, takes an Event object as an argument; acts as a wrapper for an instance of Event
+ * 
+ */
 
 public class EventDetailGUI extends JFrame {
-	// random comment
 	private static final long serialVersionUID = 1L;
 	private Event e;
 	private Color yellowColor;

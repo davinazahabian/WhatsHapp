@@ -46,7 +46,13 @@ import customui.WHButton;
 
 import library.ImageLibrary;
 
-
+/*
+ * 
+ * WHFrame - displays a form for returning users to enter their credentials to log in, credentials
+ * will be verified with the database; also has the option to sign up or continue as a guest; the
+ * first frame seen by the user upon launch
+ * 
+ */
 
 public class WHFrame extends JFrame {
 	private static final long serialVersionUID = 1L;

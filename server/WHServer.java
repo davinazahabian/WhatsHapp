@@ -14,6 +14,13 @@ import Model.InfoPackage;
 import Model.Message;
 import Model.User;
 
+/*
+ * 
+ * WHServer - connects to client to process requests from the client, with an instance of
+ * MySQLDriver to query the database for information
+ * 
+ */
+
 public class WHServer extends Thread {
 	
 	private Vector<WHServerThread> serverThreads;

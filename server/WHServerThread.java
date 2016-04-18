@@ -12,6 +12,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import Model.InfoPackage;
+
+/*
+ * 
+ * WHServerThread - this thread is created by the server to help process client requests and send
+ * packages back to the client
+ * 
+ */
+
 public class WHServerThread extends Thread {
 	
 	private Socket s;

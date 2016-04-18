@@ -28,8 +28,11 @@ import Model.Event;
 import Model.InfoPackage;
 import customui.UpVoteButton;
 import library.ImageLibrary;
-
-// individual panels of events on the eventfeedgui
+/*
+ * 
+ * EventPanelGUI - individual panels of events on the feed of MainFeedFrame
+ * 
+ */
 public class EventPanelGUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private UpVoteButton upArrowButton;

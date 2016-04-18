@@ -30,6 +30,12 @@ import customui.OutlinedLabel;
 import customui.WHButton;
 import library.ImageLibrary;
 
+/*
+ * 
+ * NewUserGUI - displays a form for new users to fill in their personal information and register as
+ * a user, appears after a user taps the “Signup” button on the start screen
+ * 
+ */
 
 public class NewUserGUI extends JFrame{
 	private static final long serialVersionUID = 1L;

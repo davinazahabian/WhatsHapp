@@ -1,5 +1,12 @@
 package Model;
 
+/*
+ * 
+ * Event - responsible for storing all information about an event, to be displayed in an
+ * EventDetailGUI and in an EventPanelGUI; implements serializable so that this package can be
+ * sent to and from server
+ * 
+ */
 
 import java.io.Serializable;
 import java.sql.Timestamp;

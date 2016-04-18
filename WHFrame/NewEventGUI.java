@@ -46,6 +46,15 @@ import customui.OutlinedLabel;
 import customui.WHButton;
 import library.ImageLibrary;
 import WHFrame.*;
+
+/*
+ * 
+ * NewEventGUI - the GUI for the new event form; will create an Event object using the details of a
+ * given event, add it to the corresponding tables in the database, and add it to the feed as an
+ * instance of EventPanelGUI
+ * 
+ */
+
 public class NewEventGUI extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JTextField eventNameField;

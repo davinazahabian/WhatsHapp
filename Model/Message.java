@@ -2,6 +2,13 @@ package Model;
 
 import java.io.Serializable;
 
+/*
+ * 
+ * Message - contains the username and message of the user who sent the message, to be posted in the
+ * message board of a EventDetailGUI
+ * 
+ */
+
 public class Message implements Serializable {
 
 	private static final long serialVersionUID = 1L;

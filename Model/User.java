@@ -2,6 +2,13 @@ package Model;
 import java.io.Serializable;
 import java.util.Vector;
 
+/*
+ * 
+ * User - responsible for storing all of the core data about a user such as his basic personal info,
+ * and lists of the events he/she has posted and attended; implements serializable so that it can
+ * be sent to and from server
+ * 
+ */
 public class User extends InfoPackage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String username;
@@ -80,9 +87,6 @@ public class User extends InfoPackage implements Serializable {
 	}
 
 	// other methods:
-//	private int hashPassword(String password) {
-//		// TODO
-//	}
 	
 	public void addEventCreated(Event newEvent) {
 		eventsCreated.add(newEvent);

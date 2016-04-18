@@ -24,8 +24,6 @@ import customui.WHButton;
  * allow the user to edit their profile information; when "Back" is pressed, the user is returned
  * to the MainFeedFrame
  * 
- * you can test MyProfileFrame and EditProfileFrame by running the main method in this class.
- * 
  */
 
 public class MyProfileFrame extends JFrame {

@@ -17,7 +17,12 @@ import WHFrame.MyProfileFrame;
 import WHFrame.NewEventGUI;
 import WHFrame.NewUserGUI;
 import WHFrame.WHFrame;
-
+/*
+ * 
+ * WHClient - contains instances of all GUI frames and manages the execution of the program, sending
+ * requests to the server whenever necessary
+ * 
+ */
 public class WHClient extends Thread {
 
 	// networking

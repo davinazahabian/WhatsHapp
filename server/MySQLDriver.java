@@ -20,6 +20,10 @@ import java.sql.*;
  * 2 = cultural
  * 3 = club
  * 
+ * MySQLDriver - the driver that connects to the SQL database to lookup, insert, and update
+ * information
+ * 
+ * 
  * */
 
 public class MySQLDriver {

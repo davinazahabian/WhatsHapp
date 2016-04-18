@@ -2,8 +2,13 @@ package Model;
 import java.io.Serializable;
 import java.util.Vector;
 
-// this serializable class sets up the types of packages that will be sent: user, event, and message
-// these classes will always have a string identifier, to identify the contents when being received
+/*
+ * 
+ * InfoPackage - this serializable class sets up the types of packages that will be sent: user,
+ * event, and message; it has boolean identifiers to differentiate the types of requests being sent
+ * to the server
+ * 
+ */
 
 public class InfoPackage implements Serializable {
 	
