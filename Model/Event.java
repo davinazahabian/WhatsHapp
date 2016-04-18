@@ -45,6 +45,7 @@ public class Event implements Comparator<Event>, Comparable<Event>, Serializable
 		this.timePosted = timePosted;
 		this.setType(type);
 		this.eventHost = eventHost;
+		messageBoard = "";
 	}
 	public String getEventName() {
 		return eventName;

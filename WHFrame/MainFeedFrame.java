@@ -75,6 +75,7 @@ public class MainFeedFrame extends JFrame {
 	private boolean isTrending;
 	private boolean isDefault;
 	private Vector<EventPanelGUI> panels; 
+	public boolean manual = false;
 	public boolean isTrending() {
 		return isTrending;
 	}
@@ -207,6 +208,7 @@ public class MainFeedFrame extends JFrame {
 		});
 		categoryBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
+				if(!manual)
 				getEvents(categoryBox.getSelectedItem().toString());
 			}
 		});
@@ -216,7 +218,11 @@ public class MainFeedFrame extends JFrame {
 	public void getEvents(String category) {
 		if (category.equals("All")) {
 			System.out.println("All events");
-			populateFeed(whClient.getAllEvents());
+			setVisible(false);
+			MainFeedFrame mff = new MainFeedFrame(whClient);
+			whClient.setMff(mff);
+			mff.populateFeed(whClient.getAllEvents());
+			mff.setVisible(true);
 		} else if (category.equals("Sports")) {
 			System.out.println("Sports events");
 			whClient.getSportsEvents();
