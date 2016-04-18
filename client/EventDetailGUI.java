@@ -287,7 +287,7 @@ public class EventDetailGUI extends JFrame {
 	}
 
 	public void askToSignup() {
-		Object[] answers = {"Sign Me Up!", "No Thanks I'm Lame"};
+		Object[] answers = {"Sign Me Up!", "No Thanks"};
 		int n = JOptionPane.showOptionDialog(whClient.getMff(),
 				"Would you like to sign up?",
 				"Sign up to get premium access to WhatsHapp!",
