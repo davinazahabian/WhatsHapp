@@ -25,6 +25,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -250,6 +251,10 @@ public class NewEventGUI extends JFrame{
 				whClient.getMff().setVisible(true);
 			}
 		});
+	}
+	
+	public void showEventFailure() {
+		JOptionPane.showMessageDialog(this,"There is already an event at the same place and same time. Please try again!","Warning",JOptionPane.WARNING_MESSAGE);
 	}
 	
 	public void newEvent() {

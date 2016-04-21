@@ -205,6 +205,10 @@ public class NewUserGUI extends JFrame{
 		whClient.getCurrentUser().setUsername(this.usernameField.getText());
 		whClient.getMff().populateFeed(allEvents);
 	}
+	
+	public void signUpFailure() {
+		JOptionPane.showMessageDialog(this, "Sign Up Failure:(");
+	}
 }
 
 class SplashPanel2 extends JPanel {

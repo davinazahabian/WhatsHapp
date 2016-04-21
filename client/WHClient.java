@@ -127,7 +127,7 @@ public class WHClient extends Thread {
 							setCurrentUser(p.getUser());
 							nug.showSuccess(allEvents);
 						} else {
-							JOptionPane.showMessageDialog(nug, "Sign Up Failure:(");
+							nug.signUpFailure();
 						}
 
 
@@ -152,9 +152,9 @@ public class WHClient extends Thread {
 							
 							else
 								mff.newEvent();
-							JOptionPane.showMessageDialog(this.getNeg(),"Your event was submitted!");
+								//mff.showEventSuccess();
 						} else {
-							JOptionPane.showMessageDialog(this.getNeg(),"There is already an event at the same place and same time. Please try again!","Warning",JOptionPane.WARNING_MESSAGE);
+							neg.showEventFailure();
 						}
 
 
@@ -222,7 +222,7 @@ public class WHClient extends Thread {
 							}
 							mff.postToBoard(p);
 						} else {
-							JOptionPane.showMessageDialog(this.getMff(),"Cannot fulfill request at this time.","Warning",JOptionPane.WARNING_MESSAGE);
+							mff.cannotFulfillRequest();
 						}
 
 
@@ -231,7 +231,7 @@ public class WHClient extends Thread {
 						if (p.isValid()) {
 							return;
 						} else {
-							JOptionPane.showMessageDialog(this.getMff(),"Cannot fulfill request at this time.","Warning",JOptionPane.WARNING_MESSAGE);
+							mff.cannotFulfillRequest();
 						}
 					}
 				}

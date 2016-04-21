@@ -317,6 +317,14 @@ public class MainFeedFrame extends JFrame {
 			}
 		}
 	}
+	
+	public void showEventSuccess() {
+		JOptionPane.showMessageDialog(this,"Your event was submitted!");
+	}
+	
+	public void cannotFulfillRequest() {
+		JOptionPane.showMessageDialog(this,"Cannot fulfill request at this time.","Warning",JOptionPane.WARNING_MESSAGE);
+	}
 
 	//	public static void main(String [] args) {
 	//	MainFeedFrame mff = new MainFeedFrame();
