@@ -20,10 +20,6 @@ import java.sql.*;
  * 2 = cultural
  * 3 = club
  * 
- * MySQLDriver - the driver that connects to the SQL database to lookup, insert, and update
- * information
- * 
- * 
  * */
 
 public class MySQLDriver {
@@ -47,12 +43,12 @@ public class MySQLDriver {
 	private final static String addAttendee = "INSERT INTO ATTEND(ATTENDEE_COUNT,USERNAME,EVENTID) VALUES(?,?,?)";
 	private final static String upvoteEvent = "UPDATE EVENTS SET NUM_UPVOTES=? WHERE EVENT_NAME=?";
 	private final static String updateAttendees = "UPDATE EVENTS SET MYATTENDEES=? WHERE EVENT_NAME=?";
-	
+	private final static String filterSports = "SELECT * FROM EVENTS WHERE EVENT_CATEGORY = 0";
 	public MySQLDriver() {
 		try { new Driver(); }
 		catch(SQLException sqe){ sqe.printStackTrace(); }
 		try {
-			con  = DriverManager.getConnection("jdbc:mysql://localhost:3306/WhatsHapp?user=root&password=Froggy11");
+			con  = DriverManager.getConnection("jdbc:mysql://localhost:3306/WhatsHapp?user=root");
 		} catch (SQLException e) { e.printStackTrace(); }
 	}
 	
@@ -260,6 +256,9 @@ public class MySQLDriver {
 				// set upvotes
 				e.setUpvotes(upvotes);
 				// parse attendees, put into vector, add attendee list and attendee count to event
+				if(attendees == null){
+					attendees = "";
+				}
 				String [] attendeeArray = attendees.split("\\s+");
 				Vector<String> attendeeVector = new Vector<String>();
 				for (String s : attendeeArray) {
@@ -300,6 +299,9 @@ public class MySQLDriver {
 				Event e = new Event(name,date,startTime,endTime,description,location,1,timePosted,host);
 				// set upvotes
 				e.setUpvotes(upvotes);
+				if(attendees == null){
+					attendees = "";
+				}
 				// parse attendees, put into vector, add attendee list and attendee count to event
 				String [] attendeeArray = attendees.split("\\s+");
 				Vector<String> attendeeVector = new Vector<String>();
@@ -341,6 +343,9 @@ public class MySQLDriver {
 				Event e = new Event(name,date,startTime,endTime,description,location,2,timePosted,host);
 				// set upvotes
 				e.setUpvotes(upvotes);
+				if(attendees == null){
+					attendees = "";
+				}
 				// parse attendees, put into vector, add attendee list and attendee count to event
 				String [] attendeeArray = attendees.split("\\s+");
 				Vector<String> attendeeVector = new Vector<String>();
@@ -382,6 +387,9 @@ public class MySQLDriver {
 				Event e = new Event(name,date,startTime,endTime,description,location,3,timePosted,host);
 				// set upvotes
 				e.setUpvotes(upvotes);
+				if(attendees == null){
+					attendees = "";
+				}
 				// parse attendees, put into vector, add attendee list and attendee count to event
 				String [] attendeeArray = attendees.split("\\s+");
 				Vector<String> attendeeVector = new Vector<String>();
@@ -447,4 +455,3 @@ public class MySQLDriver {
 		return hash;
 	}
 }
-
