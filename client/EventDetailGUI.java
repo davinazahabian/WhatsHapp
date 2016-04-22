@@ -64,7 +64,12 @@ public class EventDetailGUI extends JFrame {
 	private JPanel westPanel;
 	private JPanel centerPanel;
 	private JPanel centerNorthPanel;
-	private JPanel centerCenterPanel;
+//	private JPanel centerCenterPanel;
+	
+	private JPanel titlePanel;
+	private JPanel detailPanel;
+	private JLabel votes;
+	private JPanel upvotes;
 	
 	private ImageIcon thumb;
 	private JButton thumbButton;
@@ -82,158 +87,155 @@ public class EventDetailGUI extends JFrame {
 		this.edg = this;
 		this.epg = epg;
 		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		
 		instantiateComponents();
 		createGUI();
 		addActions();
+		setVisible(true);
 	}
 	
 	private void instantiateComponents() {
 		yellowColor = new Color(255,204,102);
 		highlightColor = new Color(247,234,161);
 		mainPanel = new JPanel();
-		mainPanel.setBackground(yellowColor);
-		
-		
-		
 		backButton = new WHButton("< Back");
 		eventInfoPanel = new JPanel();
-		eventInfoPanel.setLayout(new BoxLayout(eventInfoPanel, BoxLayout.Y_AXIS));
 		eventTitle = new JLabel(e.getEventName());
 		eventDate = new JLabel("Date: " + e.getEventDate());
 		eventStartTime = new JLabel("Starts: " + e.getEventStartTime());
 		eventEndTime = new JLabel("Ends: " + e.getEventEndTime());
 		eventLocation = new JLabel("Location: " + e.getEventLoc());
 		eventDetail = new JLabel("About: " + e.getEventDesc());
+		messageBoardPanel = new JPanel();
+		conversationPanel = new JPanel();
+		messageBoardLabel = new JLabel("Message Board");
+		messageBoard = new JTextArea(e.getMessageBoard());
+		messageBoardPane = new JScrollPane(messageBoard);
+		addPanel = new JPanel();
+		addMessageArea = new JTextArea(5, 1);
+		postMessage = new WHButton("Post Message");
+		going = new WHButton("Going");
+		westPanel = new JPanel();
+		centerPanel = new JPanel();
+		centerNorthPanel = new JPanel();
+		centerNorthPanel.setBackground(yellowColor);
+//		centerCenterPanel = new JPanel();
+		attending = new JLabel( e.getAttendees() + " attending");
+		thumb = new ImageIcon("img/thumb_button.png");
+		thumbButton = new JButton(thumb);
+		description = new JTextArea("About: " + "\n" + e.getEventDesc());
 		
+		titlePanel = new JPanel();
+		detailPanel = new JPanel();
+		votes = new JLabel("" + e.getUpvotes());
+		upvotes = new JPanel();
+	}
+	
+	private void createGUI() {
+		westPanel.setBackground(yellowColor);
+		centerPanel.setBackground(yellowColor);
+		thumbButton.setBackground(yellowColor);
+		addPanel.setBackground(yellowColor);
+		mainPanel.setBackground(yellowColor);
+		messageBoardPanel.setBackground(yellowColor);
+		conversationPanel.setBackground(yellowColor);
+		messageBoardPanel.setBackground(yellowColor);
+		description.setBackground(yellowColor);
+		messageBoardPanel.setBackground(yellowColor);
+		detailPanel.setBackground(yellowColor);
+		addPanel.setBackground(yellowColor);
+		upvotes.setBackground(yellowColor);
+
+		thumbButton.setPreferredSize(new Dimension(71,75));
+		messageBoard.setPreferredSize(new Dimension (292,406));
+		description.setMaximumSize(new Dimension(300,50));
+		messageBoardPanel.setPreferredSize(new Dimension (300,600));
+		addPanel.setSize(100, 100);
+
+		addMessageArea.setEditable(true);
+		addMessageArea.setLineWrap(true);
+		addMessageArea.setWrapStyleWord(true);
+		addMessageArea.setSelectionColor(highlightColor);
+		
+		addPanel.setLayout(new BorderLayout());
+		eventInfoPanel.setLayout(new BoxLayout(eventInfoPanel, BoxLayout.Y_AXIS));
+		messageBoardPanel.setLayout(new BorderLayout());
+		detailPanel.setLayout(new BoxLayout(detailPanel, BoxLayout.Y_AXIS));
+
+		messageBoard.setEditable(false);
+		messageBoardPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		description.setLineWrap(true);
+		description.setWrapStyleWord(true);
+		description.setEditable(false);
+		
+		description.setFont(new Font ("Impact", Font.PLAIN, 20));
 		eventTitle.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventDate.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventStartTime.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventEndTime.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventLocation.setFont(new Font ("Impact", Font.PLAIN, 25));
 		eventDetail.setFont(new Font ("Impact", Font.PLAIN, 18));
-		
-		messageBoardPanel = new JPanel();
-		messageBoardPanel.setBackground(yellowColor);
-		conversationPanel = new JPanel();
-		conversationPanel.setBackground(yellowColor);
-		messageBoardLabel = new JLabel("Message Board");
-		messageBoardPanel.setLayout(new BorderLayout());
-		messageBoardPanel.setBackground(yellowColor);
-		messageBoard = new JTextArea(e.getMessageBoard());
-		messageBoardPane = new JScrollPane(messageBoard);
-		messageBoard.setPreferredSize(new Dimension (292,406));
-		messageBoard.setEditable(false);
-		messageBoardPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		addPanel = new JPanel();
-		addPanel.setLayout(new BorderLayout());
-		addPanel.setBackground(yellowColor);
-		addMessageArea = new JTextArea(5, 1);
-		addMessageArea.setEditable(true);
-		addMessageArea.setLineWrap(true);
-		addMessageArea.setWrapStyleWord(true);
-		addMessageArea.setSelectionColor( highlightColor);
-		
-		
-		postMessage = new WHButton("Post Message");
-		going = new WHButton("Going");
-		westPanel = new JPanel();
-		westPanel.setBackground(yellowColor);
-		
-		centerPanel = new JPanel();
-		centerPanel.setBackground(yellowColor);
-		centerNorthPanel = new JPanel();
-		centerNorthPanel.setBackground(yellowColor);
-		centerCenterPanel = new JPanel();
-		
-		attending = new JLabel( e.getAttendees() + " attending");
-		thumb = new ImageIcon("img/thumb_button.png");
-		
-		thumbButton = new JButton(thumb);
-		thumbButton.setPreferredSize(new Dimension(71,75));
-
-		thumbButton.setBackground(yellowColor);
-		description = new JTextArea("About: " + "\n" + e.getEventDesc());
-		description.setMaximumSize(new Dimension(300,50));
-		description.setFont(new Font ("Impact", Font.PLAIN, 20));
-		description.setLineWrap(true);
-		description.setWrapStyleWord(true);
-		description.setBackground(yellowColor);
-		description.setEditable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-	}
-	
-	private void createGUI() {
-		
-	
-
-		westPanel.add(backButton, BorderLayout.NORTH);
-		add(westPanel, BorderLayout.WEST);
-		
-//		updateMessageBoard();		
-		Dimension mbSize = new Dimension (300,600);
-		messageBoardPanel.setPreferredSize(mbSize);
 		messageBoardLabel.setFont(new Font ("Phosphate", Font.PLAIN, 30));
-		messageBoardPanel.add(messageBoardLabel, BorderLayout.NORTH);
-		conversationPanel.add(messageBoard, BorderLayout.NORTH);
-		conversationPanel.add(addMessageArea, BorderLayout.SOUTH);
-		messageBoardPanel.add(conversationPanel, BorderLayout.CENTER);
-		addPanel.setSize(100, 100);
-		addPanel.add(addMessageArea, BorderLayout.CENTER);
-		addPanel.add(postMessage, BorderLayout.SOUTH);
-		addPanel.setBackground(yellowColor);
-		messageBoardPanel.add(addPanel, BorderLayout.SOUTH);
-		messageBoardPanel.setBackground(yellowColor);
-		add(messageBoardPanel, BorderLayout.EAST);
-		
-		
 		eventTitle.setFont(new Font ("Phosphate", Font.BOLD, 45));
 		attending.setFont(new Font ("Impact", Font.PLAIN, 25));
-		
-		JPanel titlePanel = new JPanel();
-		titlePanel.setBackground(yellowColor);
-		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
-		titlePanel.add(eventTitle);
-		titlePanel.add(Box.createVerticalGlue());
-
-		//titlePanel.add(Box.createRigidArea(new Dimension(100,10)));
-		JLabel votes = new JLabel("" + e.getUpvotes());
 		votes.setFont(new Font ("Impact", Font.PLAIN, 40));
+
 		
-		JPanel upvotes = new JPanel();
-		upvotes.setBackground(yellowColor);
+		
+		// back button (west)
+		westPanel.add(backButton, BorderLayout.NORTH);
+		
+		// message board (east)
+		messageBoardPanel.add(messageBoardLabel, BorderLayout.NORTH);
+		conversationPanel.add(messageBoard, BorderLayout.NORTH);
+		messageBoardPanel.add(conversationPanel, BorderLayout.CENTER);
+		addPanel.add(addMessageArea, BorderLayout.CENTER);
+		addPanel.add(postMessage, BorderLayout.SOUTH);
+		messageBoardPanel.add(addPanel, BorderLayout.SOUTH);
+		
+
+		
+		// main panel (center)
+		// upvotes
 		upvotes.add(thumbButton);
 		upvotes.add(votes);
-		titlePanel.add(attending);
-		titlePanel.add(Box.createRigidArea(new Dimension(30,30)));
-		titlePanel.add(upvotes);
-		titlePanel.add(Box.createRigidArea(new Dimension(30,30)));
-		//JPanel information = new JPanel();
-		titlePanel.add(eventDate);
-		titlePanel.add(eventStartTime);
-		titlePanel.add(eventEndTime);
-		titlePanel.add(eventLocation);
-		titlePanel.add(description);
-		titlePanel.add(Box.createRigidArea(new Dimension(50,60)));
-		titlePanel.add(going);
-				
-		mainPanel.add(titlePanel,BorderLayout.NORTH);
-		mainPanel.add(going, BorderLayout.SOUTH);
 		
+		// title panel
+		titlePanel.add(eventTitle);
+		titlePanel.add(Box.createVerticalGlue());
+		
+		detailPanel.add(attending);
+		detailPanel.add(Box.createVerticalGlue());
+		detailPanel.add(upvotes);
+		detailPanel.add(Box.createVerticalGlue());
+		detailPanel.add(eventDate);
+		detailPanel.add(Box.createVerticalGlue());
+		detailPanel.add(eventStartTime);
+		detailPanel.add(Box.createVerticalGlue());
+		detailPanel.add(eventEndTime);
+		detailPanel.add(Box.createVerticalGlue());
+		detailPanel.add(eventLocation);
+		detailPanel.add(Box.createVerticalGlue());
+		detailPanel.add(description);
+		detailPanel.add(Box.createVerticalBox());
+		//detailPanel.add(Box.createVerticalGlue());
+		//detailPanel.add(Box.createGlue());
+		detailPanel.add(going);
+		
+		mainPanel.add(titlePanel, BorderLayout.NORTH);
+		mainPanel.add(detailPanel,BorderLayout.CENTER);
+		//mainPanel.add(going, BorderLayout.SOUTH);
 	
-		
+		add(westPanel, BorderLayout.WEST);
+		add(messageBoardPanel, BorderLayout.EAST);
 		add(mainPanel, BorderLayout.CENTER);
-		
-		setVisible(true);
-		
-		
 	}
 	
 	private void addActions() {
 		postMessage.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent f) {
 				if (whClient.isRegistered()) {
@@ -279,6 +281,7 @@ public class EventDetailGUI extends JFrame {
 					whClient.incrementUpvote(e);
 					epg.getUpVoteCounter().setText("" + e.getUpvotes());
 					epg.setPressed(epg.getPressed()+1);
+					votes.setText("" + e.getUpvotes());
 				} else {
 					askToSignup();
 				}
@@ -292,7 +295,7 @@ public class EventDetailGUI extends JFrame {
 		Object[] answers = {"Sign Me Up!", "No Thanks"};
 		int n = JOptionPane.showOptionDialog(whClient.getMff(),
 				"Would you like to sign up?",
-				"Sign up to get premium access to WhatsHapp!",
+				"Sign up to get premium access!",
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE,
 				null,answers,answers[0]);
@@ -305,4 +308,5 @@ public class EventDetailGUI extends JFrame {
 	public void postToBoard(InfoPackage p) {
 		messageBoard.append(p.getMessage().username() + ":  " +p.getMessage().message() + '\n');
 	}
+	
 }

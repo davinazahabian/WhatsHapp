@@ -161,6 +161,10 @@ public class NewEventGUI extends JFrame{
 		descriptionLabel.setForeground(new Color(255, 204, 0));
 		descriptionLabel.setOutlineColor(Color.black);
 		descriptionLabel.setOpaque(false);
+		descriptionField.setEditable(true);
+		descriptionField.setLineWrap(true);
+		descriptionField.setWrapStyleWord(true);
+		
 		typeLabel.setFont(new Font ("Impact", Font.BOLD, 20));
 		typeLabel.setForeground(new Color(255, 204, 0));
 		typeLabel.setOutlineColor(Color.black);
