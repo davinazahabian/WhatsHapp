@@ -111,7 +111,7 @@ public class NewEventGUI extends JFrame{
 		typeLabel = new OutlinedLabel ("Type: ");
 		endTimeLabel = new OutlinedLabel("End Time: ");
 		createButton = new WHButton("Create Event");
-		backButton = new WHButton("Back");
+		backButton = new WHButton("Cancel");
 
 		splash = new SplashPanel();
 
@@ -206,6 +206,10 @@ public class NewEventGUI extends JFrame{
 		c.gridy = 9;
 		c.gridwidth = 5;
 		splash.add(createButton,c);
+		
+		c.gridy = 10;
+		c.gridwidth = 5;
+		splash.add(backButton,c);
 
 		add(splash);
 	}

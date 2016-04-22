@@ -153,5 +153,6 @@ public class MyProfileFrame extends JFrame {
 		username.setText(editProfile.editusername.getText());
 		profilepicture = editProfile.pictures.get(editProfile.pictureIndex);
 		userImage.setIcon(profilepicture);
+		whClient.setMpf(this);
 	}
 }

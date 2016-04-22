@@ -161,7 +161,8 @@ public class MainFeedFrame extends JFrame {
 			public void actionPerformed(ActionEvent ae) {
 				if (whClient.isRegistered()) {
 					whClient.getMff().setVisible(false);
-					whClient.setMpf(new MyProfileFrame(whClient.getCurrentUser(), whClient));
+					if (whClient.getMpf() != null) {whClient.getMpf().setVisible(true);}
+					else {whClient.setMpf(new MyProfileFrame(whClient.getCurrentUser(), whClient));}
 				} else {
 					askToSignup();
 				}
