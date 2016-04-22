@@ -226,6 +226,7 @@ public class WHClient extends Thread {
 						}
 
 
+
 						// add attendee request returned
 					} else if (p.isAddingAttendee()) {
 						if (p.isValid()) {

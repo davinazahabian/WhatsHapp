@@ -126,9 +126,10 @@ public class NewUserGUI extends JFrame{
 		emailLabel.setOpaque(false);
 		
 		signUpButton = new WHButton("Sign Up");
-	    backButton = new WHButton("< Back");
+	    backButton = new WHButton("Cancel");
 	    splash = new SplashPanel2();
 	    setVisible(true);
+	    setLocationRelativeTo(null);
 	}
 	
 	private void createGUI() {
@@ -136,10 +137,7 @@ public class NewUserGUI extends JFrame{
 		splash.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		splash.add(backButton);
 		c.gridy = 0;
-		splash.add(backButton, c);
-		
 		c.insets = new Insets(5,5,5,5);
 		splash.add(firstNameLabel,c);
 		splash.add(firstNameField,c);
@@ -169,6 +167,10 @@ public class NewUserGUI extends JFrame{
 		c.gridy = 7;
 		c.gridwidth = 7;
 		splash.add(signUpButton,c);
+		
+		c.gridy = 8;
+		splash.add(backButton);
+		splash.add(backButton, c);
 		
 		c.insets = new Insets(5,0,5,0);
 		

@@ -78,6 +78,7 @@ public class WHFrame extends JFrame {
 		createGUI();
 		addActions();
 		setVisible(true);
+		setLocationRelativeTo(null);
 	}
 
 

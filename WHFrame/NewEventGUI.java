@@ -98,6 +98,7 @@ public class NewEventGUI extends JFrame{
 		createGUI();
 		addActions();
 		setVisible(true);
+		setLocationRelativeTo(null);
 	}
 
 	private void initializeComponents() {

@@ -277,8 +277,9 @@ public class MainFeedFrame extends JFrame {
 //		feedPanel.repaint();
 //		revalidate();
 //		repaint();
-		setVisible(false);
+		//setVisible(false);
 		setVisible(true);
+		setLocationRelativeTo(null);
 	}
 	
 	public void askToSignup() {
