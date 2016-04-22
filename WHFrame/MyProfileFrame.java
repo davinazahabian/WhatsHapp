@@ -66,6 +66,7 @@ public class MyProfileFrame extends JFrame {
 		myProfile = this;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		//setIconImage(new ImageIcon(getClass().getResource("img/icon.png")).getImage());
 
 		instantiateComponents();
 		createGUI();

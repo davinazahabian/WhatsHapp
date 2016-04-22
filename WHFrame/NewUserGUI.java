@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -63,7 +64,7 @@ public class NewUserGUI extends JFrame{
 	 public NewUserGUI(WHClient whClient){
 		 this.whClient = whClient;
 		 this.newUserGUI = this;
-	 	
+		 //setIconImage(new ImageIcon(getClass().getResource("img/icon.png")).getImage());
 		 setTitle("Sign Up!");
 		 setSize(900,602);
 		 setMinimumSize(new Dimension(640,480));

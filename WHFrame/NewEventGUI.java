@@ -87,6 +87,7 @@ public class NewEventGUI extends JFrame{
 		setTitle("What's Happ");
 		setSize(900,602);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setIconImage(new ImageIcon(getClass().getResource("img/icon.png")).getImage());
 
 		initializeComponents();
 		createGUI();

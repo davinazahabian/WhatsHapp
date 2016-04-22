@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import javax.swing.JOptionPane;
@@ -69,6 +70,8 @@ public class WHFrame extends JFrame {
 
 	public WHFrame(WHClient whClient) {
 		this.whClient = whClient;
+		//setIconImage(new ImageIcon("img/icon.png").getImage());
+
 		setTitle("WhatsHapp");
 		setSize(900,602);
 

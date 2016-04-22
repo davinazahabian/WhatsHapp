@@ -14,6 +14,7 @@ import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -88,6 +89,7 @@ public class EventDetailGUI extends JFrame {
 		this.epg = epg;
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setIconImage(new ImageIcon(getClass().getResource("img/icon.png")).getImage());
 
 		
 		instantiateComponents();

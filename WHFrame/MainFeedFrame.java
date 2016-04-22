@@ -20,6 +20,8 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -82,6 +84,8 @@ public class MainFeedFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(1,3));
 		setSize(900,620);
+		//setIconImage(new ImageIcon(getClass().getResource("img/icon.png")).getImage());
+
 		setLocationRelativeTo(null);
 		instantiateComponents();
 		createGUI();

@@ -107,6 +107,7 @@ public class EditProfileFrame extends JFrame {
 		this.setMaximumSize(new Dimension(640,550));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setBackground(yellowColor);
+		//setIconImage(new ImageIcon(getClass().getResource("img/icon.png")).getImage());
 		setLocationRelativeTo(null);
 		instantiateComponents();
 		createGUI();

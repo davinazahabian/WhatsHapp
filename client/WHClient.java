@@ -6,7 +6,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Vector;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Model.Event;
 import Model.InfoPackage;
@@ -50,6 +54,8 @@ public class WHClient extends Thread {
 	private NewUserGUI nug;
 
 	public WHClient() {
+		//setIconImage(new ImageIcon("img/icon.png").getImage());
+
 		whf = new WHFrame(this);
 		whf.setVisible(true);
 		try {
@@ -495,6 +501,7 @@ public class WHClient extends Thread {
 	public void setClub(Vector<Event> club) {
 		this.club = club;
 	}
+	
 	public static void main(String [] args) {
 		WHClient whc = new WHClient();
 	}
