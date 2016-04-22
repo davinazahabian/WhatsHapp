@@ -81,6 +81,8 @@ public class EventDetailGUI extends JFrame {
 		this.e = e;
 		this.edg = this;
 		this.epg = epg;
+		setLocationRelativeTo(null);
+
 		
 		instantiateComponents();
 		createGUI();

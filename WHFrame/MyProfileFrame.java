@@ -2,8 +2,11 @@ package WHFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,6 +19,7 @@ import javax.swing.JPanel;
 import Model.User;
 import client.WHClient;
 import customui.WHButton;
+import library.ImageLibrary;
 
 /* 
  * 
@@ -57,13 +61,17 @@ public class MyProfileFrame extends JFrame {
 		this.currentUser = u;
 		myProfile = this;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		setLocationRelativeTo(null);
+
 		instantiateComponents();
 		createGUI();
 		addActions();
 	}
 	
 	private void instantiateComponents() {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+		setCursor(c);
 		editProfile = new EditProfileFrame(this);
 		yellowColor = new Color(255,204,102);
 		mainPanel = new JPanel();
@@ -143,12 +151,7 @@ public class MyProfileFrame extends JFrame {
 		name.setText(newName);
 		useremail.setText(editProfile.edituseremail.getText());
 		username.setText(editProfile.editusername.getText());
-//		userImage = new JLabel(editProfile.trumpAvatar);
-////		userImage = new JLabel(editProfile.pictures.get(editProfile.pictureIndex));
 		profilepicture = editProfile.pictures.get(editProfile.pictureIndex);
 		userImage.setIcon(profilepicture);
-		
-		// TODO: set picture as the chosen picture from editprofile
-		// TODO: send new user info to the database!
 	}
 }

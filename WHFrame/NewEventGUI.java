@@ -80,13 +80,7 @@ public class NewEventGUI extends JFrame{
 	private JDatePickerImpl datePicker;
 	private WHClient whClient;
 	
-	public WHClient getWhClient() {
-		return whClient;
-	}
 
-	public void setWhClient(WHClient whClient) {
-		this.whClient = whClient;
-	}
 
 	public NewEventGUI(WHClient whClient) {
 		this.whClient = whClient;
@@ -266,11 +260,13 @@ public class NewEventGUI extends JFrame{
 		whClient.getMff().populateFeed(whClient.getAllEvents());
 		whClient.getMff().setVisible(true);
 	}
+	public WHClient getWhClient() {
+		return whClient;
+	}
 
-	//	public static void main(String[] args){
-	//	NewEventGUI neg = new NewEventGUI();
-	//	neg.setVisible(true);
-	//	}
+	public void setWhClient(WHClient whClient) {
+		this.whClient = whClient;
+	}
 
 	public JSpinner getSpinner(){
 		Calendar calendar = Calendar.getInstance();

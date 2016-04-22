@@ -3,8 +3,11 @@ package WHFrame;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import javax.swing.UIManager;
 
 import Model.User;
 import customui.WHButton;
+import library.ImageLibrary;
 
 /*
  * 
@@ -106,12 +110,16 @@ public class EditProfileFrame extends JFrame {
 		this.setMaximumSize(new Dimension(900,620));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setBackground(yellowColor);
+		setLocationRelativeTo(null);
 		instantiateComponents();
 		createGUI();
 		addActions();
 	}
 	
 	private void instantiateComponents() {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Cursor c = toolkit.createCustomCursor(ImageLibrary.getImage("img/cursor.png") , new Point(0, 0), "img");
+		setCursor(c);
 		yellowColor = new Color(255,204,102);
 		mainPanel = new JPanel();
 		backButton = new WHButton("< Back");

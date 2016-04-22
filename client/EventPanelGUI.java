@@ -37,43 +37,19 @@ public class EventPanelGUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private UpVoteButton upArrowButton;
 	private JLabel upVoteCounter;
-
-
-	public JLabel getUpVoteCounter() {
-		return upVoteCounter;
-	}
-
-	public void setUpVoteCounter(JLabel upVoteCounter) {
-		this.upVoteCounter = upVoteCounter;
-	}
 	private JPanel leftContainer;
 	private JPanel buttonHolder;
 	private JLabel titleHolder;
 	private JLabel numAttendingHolder;
 	private int pressed = 0;
-	public int getPressed() {
-		return pressed;
-	}
-
-	public void setPressed(int pressed) {
-		this.pressed = pressed;
-	}
-
-	public JLabel numAttendingHolder() {
-		return numAttendingHolder;
-	}
-
-	public void numAttendingHolder(JLabel numAttendingHolder) {
-		this.numAttendingHolder = numAttendingHolder;
-	}
 	private JLabel locationHolder;
 	private JPanel rightContainer;
-	
 	private Event e;
 	private int eventCategory;
 	private WHClient whClient;
 	private EventPanelGUI epg;
 	private EventDetailGUI edg;
+	
 	public EventPanelGUI(Event e, WHClient whClient) {
 		this.whClient = whClient;
 		this.e = e;
@@ -167,6 +143,7 @@ public class EventPanelGUI extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent me) {
 				edg = new EventDetailGUI(e, whClient, epg);
+				whClient.getWhf().setVisible(false);
 				System.out.println("Enters mouseClicked");
 			}
 		});
@@ -222,5 +199,26 @@ public class EventPanelGUI extends JPanel {
 	public void setE(Event e) {
 		this.e = e;
 	}
-	
+	public JLabel getUpVoteCounter() {
+		return upVoteCounter;
+	}
+
+	public void setUpVoteCounter(JLabel upVoteCounter) {
+		this.upVoteCounter = upVoteCounter;
+	}
+	public int getPressed() {
+		return pressed;
+	}
+
+	public void setPressed(int pressed) {
+		this.pressed = pressed;
+	}
+
+	public JLabel numAttendingHolder() {
+		return numAttendingHolder;
+	}
+
+	public void numAttendingHolder(JLabel numAttendingHolder) {
+		this.numAttendingHolder = numAttendingHolder;
+	}
 }

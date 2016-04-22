@@ -63,12 +63,7 @@ public class MainFeedFrame extends JFrame {
 	private JPanel sortFilterPanel;
 	private String[] categories = {"All", "Sports", "Career", "Cultural", "Club"};
 	private JComboBox<String> categoryBox;
-	public JComboBox<String> getCategoryBox() {
-		return categoryBox;
-	}
-	public void setCategoryBox(JComboBox<String> categoryBox) {
-		this.categoryBox = categoryBox;
-	}
+
 	private ButtonGroup sortBy;
 	private JRadioButton sortByTrending;
 	private JRadioButton sortByDefault;  // sort by time posted
@@ -76,18 +71,7 @@ public class MainFeedFrame extends JFrame {
 	private boolean isDefault;
 	private Vector<EventPanelGUI> panels; 
 	public boolean manual = false;
-	public boolean isTrending() {
-		return isTrending;
-	}
-	public void setTrending(boolean isTrending) {
-		this.isTrending = isTrending;
-	}
-	public boolean isDefault() {
-		return isDefault;
-	}
-	public void setDefault(boolean isDefault) {
-		this.isDefault = isDefault;
-	}
+
 	private WHClient whClient;
 	
 
@@ -98,6 +82,7 @@ public class MainFeedFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(1,3));
 		setSize(900,620);
+		setLocationRelativeTo(null);
 		instantiateComponents();
 		createGUI();
 		addActions();
@@ -326,11 +311,24 @@ public class MainFeedFrame extends JFrame {
 	public void cannotFulfillRequest() {
 		JOptionPane.showMessageDialog(this,"Cannot fulfill request at this time.","Warning",JOptionPane.WARNING_MESSAGE);
 	}
-
-	//	public static void main(String [] args) {
-	//	MainFeedFrame mff = new MainFeedFrame();
-	//	mff.setVisible(true);
-	//	}
+	public JComboBox<String> getCategoryBox() {
+		return categoryBox;
+	}
+	public void setCategoryBox(JComboBox<String> categoryBox) {
+		this.categoryBox = categoryBox;
+	}
+	public boolean isTrending() {
+		return isTrending;
+	}
+	public void setTrending(boolean isTrending) {
+		this.isTrending = isTrending;
+	}
+	public boolean isDefault() {
+		return isDefault;
+	}
+	public void setDefault(boolean isDefault) {
+		this.isDefault = isDefault;
+	}
 }
 
 	
