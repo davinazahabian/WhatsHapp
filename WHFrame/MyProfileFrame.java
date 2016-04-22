@@ -48,7 +48,9 @@ public class MyProfileFrame extends JFrame {
 	private JPanel westPanel;
 	private ImageIcon profilepicture;
 	private WHButton editButton;
+	private WHButton signoutButton;
 	private JPanel titlePanel;
+	private JPanel westButtonPanel;
 	
 	private EditProfileFrame editProfile;
 	private MyProfileFrame myProfile;
@@ -56,7 +58,9 @@ public class MyProfileFrame extends JFrame {
 
 
 	public MyProfileFrame(User u, WHClient whClient) {
-		this.setSize(new Dimension(900,602));
+		this.setSize(new Dimension(640,600));
+		this.setMinimumSize(new Dimension(640,600));
+		this.setMaximumSize(new Dimension(640,600));
 		this.whClient = whClient;
 		this.currentUser = u;
 		myProfile = this;
@@ -76,7 +80,7 @@ public class MyProfileFrame extends JFrame {
 		yellowColor = new Color(255,204,102);
 		mainPanel = new JPanel();
 		mainPanel.setBackground(yellowColor);
-		backButton = new WHButton("< Back");
+		backButton = new WHButton("  < Back ");
 		eventInfoPanel = new JPanel();
 		name = new JLabel(currentUser.fname() + " " + currentUser.lname());
 		useremail = new JLabel("Email: " + currentUser.email());
@@ -84,7 +88,9 @@ public class MyProfileFrame extends JFrame {
 		eastPanel = new JPanel();
 		imagePanel = new JPanel();
 		addPanel = new JPanel();
-		editButton = new WHButton("Edit");
+		editButton = new WHButton("    Edit    ");
+		signoutButton = new WHButton ("Sign Out");
+		westButtonPanel = new JPanel();
 		westPanel = new JPanel();
 		profilepicture = new ImageIcon("img/default_profile_pic.png");
 		userImage = new JLabel (profilepicture);
@@ -103,7 +109,14 @@ public class MyProfileFrame extends JFrame {
 		addPanel.setLayout(new BorderLayout());
 		addPanel.setBackground(yellowColor);
 		westPanel.setBackground(yellowColor);
-		westPanel.add(backButton, BorderLayout.NORTH);
+		westButtonPanel.setLayout(new BoxLayout(westButtonPanel, BoxLayout.Y_AXIS));
+		westButtonPanel.setBackground(yellowColor);
+		westButtonPanel.add(backButton);
+		westButtonPanel.add(Box.createRigidArea(new Dimension(10,30)));
+		westButtonPanel.add(editButton);
+		westButtonPanel.add(Box.createRigidArea(new Dimension(10,30)));
+		westButtonPanel.add(signoutButton);
+		westPanel.add(westButtonPanel, BorderLayout.NORTH);
 		add(westPanel, BorderLayout.WEST);
 		eastPanel.setPreferredSize(new Dimension (300,600));
 		imagePanel.add(userImage);
@@ -124,9 +137,7 @@ public class MyProfileFrame extends JFrame {
 		titlePanel.add(Box.createRigidArea(new Dimension(25,25)));		
 		titlePanel.add(useremail);
 		titlePanel.add(Box.createRigidArea(new Dimension(10, 850)));
-		titlePanel.add(editButton);	
 		mainPanel.add(titlePanel,BorderLayout.NORTH);
-		mainPanel.add(editButton, BorderLayout.SOUTH);
 		add(mainPanel, BorderLayout.CENTER);
 		setVisible(true);
 	}
@@ -144,13 +155,22 @@ public class MyProfileFrame extends JFrame {
 				editProfile.setVisible(true);
 			}
 		});
+		
+		signoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				myProfile.setVisible(false);
+				whClient.setMpf(null);
+				whClient.getWhf().clearTextFields();
+				whClient.getWhf().setVisible(true);
+			}
+		});
 	}
 	
 	void updateUserInfo() {
 		String newName = editProfile.fname.getText() + " " + editProfile.lname.getText();
 		name.setText(newName);
-		useremail.setText(editProfile.edituseremail.getText());
-		username.setText(editProfile.editusername.getText());
+		useremail.setText("Email: " + editProfile.edituseremail.getText());
+		username.setText("Username: " + editProfile.editusername.getText());
 		profilepicture = editProfile.pictures.get(editProfile.pictureIndex);
 		userImage.setIcon(profilepicture);
 		whClient.setMpf(this);

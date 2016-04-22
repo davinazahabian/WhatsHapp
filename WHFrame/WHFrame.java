@@ -3,7 +3,7 @@ package WHFrame;
 import java.awt.Color;
 
 import java.awt.Cursor;
-
+import java.awt.Dimension;
 import java.awt.Font;
 
 import java.awt.GridBagConstraints;
@@ -71,6 +71,10 @@ public class WHFrame extends JFrame {
 		this.whClient = whClient;
 		setTitle("WhatsHapp");
 		setSize(900,602);
+
+		this.setMinimumSize(new Dimension(900,602));
+		this.setMaximumSize(new Dimension(900,602));
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -91,7 +95,7 @@ public class WHFrame extends JFrame {
 		passwordTextField = new JPasswordField(10);
 		registerNow = new OutlinedLabel("Don't have an account? Register Now!");
 		loginButton =  new WHButton("Login");
-		signUpButton = new WHButton("Create an account!");
+		signUpButton = new WHButton("    Create an account!    ");
 		guestButton = new WHButton("Continue in guest mode");
 		usernameLabel = new OutlinedLabel("Username:  ");
 		passwordLabel = new OutlinedLabel("Password:  ");
@@ -162,7 +166,7 @@ public class WHFrame extends JFrame {
 
 		gbc.gridy = 0;
 
-		gbc.insets = new Insets(0,40,0,0);
+		gbc.insets = new Insets(0,75,0,0);
 
 		background.add(registerNow, gbc); //add question label
 
@@ -171,7 +175,7 @@ public class WHFrame extends JFrame {
 
 		gbc.gridy = 1;
 
-		gbc.insets = new Insets(8,40,0,0);
+		gbc.insets = new Insets(8,80,0,0);
 
 		background.add(signUpButton, gbc); //add sign up button
 
@@ -180,7 +184,7 @@ public class WHFrame extends JFrame {
 
 		gbc.gridy = 2;
 
-		gbc.insets = new Insets(8,0,0,0);
+		gbc.insets = new Insets(8,80,0,0);
 
 		background.add(guestButton, gbc); //add guest button
 
@@ -256,5 +260,10 @@ public class WHFrame extends JFrame {
 		this.setVisible(false);
 		whClient.setMff(new MainFeedFrame(whClient));
 		whClient.getMff().populateFeed(allEvents);
+	}
+	
+	public void clearTextFields() {
+		this.usernameTextField.setText(null);
+		this.passwordTextField.setText(null);
 	}
 }

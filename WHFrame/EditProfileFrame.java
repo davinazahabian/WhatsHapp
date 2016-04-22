@@ -53,11 +53,11 @@ public class EditProfileFrame extends JFrame {
 	private JPanel mainPanel;
 	private JPanel eastPanel;
 	private JPanel westPanel;
+	private JPanel westButtonPanel;
 	private JPanel centerPanel;
 	private JPanel centerNorthPanel;
 	private JPanel titlePanel;
 	private JPanel buttonPanel;
-	private JPanel northButtonPanel;
 
 	private JPanel imagePanel = new JPanel();
 	
@@ -90,9 +90,6 @@ public class EditProfileFrame extends JFrame {
 	private JPanel dogePanel = new JPanel();
 	private JLabel dogeLabel;
 
-	private final ImageIcon spaceFiller = new ImageIcon("img/space.png");
-	private JPanel spacePanel = new JPanel();
-	private JLabel spaceLabel;
 	
 	int pictureIndex = 0;
 	ArrayList<ImageIcon> pictures;
@@ -105,9 +102,9 @@ public class EditProfileFrame extends JFrame {
 		this.myProfile = mpf;
 		editProfile = this;
 		pictures = new ArrayList<ImageIcon>();
-		this.setSize(new Dimension(900,602));
-		this.setMinimumSize(new Dimension(900,620));
-		this.setMaximumSize(new Dimension(900,620));
+		this.setSize(new Dimension(640,550));
+		this.setMinimumSize(new Dimension(640,550));
+		this.setMaximumSize(new Dimension(640,550));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setBackground(yellowColor);
 		setLocationRelativeTo(null);
@@ -131,10 +128,10 @@ public class EditProfileFrame extends JFrame {
 		editusername = new JTextField( currentUser.username());		
 		eastPanel = new JPanel();
 		buttonPanel = new JPanel();
-		northButtonPanel = new JPanel();
-		saveButton = new WHButton("Save");
+		saveButton = new WHButton("  Save  ");
 		nextButton = new WHButton(">");
 		westPanel = new JPanel();
+		westButtonPanel = new JPanel();
 		centerPanel = new JPanel();
 		centerNorthPanel = new JPanel();
 		titlePanel = new JPanel();
@@ -152,7 +149,7 @@ public class EditProfileFrame extends JFrame {
 		pictures.add(trumpAvatar);
 		dogeLabel = new JLabel(dogeAvatar);
 		pictures.add(dogeAvatar);
-		spaceLabel = new JLabel(spaceFiller);
+		
 	}
 	
 	private void createGUI() {
@@ -186,8 +183,7 @@ public class EditProfileFrame extends JFrame {
 		username.setFont(new Font ("Impact", Font.PLAIN, 25));
 		edituseremail.setFont(new Font ("Impact", Font.PLAIN, 25));
 		editusername.setFont(new Font ("Impact", Font.PLAIN, 25));
-		
-		westPanel.add(backButton, BorderLayout.NORTH);
+	
 		
 										// picture indexes:
 		defaultPanel.add(defaultLabel);	// 0
@@ -228,6 +224,14 @@ public class EditProfileFrame extends JFrame {
 		titlePanel.add(saveButton);
 		mainPanel.add(titlePanel,BorderLayout.NORTH);
 		mainPanel.add(saveButton, BorderLayout.SOUTH);
+		
+		
+		westButtonPanel.setLayout(new BoxLayout(westButtonPanel, BoxLayout.Y_AXIS));
+		westButtonPanel.setBackground(yellowColor);
+		westButtonPanel.add(backButton);
+		westButtonPanel.add(Box.createRigidArea(new Dimension(15,30)));
+		westButtonPanel.add(saveButton);
+		westPanel.add(westButtonPanel, BorderLayout.NORTH);
 		
 		add(westPanel, BorderLayout.WEST);
 		add(eastPanel, BorderLayout.EAST);
