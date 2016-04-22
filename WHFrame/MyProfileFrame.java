@@ -145,16 +145,10 @@ public class MyProfileFrame extends JFrame {
 		username.setText(editProfile.editusername.getText());
 //		userImage = new JLabel(editProfile.trumpAvatar);
 ////		userImage = new JLabel(editProfile.pictures.get(editProfile.pictureIndex));
+		profilepicture = editProfile.pictures.get(editProfile.pictureIndex);
+		userImage.setIcon(profilepicture);
 		
 		// TODO: set picture as the chosen picture from editprofile
 		// TODO: send new user info to the database!
 	}
-	
-//	public static void main (String [] args) {
-//		User u = new User("Ziad", "Azar", "zazar@usc.edu", "zezefresh", "love2code");
-//		MyProfileFrame mpf = new MyProfileFrame(u);
-//		mpf.setVisible(true);
-//		mpf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//	}
 }

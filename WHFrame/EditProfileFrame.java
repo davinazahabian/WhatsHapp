@@ -91,7 +91,7 @@ public class EditProfileFrame extends JFrame {
 	private JLabel spaceLabel;
 	
 	int pictureIndex = 0;
-	ArrayList<JLabel> pictures;
+	ArrayList<ImageIcon> pictures;
 
 	private MyProfileFrame myProfile;
 	private EditProfileFrame editProfile;
@@ -100,7 +100,7 @@ public class EditProfileFrame extends JFrame {
 		this.currentUser = mpf.currentUser;
 		this.myProfile = mpf;
 		editProfile = this;
-		pictures = new ArrayList<JLabel>();
+		pictures = new ArrayList<ImageIcon>();
 		this.setSize(new Dimension(900,602));
 		this.setMinimumSize(new Dimension(900,620));
 		this.setMaximumSize(new Dimension(900,620));
@@ -131,19 +131,19 @@ public class EditProfileFrame extends JFrame {
 		centerNorthPanel = new JPanel();
 		titlePanel = new JPanel();
 		defaultLabel = new JLabel(defaultAvatar);
-		pictures.add(defaultLabel);
+		pictures.add(defaultAvatar);
 		millerLabel = new JLabel(millerAvatar);
-		pictures.add(millerLabel);
+		pictures.add(millerAvatar);
 		koalaLabel = new JLabel(koalaAvatar);
-		pictures.add(koalaLabel);
+		pictures.add(koalaAvatar);
 		linkLabel = new JLabel(linkAvatar);
-		pictures.add(linkLabel);
+		pictures.add(linkAvatar);
 		peachLabel = new JLabel(peachAvatar);
-		pictures.add(peachLabel);
+		pictures.add(peachAvatar);
 		trumpLabel = new JLabel(trumpAvatar);
-		pictures.add(trumpLabel);
+		pictures.add(trumpAvatar);
 		dogeLabel = new JLabel(dogeAvatar);
-		pictures.add(dogeLabel);
+		pictures.add(dogeAvatar);
 		spaceLabel = new JLabel(spaceFiller);
 	}
 	
