@@ -276,10 +276,10 @@ public class MainFeedFrame extends JFrame {
 		Object[] answers = {"Sign Me Up!", "No Thanks"};
 		int n = JOptionPane.showOptionDialog(whClient.getMff(),
 				"Would you like to sign up?",
-				"Sign up to get premium access to WhatsHapp!",
+				"Sign up to get premium access!",
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE,
-				null,answers,answers[0]);
+				new ImageIcon("img/icon.png"),answers,answers[0]);
 		if (n == JOptionPane.YES_OPTION) {
 			whClient.getMff().setVisible(false);
 			whClient.setNug(new NewUserGUI(whClient));

@@ -149,6 +149,8 @@ public class EventDetailGUI extends JFrame {
 		detailPanel.setBackground(yellowColor);
 		addPanel.setBackground(yellowColor);
 		upvotes.setBackground(yellowColor);
+		titlePanel.setBackground(yellowColor);
+
 
 		thumbButton.setPreferredSize(new Dimension(71,75));
 		messageBoard.setPreferredSize(new Dimension (292,406));
@@ -300,7 +302,7 @@ public class EventDetailGUI extends JFrame {
 				"Sign up to get premium access!",
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE,
-				null,answers,answers[0]);
+				new ImageIcon("img/icon.png"),answers,answers[0]);
 		if (n == JOptionPane.YES_OPTION) {
 			this.setVisible(false);
 			whClient.setNug(new NewUserGUI(whClient));
