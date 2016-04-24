@@ -258,7 +258,7 @@ public class NewEventGUI extends JFrame{
 	}
 	
 	public void showEventFailure() {
-		JOptionPane.showMessageDialog(this,"There is already an event at the same place and same time. Please try again!","Warning",JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(this,"There is already an event at the same place and same time. Please try again!", "Warning!", JOptionPane.WARNING_MESSAGE, new ImageIcon("img/icon.png"));
 	}
 	
 	public void newEvent() {

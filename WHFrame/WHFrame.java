@@ -255,11 +255,11 @@ public class WHFrame extends JFrame {
 	}
 
 	public void showError() {
-		JOptionPane.showMessageDialog(this, "Username or password incorrect");
+		JOptionPane.showMessageDialog(this,"Username or password incorrect", "Warning!", JOptionPane.WARNING_MESSAGE, new ImageIcon("img/icon.png"));
 	}
 	
 	public void showSuccess(Vector<Event> allEvents) {
-		JOptionPane.showMessageDialog(this, "Login successful :) Welcome to WhatsHapp!");
+		JOptionPane.showMessageDialog(this,"Login successful :)", "Welcome to WhatsHapp!", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("img/icon.png"));
 		this.setVisible(false);
 		whClient.setMff(new MainFeedFrame(whClient));
 		whClient.getMff().populateFeed(allEvents);

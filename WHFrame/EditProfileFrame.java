@@ -102,9 +102,9 @@ public class EditProfileFrame extends JFrame {
 		this.myProfile = mpf;
 		editProfile = this;
 		pictures = new ArrayList<ImageIcon>();
-		this.setSize(new Dimension(640,550));
-		this.setMinimumSize(new Dimension(640,550));
-		this.setMaximumSize(new Dimension(640,550));
+		this.setSize(new Dimension(750,500));
+		this.setMinimumSize(new Dimension(750,500));
+		this.setMaximumSize(new Dimension(750,500));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setBackground(yellowColor);
 		//setIconImage(new ImageIcon(getClass().getResource("img/icon.png")).getImage());
@@ -260,7 +260,7 @@ public class EditProfileFrame extends JFrame {
 				CardLayout cl = (CardLayout)imagePanel.getLayout();
 				cl.next(imagePanel);
 				if (pictureIndex == 6) {pictureIndex = 0;}
-				pictureIndex += 1;
+				else {pictureIndex += 1;}
 			}
 		});
 	}

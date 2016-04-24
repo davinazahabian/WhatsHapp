@@ -310,11 +310,11 @@ public class MainFeedFrame extends JFrame {
 	}
 	
 	public void showEventSuccess() {
-		JOptionPane.showMessageDialog(this,"Your event was submitted!");
+		JOptionPane.showMessageDialog(this,"Your event was submitted.", "Success!", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("img/icon.png"));
 	}
 	
 	public void cannotFulfillRequest() {
-		JOptionPane.showMessageDialog(this,"Cannot fulfill request at this time.","Warning",JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(this,"Cannot fulfill request at this time.", "Warning!", JOptionPane.WARNING_MESSAGE, new ImageIcon("img/icon.png"));
 	}
 	public JComboBox<String> getCategoryBox() {
 		return categoryBox;

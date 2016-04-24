@@ -194,7 +194,7 @@ public class NewUserGUI extends JFrame{
 	}
 
 	public void showError() {
-		JOptionPane.showMessageDialog(this, "Username or password incorrect");
+		JOptionPane.showMessageDialog(this,"Username or password incorrect", "Warning!", JOptionPane.WARNING_MESSAGE, new ImageIcon("img/icon.png"));
 	}
 	
 	public static void main(String[] args){
@@ -202,7 +202,7 @@ public class NewUserGUI extends JFrame{
 	}
 
 	public void showSuccess(Vector<Event> allEvents) {
-		JOptionPane.showMessageDialog(this, "Signup successful :) Welcome to WhatsHapp!");
+		JOptionPane.showMessageDialog(this,"Signup successful :)", "Welcome to WhatsHapp!", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("img/icon.png"));
 		this.setVisible(false);
 		whClient.setMff(new MainFeedFrame(whClient));
 		whClient.getCurrentUser().setUsername(this.usernameField.getText());
@@ -210,7 +210,7 @@ public class NewUserGUI extends JFrame{
 	}
 	
 	public void signUpFailure() {
-		JOptionPane.showMessageDialog(this, "Sign Up Failure:(");
+		JOptionPane.showMessageDialog(this,"Sign Up Failure:(", "Please try again", JOptionPane.WARNING_MESSAGE, new ImageIcon("img/icon.png"));
 	}
 }
 

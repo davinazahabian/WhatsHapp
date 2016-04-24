@@ -58,9 +58,9 @@ public class MyProfileFrame extends JFrame {
 
 
 	public MyProfileFrame(User u, WHClient whClient) {
-		this.setSize(new Dimension(640,600));
-		this.setMinimumSize(new Dimension(640,600));
-		this.setMaximumSize(new Dimension(640,600));
+		this.setSize(new Dimension(750,500));
+		this.setMinimumSize(new Dimension(750,500));
+		this.setMaximumSize(new Dimension(750,500));
 		this.whClient = whClient;
 		this.currentUser = u;
 		myProfile = this;
