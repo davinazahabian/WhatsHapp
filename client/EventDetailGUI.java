@@ -244,7 +244,7 @@ public class EventDetailGUI extends JFrame {
 			public void actionPerformed(ActionEvent f) {
 				if (whClient.isRegistered()) {
 					whClient.sendMessage(e, new Message(whClient.getCurrentUser().username(), addMessageArea.getText()));
-					//messageBoard.setText(e.getMessageBoard());
+					messageBoard.setText(e.getMessageBoard() + '\n');
 					addMessageArea.setText(" ");					
 				} else {
 					askToSignup();
@@ -310,7 +310,7 @@ public class EventDetailGUI extends JFrame {
 	}
 	
 	public void postToBoard(InfoPackage p) {
-		messageBoard.append(p.getMessage().username() + ":  " +p.getMessage().message() + '\n');
+		messageBoard.append('\n' + p.getMessage().username() + ":  " +p.getMessage().message());
 	}
 	
 }

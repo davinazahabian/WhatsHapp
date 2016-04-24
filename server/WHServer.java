@@ -135,4 +135,13 @@ public class WHServer extends Thread {
 			whServerThread.sendToClient(p);
 		}
 	}
+
+
+	public void sendToAllBut(InfoPackage p, WHServerThread whServerThread) {
+		for (Iterator iterator = serverThreads.iterator(); iterator.hasNext();) {
+			WHServerThread whServerThread1 = (WHServerThread) iterator.next();
+			if(whServerThread!=whServerThread1)
+			whServerThread1.sendToClient(p);
+		}
+	}
 }

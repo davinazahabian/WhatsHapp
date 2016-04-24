@@ -227,6 +227,7 @@ public class WHClient extends Thread {
 								System.out.println("event is not null in run method");
 							}
 							mff.postToBoard(p);
+							System.out.println("It enters ispoting in client run");
 						} else {
 							mff.cannotFulfillRequest();
 						}

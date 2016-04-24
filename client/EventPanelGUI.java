@@ -143,7 +143,7 @@ public class EventPanelGUI extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent me) {
 				edg = new EventDetailGUI(e, whClient, epg);
-				whClient.getWhf().setVisible(false);
+				whClient.getMff().setVisible(false);
 				System.out.println("Enters mouseClicked");
 			}
 		});
@@ -189,6 +189,7 @@ public class EventPanelGUI extends JPanel {
 	}
 
 	public void postToBoard(InfoPackage p) {
+		if(edg!=null)
 		edg.postToBoard(p);
 	}
 

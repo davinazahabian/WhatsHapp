@@ -140,10 +140,10 @@ public class Event implements Comparator<Event>, Comparable<Event>, Serializable
 		String username = m.username();
 		String message = m.message();
 		messageBoard = messageBoard + "\n" + username + ": " + message;
-		if (!nonNull) {
-			removeNull();
-			nonNull = true;
-		}
+//		if (!nonNull) {
+//			removeNull();
+//			nonNull = true;
+//		}
 	}
 	
 	// removes "null" from the beginning of the string
