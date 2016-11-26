@@ -22,6 +22,6 @@ To run WhatsHapp on your machine:
   5. Copy the contents of the .sql files from the WHDatabase.zip file and paste the contents into MySQLWorkbench, run scripts 
   to create schemata
   6. Run Eclipse within any workspace
-  7. Import the WhatsHapp.zip file into Eclipse, generating a project of the same name
+  7. Export this repo as a .zip file and import the file into Eclipse, generating a project of the same name
   8. Run WhatsHappClient for each client that wants to use the program - this is a .java file located in the default package.
   9. Run the WhatsHappServer to host a server - this is also a .java file hosted in the default package.
