@@ -19,7 +19,7 @@ To run WhatsHapp on your machine:
     After installation, go to System Properties, select MySql, and select “Start MySQLServer” to start running the server.
     Visit http://dev.mysql.com/downloads/workbench/ to download and install MySQLWorkbench
   4. Launch MySQLWorkbench
-  5. Copy the contents of the .sql files from the WHDatabase.zip file and paste the contents into MySQLWorkbench, run scripts 
+  5. Download WHDatabase.zip file and copy the contents of the .sql files from the WHDatabase.zip file and paste the contents   into MySQLWorkbench, run scripts 
   to create schemata
   6. Run Eclipse within any workspace
   7. Export this repo as a .zip file and import the file into Eclipse, generating a project of the same name
